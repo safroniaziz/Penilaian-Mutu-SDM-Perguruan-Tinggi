@@ -22,7 +22,7 @@ class CreateUsersTable extends Migration
             $table->string('nidn')->nullable();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password')->nullable();
-            $table->enum('akses',['dosen','tendik','operator_unit','operator_prodi','pimpinan_fakultas','pimpinan_universitas','reviewer','lpmpp'])->nullable();
+            $table->enum('akses',['dosen','tendik','lpmpp','operator_prodi','pimpinan_fakultas','pimpinan_universitas','reviewer','lpmpp'])->nullable();
             $table->rememberToken();
             $table->timestamps();
         });

@@ -9,7 +9,7 @@
     @endif
 @endsection
 @section('halaman')
-    Halaman Operator Unit
+    {{ Auth::user()->unit->nama_unit }}
 @endsection
 @section('content-title')
     Dashboard
@@ -64,108 +64,100 @@
         </p>
     </div>
     <div class="row">
-        <div class="col-md-12 sm-6">
+        <div class="col-md-4 sm-6">
+            <div class="box box-info">
+                <div class="box-header with-border">
+                <h3 class="box-title"><i class="fa fa-user"></i>&nbsp;Profil Saya</h3>
+                </div>
+                <div class="box-body box-profile">
+                    @if (Auth::user()->foto == null)
+                        <img class="profile-user-img img-responsive img-circle" src="https://cdn-icons-png.flaticon.com/128/1177/1177568.png" alt="User profile picture">
+                    @else
+                        <img class="profile-user-img img-responsive img-circle" src="{{ asset('upload/userimage/'.Auth::user()->foto) }}" alt="User profile picture">
+                    @endif
+                    <h3 class="profile-username text-center">{{ Auth::user()->firstName }}</h3>
+                    <ul class="list-group list-group-unbordered">
+                        <li class="list-group-item">
+                        <b>NIP</b> <a class="pull-right">{{ Auth::user()->nip }}</a>
+                        </li>
+                        <li class="list-group-item">
+                        <b>Nama Lengkap</b> <a class="pull-right">{{ Auth::user()->nama_lengkap }}</a>
+                        </li>
+                        <li class="list-group-item">
+                        <b>Status User</b> <a class="pull-right">
+                            {{ Auth::user()->akses }}
+                        </a>
+                        </li>
+                    </ul>
+                    <a href="{{ route('operator_unit.profil') }}" class="btn btn-primary btn-sm btn-flat btn-block">
+                        <i class="fa fa-edit"></i>&nbsp;Edit Profil
+                    </a>
+                </div>
+                <!-- /.box-body -->
+            </div>
+
+        </div>
+        <div class="col-md-8 sm-6">
             <div class="box box-primary">
 
                 <div class="box-header with-border">
-                <h3 class="box-title"><i class="fa fa-info-circle"></i>&nbsp;Informasi Data Aplikasi</h3>
+                <h3 class="box-title"><i class="fa fa-info-circle"></i>&nbsp;Informasi Siswa</h3>
                 </div>
                 <div class="box-body">
-                    <div class="col-lg-3 col-xs-12">
+                    <div class="col-lg-6 col-xs-12">
                         <div class="small-box bg-aqua">
                             <div class="inner">
-                                <h3>{{ $unit_kerja }}</h3>
+                                <h3></h3>
 
-                                <p>Jumlah Unit Kerja</p>
+                                <p>Kelas Tersedia</p>
                             </div>
                             <div class="icon">
-                                <i class="fa fa-calendar-times-o"></i>
+                                <i class="fa fa-users"></i>
                             </div>
                             <a href="" class="small-box-footer">Selengkapnya <i class="fa fa-arrow-circle-right"></i></a>
                         </div>
                     </div>
-                    <div class="col-lg-3 col-xs-12">
+                    <div class="col-lg-6 col-xs-12">
                         <div class="small-box bg-green">
                                 <div class="inner">
-                                <h3>{{ $fakultas }}</h3>
+                                <h3><sup style="font-size: 20px"></sup>  </h3>
 
-                                <p>Jumlah Fakultas</p>
+                                <p>Kelas Diambil</p>
                             </div>
                             <div class="icon">
-                                <i class="fa fa-clone"></i>
+                                <i class="fa fa-user"></i>
                             </div>
                             <a href="" class="small-box-footer">Selengkapnya <i class="fa fa-arrow-circle-right"></i></a>
                         </div>
                     </div>
-                    <div class="col-lg-3 col-xs-12">
+                    <div class="col-lg-6 col-xs-12">
                         <div class="small-box bg-yellow">
                             <div class="inner">
-                                <h3>{{ $prodi }}</h3>
+                                <h3>  </h3>
 
-                                <p>Jumlah Program Studi</p>
+                                <p>Membuat Forum</p>
                             </div>
                             <div class="icon">
-                                <i class="fa fa-university"></i>
+                                <i class="fa fa-book"></i>
                             </div>
                             <a href="" class="small-box-footer">Selengkapnya <i class="fa fa-arrow-circle-right"></i></a>
                         </div>
                     </div>
-                    <div class="col-lg-3 col-xs-12">
+                    <div class="col-lg-6 col-xs-12">
                         <div class="small-box bg-red">
                             <div class="inner">
-                                <h3>{{ $lembaga }}</h3>
+                                <h3>  </h3>
 
-                                <p>Jumlah Lembaga</p>
+                                <p>Kelas Selesai</p>
                             </div>
                             <div class="icon">
-                                <i class="fa fa-calendar"></i>
+                                <i class="fa fa-key"></i>
                             </div>
                             <a href="" class="small-box-footer">Selengkapnya <i class="fa fa-arrow-circle-right"></i></a>
-                        </div>
-                    </div>
-
-                    <div class="col-md-3 col-sm-6 col-xs-12">
-                        <div class="info-box">
-                            <span class="info-box-icon bg-aqua"><i class="fa fa-building"></i></span>
-
-                            <div class="info-box-content">
-                                <span class="info-box-text">Jumlah UPT</span>
-                                <span class="info-box-number">{{ $upt }}</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-3 col-sm-6 col-xs-12">
-                        <div class="info-box">
-                            <span class="info-box-icon bg-green"><i class="fa fa-user"></i></span>
-
-                            <div class="info-box-content">
-                                <span class="info-box-text">Jumlah Dosen</span>
-                                <span class="info-box-number">{{ $dosen }}</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-3 col-sm-6 col-xs-12">
-                        <div class="info-box">
-                            <span class="info-box-icon bg-yellow"><i class="fa fa-user-o"></i></span>
-
-                            <div class="info-box-content">
-                                <span class="info-box-text">Jumlah Tenaga Kependidikan</span>
-                                <span class="info-box-number">{{ $tendik }}</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-3 col-sm-6 col-xs-12">
-                        <div class="info-box">
-                            <span class="info-box-icon bg-red"><i class="fa fa-users"></i></span>
-
-                            <div class="info-box-content">
-                                <span class="info-box-text">Jumlah Operator</span>
-                                <span class="info-box-number">{{ $operator_prodi+$operator_unit }}</span>
-                            </div>
-                            </div>
                         </div>
                     </div>
                 </div>
+                <!-- /.box-body -->
             </div>
         </div>
     </div>

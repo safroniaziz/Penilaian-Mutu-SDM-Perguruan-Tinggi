@@ -24,18 +24,24 @@ class RedirectIfAuthenticated
         foreach ($guards as $guard) {
             if (Auth::guard($guard)->check()) {
                 // return redirect(RouteServiceProvider::HOME);
-                if (auth()->user()->akses == "operator_unit") {
+                if (auth()->user()->akses == "lpmpp") {
                     $notification1 = array(
                         'message' => 'Berhasil, anda login sebagai operator lpmpp!',
                         'alert-type' => 'success'
                     );
-                    return redirect()->route('operator_unit.dashboard')->with($notification1);;
+                    return redirect()->route('lpmpp.dashboard')->with($notification1);;
                 }elseif (auth()->user()->akses == "operator_prodi") {
                     $notification1 = array(
                         'message' => 'Berhasil, anda login sebagai operator program studi!',
                         'alert-type' => 'success'
                     );
                     return redirect()->route('operator_prodi.dashboard')->with($notification1);;
+                }elseif (auth()->user()->akses == "operator_unit") {
+                    $notification1 = array(
+                        'message' => 'Berhasil, anda login sebagai operator unit!',
+                        'alert-type' => 'success'
+                    );
+                    return redirect()->route('operator_unit.dashboard')->with($notification1);;
                 }else {
                     Auth::logout();
                     return redirect()->route('login')->with(['error' =>  'NIP anda tidak terdaftar']);

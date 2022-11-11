@@ -9,7 +9,7 @@
     @endif
 @endsection
 @section('halaman')
-    Halaman Operator Unit
+    {{ Auth::user()->unit->nama_unit }}
 @endsection
 @section('content-title')
     Dashboard
@@ -58,7 +58,7 @@
     <div class="col-md-12">
         <div class="box box-primary">
             <div class="box-header with-border">
-                <h3 class="box-title"><i class="fa fa-pencil"></i>&nbsp;Manajemen Edit Soal Penilaian Kelompok</h3>
+                <h3 class="box-title"><i class="fa fa-pencil"></i>&nbsp;Manajemen Edit Data Tendik</h3>
 
             </div>
             <div class="box-body">
@@ -81,23 +81,6 @@
                     <form action="{{ route('operator_unit.tendik.update',[$data->id]) }}" method="POST" >
                         {{ csrf_field() }} {{ method_field('PATCH') }}
                         <div class="form-group col-md-6">
-                            <label for="exampleInputEmail1">Pilih Unit Kerja</label>
-                            <select name="unit_id" id="unit_id" class="form-control">
-                                <option disabled="disabled" selected="selected">-- pilih unit kerja --</option>
-                                @foreach ($units as $item)
-                                    <option value="{{ $item->id }}" @if ($item->id == $data->unit_id)
-                                        selected
-                                    @endif>{{ $item->nama_unit }}</option>
-                                @endforeach
-                            </select>
-                            <div>
-                                @if ($errors->has('unit_id'))
-                                    <small class="form-text text-danger">{{ $errors->first('unit_id') }}</small>
-                                @endif
-                            </div>
-                        </div>
-
-                        <div class="form-group col-md-6">
                             <label for="exampleInputEmail1">Nama Lengkap</label>
                             <input type="text" name="nama_lengkap" value="{{ $data->nama_lengkap }}" class="form-control" >
                             <div>
@@ -117,6 +100,26 @@
                             </div>
                         </div>
 
+                        <div class="form-group col-md-6">
+                            <label for="exampleInputEmail1">Pangkat</label>
+                            <input type="text" name="pangkat" value="{{ $data->pangkat }}" class="form-control" >
+                            <div>
+                                @if ($errors->has('pangkat'))
+                                    <small class="form-text text-danger">{{ $errors->first('pangkat') }}</small>
+                                @endif
+                            </div>
+                        </div>
+
+                        <div class="form-group col-md-6">
+                            <label for="exampleInputEmail1">Golongan</label>
+                            <input type="text" name="golongan" value="{{ $data->golongan }}" class="form-control" >
+                            <div>
+                                @if ($errors->has('golongan'))
+                                    <small class="form-text text-danger">{{ $errors->first('golongan') }}</small>
+                                @endif
+                            </div>
+                        </div>
+
                         <div class="col-md-12 text-center">
                             <a href="{{ route('operator_unit.tendik') }}" class="btn btn-warning btn-sm" style="color: white"><i class="fa fa-arrow-left"></i>&nbsp; Kembali</a>
                             <button type="reset" name="reset" class="btn btn-danger btn-sm btn-flat"><i class="fa fa-refresh"></i>&nbsp;Ulangi</button>
@@ -128,3 +131,33 @@
         </div>
     </section>
 @endsection
+
+@push('scripts')
+    <script>
+        $(document).on('change','#fakultas_id',function(){
+            var fakultas_id = $(this).val();
+            var div = $(this).parent().parent();
+            var op=" ";
+            $.ajax({
+            type :'get',
+            url: "{{ url('operator_unit/manajemen_data_dosen/cari_prodi') }}",
+            data:{'fakultas_id':fakultas_id},
+                success:function(data){
+                    op+='<option value="0" selected disabled>-- pilih prodi --</option>';
+                    for(var i=0; i<data.length;i++){
+                        op+='<option value="'+data[i].id+'">'+data[i].nama_prodi+'</option>';
+                    }
+                    div.find('#prodi_id').html(" ");
+                    div.find('#prodi_id').append(op);
+                    if (data.length <1) {
+                        $("#tidak_ditemukan").show();
+                    }else{
+                        $("#tidak_ditemukan").hide();
+                    }
+                },
+                    error:function(){
+                }
+            });
+        });
+    </script>
+@endpush

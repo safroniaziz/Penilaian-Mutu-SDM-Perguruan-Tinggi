@@ -20,7 +20,7 @@ class isOperatorUnit
             return $next($request);
         }
         $notification = array(
-            'message' => 'Gagal, anda tidak memiliki akses sebagai operator unit!',
+            'message' => 'Gagal, anda tidak memiliki akses sebagai Operator Unit!',
             'alert-type' => 'error'
         );
         return redirect()->route('login')->with($notification);

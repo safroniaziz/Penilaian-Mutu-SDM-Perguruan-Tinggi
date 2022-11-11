@@ -9,7 +9,7 @@
     @endif
 @endsection
 @section('halaman')
-    Halaman Operator Unit
+    {{ Auth::user()->unit->nama_unit }}
 @endsection
 @section('content-title')
     Dashboard
@@ -58,7 +58,7 @@
     <div class="col-md-12">
         <div class="box box-primary">
             <div class="box-header with-border">
-                <h3 class="box-title"><i class="fa fa-user"></i>&nbsp;Tambah Data Tendik</h3>
+                <h3 class="box-title"><i class="fa fa-user-circle"></i>&nbsp;Tambah Data Tendik</h3>
 
             </div>
             <div class="box-body">
@@ -80,16 +80,6 @@
                     <form action="{{ route('operator_unit.tendik.post') }}" method="POST" >
                         {{ csrf_field() }} {{ method_field('POST') }}
                             <div class="form-group col-md-6">
-                                <label for="exampleInputEmail1">Pilih Unit Kerja</label>
-                                <select name="unit_id" id="unit_id" class="form-control">
-                                    <option disabled="disabled" selected="selected">-- pilih unit kerja --</option>
-                                    @foreach ($units as $item)
-                                        <option value="{{ $item->id }}">{{ $item->nama_unit }}</option>
-                                    @endforeach
-                                </select>
-                            </div>
-
-                            <div class="form-group col-md-6">
                                 <label for="exampleInputEmail1">Nama Lengkap</label>
                                 <input type="text" name="nama_lengkap" class="form-control" >
                                 <div>
@@ -110,11 +100,41 @@
                             </div>
 
                             <div class="form-group col-md-6">
-                                <label for="exampleInputEmail1">Password</label>
-                                <input type="password" name="password" class="form-control" >
+                                <label for="exampleInputEmail1">Pangkat</label>
+                                <input type="text" name="pangkat" class="form-control" >
                                 <div>
-                                    @if ($errors->has('password'))
-                                        <small class="form-text text-danger">{{ $errors->first('password') }}</small>
+                                    @if ($errors->has('pangkat'))
+                                        <small class="form-text text-danger">{{ $errors->first('pangkat') }}</small>
+                                    @endif
+                                </div>
+                            </div>
+
+                            <div class="form-group col-md-6">
+                                <label for="exampleInputEmail1">Golongan</label>
+                                <input type="text" name="golongan" class="form-control" >
+                                <div>
+                                    @if ($errors->has('golongan'))
+                                        <small class="form-text text-danger">{{ $errors->first('golongan') }}</small>
+                                    @endif
+                                </div>
+                            </div>
+
+                            <div class="form-group col-md-6">
+                                <label for="exampleInputEmail1">Ilmu Yang Ditekuni</label>
+                                <input type="text" name="ilmu" class="form-control" >
+                                <div>
+                                    @if ($errors->has('ilmu'))
+                                        <small class="form-text text-danger">{{ $errors->first('ilmu') }}</small>
+                                    @endif
+                                </div>
+                            </div>
+
+                            <div class="form-group col-md-6">
+                                <label for="exampleInputEmail1">Nomor Handphone</label>
+                                <input type="text" name="no_hp" class="form-control" >
+                                <div>
+                                    @if ($errors->has('no_hp'))
+                                        <small class="form-text text-danger">{{ $errors->first('no_hp') }}</small>
                                     @endif
                                 </div>
                             </div>

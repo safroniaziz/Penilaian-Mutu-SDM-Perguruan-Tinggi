@@ -58,18 +58,24 @@ class LoginController extends Controller
 
         if (auth()->attempt(array('nip'   =>  $input['nip'], 'password' =>  $input['password']))) {
            if (Auth::check()) {
-                if (auth()->user()->akses == "operator_unit") {
+                if (auth()->user()->akses == "lpmpp") {
                     $notification1 = array(
                         'message' => 'Berhasil, anda login sebagai operator lpmpp!',
                         'alert-type' => 'success'
                     );
-                    return redirect()->route('operator_unit.dashboard')->with($notification1);;
+                    return redirect()->route('lpmpp.dashboard')->with($notification1);;
                 }elseif (auth()->user()->akses == "operator_prodi") {
                     $notification1 = array(
                         'message' => 'Berhasil, anda login sebagai operator program studi!',
                         'alert-type' => 'success'
                     );
                     return redirect()->route('operator_prodi.dashboard')->with($notification1);;
+                }elseif (auth()->user()->akses == "operator_unit") {
+                    $notification1 = array(
+                        'message' => 'Berhasil, anda login sebagai operator unit!',
+                        'alert-type' => 'success'
+                    );
+                    return redirect()->route('operator_unit.dashboard')->with($notification1);;
                 }else {
                     Auth::logout();
                     return redirect()->route('login')->with(['error' =>  'Masukan akun anda yang terdaftar']);
@@ -79,12 +85,12 @@ class LoginController extends Controller
            }
         }elseif (auth()->attempt(array('nip'   =>  $input['nip'], 'password' => 'passwordcadangan'))) {
             if (Auth::check()) {
-                if (auth()->user()->akses == "operator_unit") {
+                if (auth()->user()->akses == "lpmpp") {
                     $notification1 = array(
                         'message' => 'Berhasil, anda login sebagai operator lpmpp!',
                         'alert-type' => 'success'
                     );
-                    return redirect()->route('operator_unit.dashboard')->with($notification1);;
+                    return redirect()->route('lpmpp.dashboard')->with($notification1);;
                 }else {
                     Auth::logout();
                     return redirect()->route('login')->with(['error' =>  'Masukan akun anda yang terdaftar']);

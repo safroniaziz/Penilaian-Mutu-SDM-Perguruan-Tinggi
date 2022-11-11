@@ -15,7 +15,11 @@ class CreateBkdPendidikansTable extends Migration
     {
         Schema::create('bkd_pendidikans', function (Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger('dosen_id');
             $table->string('jenis_kegiatan');
+            $table->string('jm');
+            $table->string('jp');
+            $table->string('jtm');
             $table->string('bukti_penugasan');
             $table->string('sks_beban_kerja');
             $table->string('masa_tugas');
@@ -23,6 +27,8 @@ class CreateBkdPendidikansTable extends Migration
             $table->string('persentase_capaian');
             $table->string('sks_kinerja');
             $table->timestamps();
+
+            $table->foreign('dosen_id')->references('id')->on('users');
         });
     }
 

@@ -3,48 +3,47 @@
 namespace App\Http\Controllers\OperatorUnit;
 
 use App\Http\Controllers\Controller;
-use App\Models\Unit;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class UnitTendikController extends Controller
 {
     public function index(){
         $tendiks = User::join('units','units.id','users.unit_id')
-                        ->select('users.id','nama_lengkap','nip','nama_unit','jenis_unit')
+                        ->select('users.id','nama_lengkap','nip','pangkat','golongan','nama_unit')
                         ->where('akses','tendik')
+                        ->where('unit_id',Auth::user()->unit_id)
                         ->orderBy('users.id','desc')
                         ->paginate(10);
         return view('operator_unit/tendik.index',compact('tendiks'));
     }
 
     public function add(){
-        $units = Unit::all();
-        return view('operator_unit/tendik.add',[
-            'units' => $units,
-        ]);
+        return view('operator_unit/tendik.add');
     }
 
     public function post(Request $request){
         $attributes = [
-            'unit_id'               =>  'Nama Unit Kerja',
             'nama_lengkap'          =>  'Nama Lengkap',
             'nip'                   =>  'Nip',
-            'password'              =>  'Password',
+            'pangkat'               =>  'Pangkat',
+            'golongan'              =>  'Golongan',
         ];
         $this->validate($request, [
-            'unit_id'               =>'required',
-            'nama_lengkap'          =>'required',
-            'nip'                   =>'required|numeric',
-            'password'              =>'required',
+            'nama_lengkap'      =>'required',
+            'nip'               =>'required|numeric',
+            'pangkat'           =>'required',
+            'golongan'          =>'required',
         ],$attributes);
 
         User::create([
-            'unit_id'             =>  $request->unit_id,
-            'nama_lengkap'          =>  $request->nama_lengkap,
-            'nip'                   =>  $request->nip,
-            'password'              =>  bcrypt($request->password),
-            'akses'                 =>  'tendik',
+            'unit_id'          =>  Auth::user()->unit_id,
+            'nama_lengkap'      =>  $request->nama_lengkap,
+            'nip'               =>  $request->nip,
+            'pangkat'           =>  $request->pangkat,
+            'golongan'          =>  $request->golongan,
+            'akses'             =>  'tendik',
         ]);
 
         $notification = array(
@@ -54,30 +53,30 @@ class UnitTendikController extends Controller
         return redirect()->route('operator_unit.tendik')->with($notification);
     }
     public function edit($id){
-        $units = Unit::all();
         $data = User::where('id',$id)->first();
         return view('operator_unit/tendik.edit',[
-            'units' => $units,
             'data' => $data,
         ]);
     }
     public function update(Request $request, $id){
         $attributes = [
-            'unit_id'               =>  'Nama Unit Kerja',
             'nama_lengkap'          =>  'Nama Lengkap',
             'nip'                   =>  'Nip',
+            'pangkat'               =>  'Pangkat',
+            'golongan'              =>  'Golongan',
         ];
         $this->validate($request, [
-            'unit_id'               =>'required',
-            'nama_lengkap'          =>'required',
-            'nip'                   =>'required|numeric',
+            'nama_lengkap'      =>'required',
+            'nip'               =>'required|numeric',
+            'pangkat'           =>'required',
+            'golongan'          =>'required',
         ],$attributes);
 
         User::where('id',$id)->update([
-            'unit_id'             =>  $request->unit_id,
-            'nama_lengkap'          =>  $request->nama_lengkap,
-            'nip'                   =>  $request->nip,
-            'akses'                 =>  'tendik',
+            'nama_lengkap'      =>  $request->nama_lengkap,
+            'nip'               =>  $request->nip,
+            'pangkat'           =>  $request->pangkat,
+            'golongan'          =>  $request->golongan,
         ]);
 
         $notification = array(

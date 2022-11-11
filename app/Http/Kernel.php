@@ -65,5 +65,6 @@ class Kernel extends HttpKernel
         'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
         'isOperatorUnit'   =>  \App\Http\Middleware\isOperatorUnit::class,
         'isOperatorProdi'   =>  \App\Http\Middleware\isOperatorProdi::class,
+        'isLpmpp'   =>  \App\Http\Middleware\isLpmpp::class,
     ];
 }

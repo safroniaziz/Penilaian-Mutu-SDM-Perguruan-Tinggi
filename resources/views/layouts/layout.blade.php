@@ -45,7 +45,7 @@
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
 
 </head>
-<body class="hold-transition skin-blue-light fixed sidebar-mini">
+<body class="hold-transition skin-blue fixed sidebar-mini">
     <div class="preloader">
         <div class="do-loader"></div>
     </div>
@@ -77,9 +77,7 @@
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                 <i class="fa fa-user"></i>
                 <span class="hidden-xs">
-                  @if (Auth::check())
-                    {{ Auth::user()->nama_lengkap }}
-                @endif
+                    FAISAL HADI S.T, M.T
                 </span>
             </a>
 

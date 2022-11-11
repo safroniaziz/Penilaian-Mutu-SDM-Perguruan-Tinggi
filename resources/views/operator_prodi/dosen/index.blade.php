@@ -9,7 +9,7 @@
     @endif
 @endsection
 @section('halaman')
-    Halaman Operator Program Studi
+    Program Studi
 @endsection
 @section('content-title')
     Dashboard

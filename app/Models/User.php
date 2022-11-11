@@ -61,4 +61,8 @@ class User extends Authenticatable
     public function unit(){
         return $this->belongsTo(Unit::class);
     }
+
+    public function bkdPendidikans(){
+        return $this->hasMany(BkdPendidikan::class);
+    }
 }

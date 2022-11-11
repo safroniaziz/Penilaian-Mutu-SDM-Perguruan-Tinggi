@@ -27,14 +27,30 @@ class ProdiDosenController extends Controller
 
     public function post(Request $request){
         $attributes = [
-            'nama_lengkap'      =>  'Nama Lengkap',
-            'nip'               =>  'Nip',
-            'nidn'              =>  'NIDN',
+            'nama_lengkap'          =>  'Nama Lengkap',
+            'nip'                   =>  'Nip',
+            'nidn'                  =>  'NIDN',
+            'pangkat'               =>  'Pangkat',
+            'golongan'              =>  'Golongan',
+            'ttl'                   =>  'Tempat, Tanggal Lahir',
+            's1'                    =>  'Perguruan Tinggi s1',
+            's2'                    =>  'Perguruan Tinggi s2',
+            's3'                    =>  'Perguruan Tinggi s3',
+            'ilmu'                  =>  'Ilmu Yang Ditekuni',
+            'no_hp'                 =>  'Nomor Handphone',
         ];
         $this->validate($request, [
             'nama_lengkap'      =>'required',
             'nip'               =>'required|numeric',
             'nidn'              =>'required|numeric',
+            'pangkat'           =>'required',
+            'golongan'          =>'required',
+            'ttl'               =>'required',
+            's1'                =>'required',
+            's2'                =>'required',
+            's3'                =>'required',
+            'ilmu'              =>'required',
+            'no_hp'             =>'required',
         ],$attributes);
 
         User::create([
@@ -42,6 +58,14 @@ class ProdiDosenController extends Controller
             'nama_lengkap'      =>  $request->nama_lengkap,
             'nip'               =>  $request->nip,
             'nidn'              =>  $request->nidn,
+            'pangkat'           =>  $request->pangkat,
+            'golongan'          =>  $request->golongan,
+            'ttl'               =>  $request->ttl,
+            's1'                =>  $request->s1,
+            's2'                =>  $request->s2,
+            's3'                =>  $request->s3,
+            'ilmu'              =>  $request->ilmu,
+            'no_hp'             =>  $request->no_hp,
             'akses'             =>  'dosen',
         ]);
 
@@ -59,20 +83,44 @@ class ProdiDosenController extends Controller
     }
     public function update(Request $request, $id){
         $attributes = [
-            'nama_lengkap'      =>  'Nama Lengkap',
-            'nip'               =>  'Nip',
-            'nidn'              =>  'NIDN',
+            'nama_lengkap'          =>  'Nama Lengkap',
+            'nip'                   =>  'Nip',
+            'nidn'                  =>  'NIDN',
+            'pangkat'               =>  'Pangkat',
+            'golongan'              =>  'Golongan',
+            'ttl'                   =>  'Tempat, Tanggal Lahir',
+            's1'                    =>  'Perguruan Tinggi s1',
+            's2'                    =>  'Perguruan Tinggi s2',
+            's3'                    =>  'Perguruan Tinggi s3',
+            'ilmu'                  =>  'Ilmu Yang Ditekuni',
+            'no_hp'                 =>  'Nomor Handphone',
         ];
         $this->validate($request, [
             'nama_lengkap'      =>'required',
             'nip'               =>'required|numeric',
             'nidn'              =>'required|numeric',
+            'pangkat'           =>'required',
+            'golongan'          =>'required',
+            'ttl'               =>'required',
+            's1'                =>'required',
+            's2'                =>'required',
+            's3'                =>'required',
+            'ilmu'              =>'required',
+            'no_hp'             =>'required',
         ],$attributes);
 
         User::where('id',$id)->update([
             'nama_lengkap'      =>  $request->nama_lengkap,
             'nip'               =>  $request->nip,
             'nidn'              =>  $request->nidn,
+            'pangkat'           =>  $request->pangkat,
+            'golongan'          =>  $request->golongan,
+            'ttl'               =>  $request->ttl,
+            's1'                =>  $request->s1,
+            's2'                =>  $request->s2,
+            's3'                =>  $request->s3,
+            'ilmu'              =>  $request->ilmu,
+            'no_hp'             =>  $request->no_hp,
         ]);
 
         $notification = array(

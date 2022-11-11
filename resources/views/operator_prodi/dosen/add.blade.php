@@ -9,7 +9,7 @@
     @endif
 @endsection
 @section('halaman')
-    Halaman Operator Program Studi
+    Program Studi
 @endsection
 @section('content-title')
     Dashboard
@@ -105,6 +105,86 @@
                                 <div>
                                     @if ($errors->has('nidn'))
                                         <small class="form-text text-danger">{{ $errors->first('nidn') }}</small>
+                                    @endif
+                                </div>
+                            </div>
+
+                            <div class="form-group col-md-6">
+                                <label for="exampleInputEmail1">Pangkat</label>
+                                <input type="text" name="pangkat" class="form-control" >
+                                <div>
+                                    @if ($errors->has('pangkat'))
+                                        <small class="form-text text-danger">{{ $errors->first('pangkat') }}</small>
+                                    @endif
+                                </div>
+                            </div>
+
+                            <div class="form-group col-md-6">
+                                <label for="exampleInputEmail1">Golongan</label>
+                                <input type="text" name="golongan" class="form-control" >
+                                <div>
+                                    @if ($errors->has('golongan'))
+                                        <small class="form-text text-danger">{{ $errors->first('golongan') }}</small>
+                                    @endif
+                                </div>
+                            </div>
+
+                            <div class="form-group col-md-6">
+                                <label for="exampleInputEmail1">Tempat, Tanggal Lahir</label>
+                                <input type="text" name="ttl" class="form-control" >
+                                <div>
+                                    @if ($errors->has('ttl'))
+                                        <small class="form-text text-danger">{{ $errors->first('ttl') }}</small>
+                                    @endif
+                                </div>
+                            </div>
+
+                            <div class="form-group col-md-6">
+                                <label for="exampleInputEmail1">Perguruan Tinggi S1</label>
+                                <input type="text" name="s1" class="form-control" >
+                                <div>
+                                    @if ($errors->has('s1'))
+                                        <small class="form-text text-danger">{{ $errors->first('s1') }}</small>
+                                    @endif
+                                </div>
+                            </div>
+
+                            <div class="form-group col-md-6">
+                                <label for="exampleInputEmail1">Perguruan Tinggi S2</label>
+                                <input type="text" name="s2" class="form-control" >
+                                <div>
+                                    @if ($errors->has('s2'))
+                                        <small class="form-text text-danger">{{ $errors->first('s2') }}</small>
+                                    @endif
+                                </div>
+                            </div>
+
+                            <div class="form-group col-md-6">
+                                <label for="exampleInputEmail1">Perguruan Tinggi S3</label>
+                                <input type="text" name="s3" class="form-control" >
+                                <div>
+                                    @if ($errors->has('s3'))
+                                        <small class="form-text text-danger">{{ $errors->first('s3') }}</small>
+                                    @endif
+                                </div>
+                            </div>
+
+                            <div class="form-group col-md-6">
+                                <label for="exampleInputEmail1">Ilmu Yang Ditekuni</label>
+                                <input type="text" name="ilmu" class="form-control" >
+                                <div>
+                                    @if ($errors->has('ilmu'))
+                                        <small class="form-text text-danger">{{ $errors->first('ilmu') }}</small>
+                                    @endif
+                                </div>
+                            </div>
+
+                            <div class="form-group col-md-6">
+                                <label for="exampleInputEmail1">Nomor Handphone</label>
+                                <input type="text" name="no_hp" class="form-control" >
+                                <div>
+                                    @if ($errors->has('no_hp'))
+                                        <small class="form-text text-danger">{{ $errors->first('no_hp') }}</small>
                                     @endif
                                 </div>
                             </div>

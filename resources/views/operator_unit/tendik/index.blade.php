@@ -9,7 +9,7 @@
     @endif
 @endsection
 @section('halaman')
-    Halaman Operator Unit
+    {{ Auth::user()->unit->nama_unit }}
 @endsection
 @section('content-title')
     Dashboard
@@ -58,9 +58,9 @@
     <div class="col-md-12">
         <div class="box box-primary">
             <div class="box-header with-border">
-                <h3 class="box-title"><i class="fa fa-user"></i>&nbsp;Manajemen Data Tenaga Kependidikan</h3>
+                <h3 class="box-title"><i class="fa fa-user"></i>&nbsp;Manajemen Data tendik</h3>
                 <div class="pull-right">
-                    <a href="{{ route('operator_unit.tendik.add') }}" class="btn btn-primary btn-sm btn-flat"><i class="fa fa-plus"></i>&nbsp; Tambah Data Tendik</a>
+                    <a href="{{ route('operator_unit.tendik.add') }}" class="btn btn-primary btn-sm btn-flat"><i class="fa fa-plus"></i>&nbsp; Tambah Data tendik</a>
                 </div>
             </div>
             <div class="box-body">
@@ -87,8 +87,9 @@
                                 <th>No</th>
                                 <th>Nama Lengkap</th>
                                 <th>Nip</th>
+                                <th>Pangkat</th>
+                                <th>Golongan</th>
                                 <th>Unit Kerja</th>
-                                <th>Jenis Unit</th>
                                 <th>Aksi</th>
                             </tr>
                         </thead>
@@ -101,8 +102,9 @@
                                     <td> {{ $no++ }} </td>
                                     <td> {{ $tendik->nama_lengkap }} </td>
                                     <td> {{ $tendik->nip }} </td>
+                                    <td> {{ $tendik->pangkat }} </td>
+                                    <td> {{ $tendik->golongan }} </td>
                                     <td> {{ $tendik->nama_unit }} </td>
-                                    <td> {{ $tendik->jenis_unit }} </td>
                                     <td style="display:inline-block !important;">
                                         <table>
                                             <tr>

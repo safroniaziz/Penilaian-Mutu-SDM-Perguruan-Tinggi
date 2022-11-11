@@ -9,7 +9,7 @@
     @endif
 @endsection
 @section('halaman')
-    Halaman Operator Unit
+    Halaman Operator Program Studi
 @endsection
 @section('content-title')
     Dashboard
@@ -20,7 +20,7 @@
     <li class="active">Dashboard</li>
 @endsection
 @section('sidebar-menu')
-    @include('operator_unit/sidebar')
+    @include('operator_prodi/sidebar')
 @endsection
 @section('user')
     <!-- User Account Menu -->
@@ -76,7 +76,7 @@
                         </li>
                         <li class="list-group-item">
                         <b>Status User</b> <a class="pull-right">
-                            Operator Unit
+                            Operator Program Studi
                         </a>
                     </li>
                 </ul>
@@ -90,7 +90,7 @@
         <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
-                    <form action=" {{ route('operator_unit.profil.ubah_password') }} " method="POST">
+                    <form action=" {{ route('operator_prodi.profil.ubah_password') }} " method="POST">
                         {{ csrf_field() }} {{ method_field('PATCH') }}
                         <div class="modal-header">
                             <h5 class="modal-title" id="exampleModalLabel">Form Ubah Password
@@ -134,7 +134,7 @@
             </ul>
             <div class="tab-content">
                 <div class="active tab-pane" id="settings">
-                    <form class="form-horizontal" action="{{ route('operator_unit.profil.update',[Auth::user()->id]) }}" method="post" enctype="multipart/form-data">
+                    <form class="form-horizontal" action="{{ route('operator_prodi.profil.update',[Auth::user()->id]) }}" method="post" enctype="multipart/form-data">
                         {{ csrf_field() }} {{ method_field('PATCH') }}
                         <div class="form-group">
                             <label for="nama_lengkap" class="col-sm-2 control-label">Nama Lengkap</label>
@@ -161,14 +161,9 @@
                         </div>
 
                         <div class="form-group">
-                            <label for="nip" class="col-sm-2 control-label">Unit Kerja</label>
+                            <label for="nip" class="col-sm-2 control-label">Program Studi</label>
                             <div class="col-sm-10">
-                                <input type="text" disabled class="form-control" value="{{ Auth::user()->unit->nama_unit }}">
-                                <div>
-                                    @if ($errors->has('nip'))
-                                        <small class="form-text text-danger">{{ $errors->first('nip') }}</small>
-                                    @endif
-                                </div>
+                                <input type="text" disabled class="form-control" value="{{ Auth::user()->prodi->nama_prodi }}">
                             </div>
                         </div>
 
