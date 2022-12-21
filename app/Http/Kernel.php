@@ -66,5 +66,6 @@ class Kernel extends HttpKernel
         'isOperatorUnit'   =>  \App\Http\Middleware\isOperatorUnit::class,
         'isOperatorProdi'   =>  \App\Http\Middleware\isOperatorProdi::class,
         'isLpmpp'   =>  \App\Http\Middleware\isLpmpp::class,
+        'isDosen'   =>  \App\Http\Middleware\isDosen::class,
     ];
 }
