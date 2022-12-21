@@ -316,59 +316,76 @@ class LppmProdiController extends Controller
                 }}
             ';
             $dosens = $panda->panda($dosen);
-            $datas = $dosens['prodi'][0]['dosen'];
-            for ($i=0; $i <count($datas); $i++) { 
-                
-                $mahasiswa_pa       = $datas[$i]['mahasiswa_pa'];
-                $riwayat_golongan   =  $datas[$i]['pegawai']['riwayat_golongan'];
-                if ($datas[$i]['pegawai']['pegIsAktif'] == 1) {
-                    if ($datas[$i]['pegawai']['pegawai_simpeg'] == null) {
-                        $jenis_kelamin      = '-';
-                        $kedudukan_hukum    = '-';
-                        $tugas_tambahan     = '-';
-                        $pendidikan_akhir   = '-';
-                    }else {
-                        $jenis_kelamin     =  $datas[$i]['pegawai']['pegawai_simpeg']['pegJenkel'];
-                        $kedudukan_hukum   =  $datas[$i]['pegawai']['pegawai_simpeg']['pegKedHukum'];
-                        $tugas_tambahan    =  $datas[$i]['pegawai']['pegawai_simpeg']['pegTgstambahan'];
-                        $pendidikan_akhir  =  $datas[$i]['pegawai']['pegawai_simpeg']['pegPendAkhir'];
-                    }
-                    Dosen::create([
-                        'id'                =>  $datas[$i]['dsnPegNip'],
-                        'prodi_id'          =>  $prodi->id,
-                        'nama_dosen'        =>  $datas[$i]['pegawai']['pegNama'],
-                        'nidn'              =>  $datas[$i]['dsnNidn'],
-                        'jabatan_akademik'  =>  $datas[$i]['jabatanAkademik'],
-                        'gelar_depan'       =>  $datas[$i]['pegawai']['pegGelarDepan'],
-                        'gelar_belakang'    =>  $datas[$i]['pegawai']['pegGelarBelakang'],
-                        'golongan'          =>  $datas[$i]['pegawai']['pegGolrKodePns'],
-                        'jenis_kelamin'     =>  $jenis_kelamin,
-                        'kedudukan_hukum'   =>  $kedudukan_hukum,
-                        'tugas_tambahan'    =>  $tugas_tambahan,
-                        'pendidikan_akhir'  =>  $pendidikan_akhir,
-                    ]);
-                }
-                for ($j=0; $j <count($mahasiswa_pa)  ; $j++) { 
-                    DosenPa::create([
-                        'dosen_id'          =>  $datas[$i]['dsnPegNip'],
-                        'npm_mahasiswa'     =>  $mahasiswa_pa[$j]['mhsNiu'],
-                        'nama_mahasiswa'    =>  $mahasiswa_pa[$j]['mhsNama'],
-                        'prodi'             =>  $mahasiswa_pa[$j]['prodi']['prodiNamaResmi'],
-                        'angkatan'          =>  $mahasiswa_pa[$j]['mhsAngkatan'],
-                        'jenis_kelamin'     =>  $mahasiswa_pa[$j]['mhsJenisKelamin'],
-                    ]);
-                }
+            if (count($dosens['prodi'])> 0) {
+                $datas = $dosens['prodi'][0]['dosen'];
+            }else {
+                $notification = array(
+                    'message' => 'sinkronisasi gagal, data dosen tidak ditemukan!',
+                    'alert-type' => 'error'
+                );
+                return redirect()->route('lpmpp.prodi')->with($notification);
+            }
 
-                for ($k=0; $k <count($riwayat_golongan)  ; $k++) { 
-                    DosenRiwayatGolongan::create([
-                        'dosen_id'          =>  $datas[$i]['dsnPegNip'],
-                        'golongan'          =>  $riwayat_golongan[$k]['goGol'],
-                        'no_sk'             =>  $riwayat_golongan[$k]['goNoSk'],
-                        'tanggal_sk'        =>  $riwayat_golongan[$k]['goTglSk'],
-                        'golongan_tmt'      =>  $riwayat_golongan[$k]['goTmtGol'],
-                        
-                    ]);
+            if (count($dosens['prodi'][0]['dosen'])> 0) {
+                for ($i=0; $i <count($datas); $i++) { 
+                
+                    $mahasiswa_pa       = $datas[$i]['mahasiswa_pa'];
+                    $riwayat_golongan   =  $datas[$i]['pegawai']['riwayat_golongan'];
+                    if ($datas[$i]['pegawai']['pegIsAktif'] == 1) {
+                        if ($datas[$i]['pegawai']['pegawai_simpeg'] == null) {
+                            $jenis_kelamin      = '-';
+                            $kedudukan_hukum    = '-';
+                            $tugas_tambahan     = '-';
+                            $pendidikan_akhir   = '-';
+                        }else {
+                            $jenis_kelamin     =  $datas[$i]['pegawai']['pegawai_simpeg']['pegJenkel'];
+                            $kedudukan_hukum   =  $datas[$i]['pegawai']['pegawai_simpeg']['pegKedHukum'];
+                            $tugas_tambahan    =  $datas[$i]['pegawai']['pegawai_simpeg']['pegTgstambahan'];
+                            $pendidikan_akhir  =  $datas[$i]['pegawai']['pegawai_simpeg']['pegPendAkhir'];
+                        }
+                        Dosen::create([
+                            'id'                =>  $datas[$i]['dsnPegNip'],
+                            'prodi_id'          =>  $prodi->id,
+                            'nama_dosen'        =>  $datas[$i]['pegawai']['pegNama'],
+                            'nidn'              =>  $datas[$i]['dsnNidn'],
+                            'jabatan_akademik'  =>  $datas[$i]['jabatanAkademik'],
+                            'gelar_depan'       =>  $datas[$i]['pegawai']['pegGelarDepan'],
+                            'gelar_belakang'    =>  $datas[$i]['pegawai']['pegGelarBelakang'],
+                            'golongan'          =>  $datas[$i]['pegawai']['pegGolrKodePns'],
+                            'jenis_kelamin'     =>  $jenis_kelamin,
+                            'kedudukan_hukum'   =>  $kedudukan_hukum,
+                            'tugas_tambahan'    =>  $tugas_tambahan,
+                            'pendidikan_akhir'  =>  $pendidikan_akhir,
+                        ]);
+                    }
+                    for ($j=0; $j <count($mahasiswa_pa)  ; $j++) { 
+                        DosenPa::create([
+                            'dosen_id'          =>  $datas[$i]['dsnPegNip'],
+                            'npm_mahasiswa'     =>  $mahasiswa_pa[$j]['mhsNiu'],
+                            'nama_mahasiswa'    =>  $mahasiswa_pa[$j]['mhsNama'],
+                            'prodi'             =>  $mahasiswa_pa[$j]['prodi']['prodiNamaResmi'],
+                            'angkatan'          =>  $mahasiswa_pa[$j]['mhsAngkatan'],
+                            'jenis_kelamin'     =>  $mahasiswa_pa[$j]['mhsJenisKelamin'],
+                        ]);
+                    }
+    
+                    for ($k=0; $k <count($riwayat_golongan)  ; $k++) { 
+                        DosenRiwayatGolongan::create([
+                            'dosen_id'          =>  $datas[$i]['dsnPegNip'],
+                            'golongan'          =>  $riwayat_golongan[$k]['goGol'],
+                            'no_sk'             =>  $riwayat_golongan[$k]['goNoSk'],
+                            'tanggal_sk'        =>  $riwayat_golongan[$k]['goTglSk'],
+                            'golongan_tmt'      =>  $riwayat_golongan[$k]['goTmtGol'],
+                            
+                        ]);
+                    }
                 }
+            }else {
+                $notification = array(
+                    'message' => 'sinkronisasi gagal, data dosen tidak ditemukan!',
+                    'alert-type' => 'error'
+                );
+                return redirect()->route('lpmpp.prodi')->with($notification);
             }
             
             DB::commit();

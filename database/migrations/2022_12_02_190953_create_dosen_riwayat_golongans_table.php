@@ -15,7 +15,7 @@ class CreateDosenRiwayatGolongansTable extends Migration
     {
         Schema::create('dosen_riwayat_golongans', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('dosen_id');
+            $table->string('dosen_id');
             $table->string('golongan');
             $table->string('no_sk');
             $table->string('tanggal_sk')->nullable();

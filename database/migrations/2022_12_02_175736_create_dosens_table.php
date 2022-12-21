@@ -14,7 +14,7 @@ class CreateDosensTable extends Migration
     public function up()
     {
         Schema::create('dosens', function (Blueprint $table) {
-            $table->id();
+            $table->string('id', 30)->primary();
             $table->unsignedBigInteger('prodi_id');
             $table->string('nama_dosen');
             $table->string('nidn');
@@ -23,7 +23,7 @@ class CreateDosensTable extends Migration
             $table->string('gelar_belakang');
             $table->string('jenis_kelamin')->nullable();
             $table->string('golongan');
-            $table->string('kedudukan_hukum');
+            $table->string('kedudukan_hukum')->nullable();
             $table->string('tugas_tambahan')->nullable();
             $table->string('pendidikan_akhir');
             $table->timestamps();

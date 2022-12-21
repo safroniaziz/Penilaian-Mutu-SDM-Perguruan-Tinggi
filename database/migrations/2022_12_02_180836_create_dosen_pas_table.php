@@ -15,7 +15,7 @@ class CreateDosenPasTable extends Migration
     {
         Schema::create('dosen_pas', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('dosen_id');
+            $table->string('dosen_id');
             $table->string('npm_mahasiswa');
             $table->string('nama_mahasiswa');
             $table->string('prodi');

@@ -133,8 +133,8 @@
     <!-- Content Header (Page header) -->
     <section class="content-header">
       <h1>
-        Pendaftaran Layanan Fasilitas Kesehatan
-        <small>Klinik A Kota Bengkulu</small>
+        Mutu SDM Universitas Bengkulu
+        <small>Dosen dan Tanaga Kependidikan</small>
       </h1>
       <ol class="breadcrumb">
         <li><a href="#"><i class="fa fa-home"></i> Evaluasi Mutu SDM</a></li>

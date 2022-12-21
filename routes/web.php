@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Dosen\DosenDashboardController;
 use App\Http\Controllers\OperatorProdi\ProdiDashboardController;
 use App\Http\Controllers\OperatorProdi\ProdiDosenController;
 use App\Http\Controllers\OperatorProdi\ProdiProfilSayaController;
@@ -215,6 +216,25 @@ Route::middleware('auth')->group(function() {
             Route::patch('/',[UnitProfilSayaController::class, 'ubahPassword'])->name('operator_unit.profil.ubah_password');
             Route::patch('{id}/update',[UnitProfilSayaController::class, 'update'])->name('operator_unit.profil.update');
         });
+    });
+});
+
+Route::middleware('isDosen')->prefix('dosen')->group(function() {
+    Route::get('/dashboard',[DosenDashboardController::class, 'dashboard'])->name('dosen.dashboard');
+
+    Route::prefix('manajemen_data_fakultas')->group(function() {
+        Route::get('/',[LppmFakultasController::class, 'index'])->name('dosen.fakultas');
+        Route::get('/tambah_fakultas',[LppmFakultasController::class, 'add'])->name('dosen.fakultas.add');
+        Route::post('/post',[LppmFakultasController::class, 'post'])->name('dosen.fakultas.post');
+        Route::get('/{id}/edit',[LppmFakultasController::class, 'edit'])->name('dosen.fakultas.edit');
+        Route::patch('/{id}/update',[LppmFakultasController::class, 'update'])->name('dosen.fakultas.update');
+        Route::delete('{id}/delete',[LppmFakultasController::class, 'delete'])->name('dosen.fakultas.delete');
+    });
+
+    Route::prefix('profil_saya')->group(function() {
+        Route::get('/',[LppmProfilSayaController::class, 'index'])->name('dosen.profil');
+        Route::patch('/',[LppmProfilSayaController::class, 'ubahPassword'])->name('dosen.profil.ubah_password');
+        Route::patch('{id}/update',[LppmProfilSayaController::class, 'update'])->name('dosen.profil.update');
     });
 });
 Route::get('/asesor',function(){

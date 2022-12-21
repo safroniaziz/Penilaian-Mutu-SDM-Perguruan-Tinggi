@@ -36,7 +36,7 @@
                     <form method="POST" action="{{ route('login') }}">
                         @csrf
                         <div class="form-group">
-                            <label for="nip">NIP/NIK</label>
+                            <label for="nip">Nomor Induk Pegawai</label>
                             <input type="text" name="nip" class="form-control @error('nip') is-invalid @enderror"
                                 id="nip" placeholder="Nip" value="{{ old('nip') }}" autocomplete="nip"
                                 autofocus />
@@ -46,6 +46,24 @@
                                 @endif
                             </div>
                         </div>
+
+                        <div class="form-group">
+                            <label for="nip">Login Sebagai</label>
+                            <select name="login_as" class="form-control" id="">
+                                <option value="dosen">Dosen</option>
+                                <option value="lpmpp">LPMPP</option>
+                                <option value="tendik">Tenaga Kependidikan (TENDIK)</option>
+                                <option value="operator_fakultas">Operator Fakultas</option>
+                                <option value="operator_prodi">Program Studi</option>
+                                <option value="reviewer">Reviewer</option>
+                            </select>
+                            <div>
+                                @if ($errors->has('login_as'))
+                                    <small class="form-text text-danger">{{ $errors->first('login_as') }}</small>
+                                @endif
+                            </div>
+                        </div>
+
                         <div class="form-group">
                             <label for="password">password</label>
                             <input type="password" name="password"
