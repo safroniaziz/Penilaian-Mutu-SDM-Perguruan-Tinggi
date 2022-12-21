@@ -85,7 +85,8 @@
                         <thead>
                             <tr>
                                 <th>No</th>
-                                <th>Nama Upt</th>
+                                <th>Nama Lengkap Upt</th>
+                                <th>Nama Singkatan</th>
                                 <th>Aksi</th>
                             </tr>
                         </thead>
@@ -97,6 +98,7 @@
                                 <tr>
                                     <td> {{ $no++ }} </td>
                                     <td> {{ $unit->nama_unit }} </td>
+                                    <td> {{ $unit->nama_singkatan }} </td>
                                           <td style="display:inline-block !important;">
                                             <table>
                                                 <tr>
@@ -122,34 +124,6 @@
                     </table>
                 </div>
             </div>
-            <!-- Modal Hapus-->
-            {{--  <div class="modal fade modal-danger" id="modaldelete" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                <div class="modal-dialog" role="document">
-                    <div class="modal-content">
-                        <form action=" {{ route('lpmpp.upt.delete',[$indikator->id]) }}" method="POST">
-                            {{ csrf_field() }} {{ method_field('DELETE') }}
-                            <div class="modal-header">
-                                <p style="font-size:15px; font-weight:bold;" class="modal-title"><i class="fa fa-trash"></i>&nbsp;Confirmation Form To Delete</p>
-                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                    <span aria-hidden="true">&times;</span>
-                                </button>
-                            </div>
-                            <div class="modal-body">
-                                <div class="row">
-                                    <div class="col-md-12">
-                                        <input type="hidden" name="id" id="id_hapus">
-                                        Are you sure you want to delete this indikator?
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="modal-footer">
-                                <button type="button" style="border: 1px solid #fff;background: transparent;color: #fff;" class="btn btn-sm btn-outline pull-left" data-dismiss="modal"><i class="fa fa-close"></i>&nbsp; Cancel</button>
-                                <button type="submit" style="border: 1px solid #fff;background: transparent;color: #fff;" class="btn btn-sm btn-outline"><i class="fa fa-check-circle"></i>&nbsp; Yes, Delete</button>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-            </div>  --}}
         </div>
     </section>
 @endsection

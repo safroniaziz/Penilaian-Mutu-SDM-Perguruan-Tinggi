@@ -44,7 +44,7 @@
 @endsection
 @push('styles')
     <style>
-        #chartdiv {
+        #chartdivjumlahdosen {
             width: 90%;
             height: 500px;
         }
@@ -55,13 +55,10 @@
 @endpush
 @section('content')
 <div class="row">
-    <div class="col-md-12">
+    <div class="col-md-7">
         <div class="box box-primary">
             <div class="box-header with-border">
                 <h3 class="box-title"><i class="fa fa-user"></i>&nbsp;Manajemen Data Dosen</h3>
-                <div class="pull-right">
-                    <a href="{{ route('lpmpp.dosen.add') }}" class="btn btn-primary btn-sm btn-flat"><i class="fa fa-plus"></i>&nbsp; Tambah Data Dosen</a>
-                </div>
             </div>
             <div class="box-body">
                 <div class="row">
@@ -79,57 +76,44 @@
                                 @else
                         @endif
                     </div>
-
-                <div class="col-md-12 table-responsive">
-                    <table class="table table-striped table-bordered" id="table" style="width:100%;">
-                        <thead>
-                            <tr>
-                                <th>No</th>
-                                <th>Nama Lengkap</th>
-                                <th>Nip</th>
-                                <th>Nidn</th>
-                                <th>Program Studi</th>
-                                <th>Fakultas</th>
-                                <th>Aksi</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @php
-                                $no=1;
-                            @endphp
-                            @foreach ($dosens as $dosen)
+                    <div class="col-md-12 table-responsive">
+                        <table class="table table-striped table-bordered table-hover" id="table" style="width:100%;">
+                            <thead>
                                 <tr>
-                                    <td> {{ $no++ }} </td>
-                                    <td> {{ $dosen->nama_lengkap }} </td>
-                                    <td> {{ $dosen->nip }} </td>
-                                    <td> {{ $dosen->nidn }} </td>
-                                    <td> {{ $dosen->nama_prodi }} </td>
-                                    <td> {{ $dosen->nama_fakultas }} </td>
-                                    <td style="display:inline-block !important;">
-                                        <table>
-                                            <tr>
-                                                <td>
-                                                    <a href="{{ route('lpmpp.dosen.edit',[$dosen->id]) }}" class="btn btn-primary btn-sm btn-flat"><i class="fa fa-edit"></i>&nbsp; Edit</a>
-                                                </td>
-                                                <td>
-                                                    <form action="{{ route('lpmpp.dosen.delete',[$dosen->id]) }}" method="POST">
-                                                        {{ csrf_field() }} {{ method_field("DELETE") }}
-                                                        <a href="" onClick="return confirm('Apakah anda yakin menghapus data ini?')"/><button type="submit" class="btn btn-danger btn-sm btn-flat"><i class="fa fa-trash"></i>&nbsp; Hapus</button></a>
-                                                    </form>
-                                                </td>
-                                            </tr>
-                                        </table>
-                                    </td>
+                                    <th>No</th>
+                                    <th>Nama Fakultas</th>
+                                    <th class="text-center">Jumlah Program Studi</th>
+                                    <th class="text-center">Jumlah Dosen</th>
+                                    <th class="text-center">Detail </th>
                                 </tr>
-                            @endforeach
-                        </tbody>
-                    </table>
+                            </thead>
+                            <tbody>
+                                @php
+                                    $no=1;
+                                @endphp
+                                @foreach ($fakultas as $fakultas)
+                                    <tr>
+                                        <td> {{ $no++ }} </td>
+                                        <td> {{ $fakultas->nama_unit }} </td>
+                                        <td class="text-center"> <a for="" class="btn btn-info btn-sm btn-flat">{{ $fakultas->total_prodi }}</a> </td>
+                                        <td class="text-center"> <a for="" class="btn btn-info btn-sm btn-flat">{{ $fakultas->prodis()->sum('jumlah_dosen') }}</a> </td>
+                                        <td>
+                                            <a href="{{ route('lpmpp.dosen.detail',[$fakultas->id]) }}" class="btn btn-primary btn-sm btn-flat"><i class="fa fa-info-circle"></i>&nbsp; Detail</a>
+                                        </td>
+                                    </tr>
+                                @endforeach
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             </div>
         </div>
-    </section>
+    </div>
+    @include('lpmpp/dosen._grafik_jumlah_dosen')
+</div>
 @endsection
 @push('scripts')
+    @include('lpmpp/dosen/_pie_chart_jumlah_dosen')
     <script src="https://cdn.jsdelivr.net/gh/gitbrent/bootstrap4-toggle@3.6.1/js/bootstrap4-toggle.min.js"></script>
     <script>
         $(document).ready(function() {

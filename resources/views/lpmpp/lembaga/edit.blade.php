@@ -78,23 +78,31 @@
                         @endif
                     </div>
 
-                    <form action="{{ route('lpmpp.upt.update',[$data->id]) }}" enctype="multipart/form-data" method="POST">
+                    <form action="{{ route('lpmpp.lembaga.update',[$data->id]) }}" enctype="multipart/form-data" method="POST">
                         {{ csrf_field() }} {{ method_field('PATCH') }}
-                        <div class="col-md-12">
-                            <div class="form-group col-md-12">
-                                <label for="exampleInputEmail1">Masukan Nama Upt</label>
-                                <input type="text" name="nama_unit" class="form-control" value="{{ $data->nama_unit }}">
-                                <div>
-                                    @if ($errors->has('nama_unit'))
-                                        <small class="form-text text-danger">{{ $errors->first('nama_unit') }}</small>
-                                    @endif
-                                </div>
+                        <div class="form-group col-md-6">
+                            <label for="exampleInputEmail1">Masukan Nama Lengkap Lembaga</label>
+                            <input type="text" name="nama_unit" class="form-control" value="{{ $data->nama_unit }}">
+                            <div>
+                                @if ($errors->has('nama_unit'))
+                                    <small class="form-text text-danger">{{ $errors->first('nama_unit') }}</small>
+                                @endif
+                            </div>
+                        </div>
+
+                        <div class="form-group col-md-6">
+                            <label for="exampleInputEmail1">Masukan Nama Singkatan</label>
+                            <input type="text" name="nama_singkatan" value="{{ $data->nama_singkatan }}" class="form-control" >
+                            <div>
+                                @if ($errors->has('nama_singkatan'))
+                                    <small class="form-text text-danger">{{ $errors->first('nama_singkatan') }}</small>
+                                @endif
                             </div>
                         </div>
 
                         <div class="col-md-12 text-center">
                             <hr style="width: 50%" class="mt-0">
-                            <a href="{{ route('lpmpp.upt') }}" class="btn btn-warning btn-sm" style="color: white"><i class="fa fa-arrow-left"></i>&nbsp; Kembali</a>
+                            <a href="{{ route('lpmpp.lembaga') }}" class="btn btn-warning btn-sm" style="color: white"><i class="fa fa-arrow-left"></i>&nbsp; Kembali</a>
                             <button type="reset" name="reset" class="btn btn-danger btn-sm btn-flat"><i class="fa fa-refresh"></i>&nbsp;Ulangi</button>
                             <button type="submit" class="btn btn-primary btn-sm btn-flat"><i class="fa fa-check-circle"></i>&nbsp;Simpan</button>
                         </div>

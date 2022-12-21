@@ -92,16 +92,16 @@
 
                             <div class="form-group col-md-6">
                                 <label for="exampleInputEmail1">Pilih Fakultas</label>
-                                <select name="fakultas_id" class="form-control" id="">
+                                <select name="unit_id" class="form-control" id="">
                                     @foreach ($fakultas as $fakultas)
-                                        <option value="{{ $fakultas->id }}" @if ($data->fakultas_id == $fakultas->id)
+                                        <option value="{{ $fakultas->id }}" @if ($data->unit_id == $fakultas->id)
                                             selected
                                         @endif>{{ $fakultas->nama_unit }}</option>
                                     @endforeach
                                 </select>
                                 <div>
-                                    @if ($errors->has('fakultas_id'))
-                                        <small class="form-text text-danger">{{ $errors->first('fakultas_id') }}</small>
+                                    @if ($errors->has('unit_id'))
+                                        <small class="form-text text-danger">{{ $errors->first('unit_id') }}</small>
                                     @endif
                                 </div>
                             </div>

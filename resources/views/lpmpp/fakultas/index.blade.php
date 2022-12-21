@@ -85,7 +85,8 @@
                         <thead>
                             <tr>
                                 <th>No</th>
-                                <th>Nama Fakultas</th>
+                                <th>Nama Lengkap Fakultas</th>
+                                <th>Nama Singkatan</th>
                                 <th>Aksi</th>
                             </tr>
                         </thead>
@@ -97,6 +98,7 @@
                                 <tr>
                                     <td> {{ $no++ }} </td>
                                     <td> {{ $unit->nama_unit }} </td>
+                                    <td>{{ $unit->nama_singkatan }}</td>
                                           <td style="display:inline-block !important;">
                                             <table>
                                                 <tr>

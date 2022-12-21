@@ -204,14 +204,14 @@
 
 @push('scripts')
     <script>
-        $(document).on('change','#fakultas_id',function(){
-            var fakultas_id = $(this).val();
+        $(document).on('change','#unit_id',function(){
+            var unit_id = $(this).val();
             var div = $(this).parent().parent();
             var op=" ";
             $.ajax({
             type :'get',
             url: "{{ url('operator_prodi/manajemen_data_dosen/cari_prodi') }}",
-            data:{'fakultas_id':fakultas_id},
+            data:{'unit_id':unit_id},
                 success:function(data){
                     op+='<option value="0" selected disabled>-- pilih prodi --</option>';
                     for(var i=0; i<data.length;i++){

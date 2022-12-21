@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Lppm;
 
 use App\Http\Controllers\Controller;
+use App\Models\Tendik;
 use App\Models\Unit;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -10,12 +11,9 @@ use Illuminate\Http\Request;
 class LppmTendikController extends Controller
 {
     public function index(){
-        $tendiks = User::join('units','units.id','users.unit_id')
-                        ->select('users.id','nama_lengkap','nip','nama_unit','jenis_unit')
-                        ->where('akses','tendik')
-                        ->orderBy('users.id','desc')
-                        ->paginate(10);
-        return view('lpmpp/tendik.index',compact('tendiks'));
+        $tendiks = Tendik::with('unit')->get();
+        $grafikJumlahTendik = Unit::with('tendiks')->get();
+        return view('lpmpp/tendik.index',compact('tendiks','grafikJumlahTendik'));
     }
 
     public function add(){

@@ -44,7 +44,7 @@
 @endsection
 @push('styles')
     <style>
-        #chartdiv {
+        #chartdivjumlahtendik {
             width: 90%;
             height: 500px;
         }
@@ -55,7 +55,7 @@
 @endpush
 @section('content')
 <div class="row">
-    <div class="col-md-12">
+    <div class="col-md-7">
         <div class="box box-primary">
             <div class="box-header with-border">
                 <h3 class="box-title"><i class="fa fa-user"></i>&nbsp;Manajemen Data Tenaga Kependidikan</h3>
@@ -80,54 +80,66 @@
                         @endif
                     </div>
 
-                <div class="col-md-12 table-responsive">
-                    <table class="table table-striped table-bordered" id="table" style="width:100%;">
-                        <thead>
-                            <tr>
-                                <th>No</th>
-                                <th>Nama Lengkap</th>
-                                <th>Nip</th>
-                                <th>Unit Kerja</th>
-                                <th>Jenis Unit</th>
-                                <th>Aksi</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @php
-                                $no=1;
-                            @endphp
-                            @foreach ($tendiks as $tendik)
+                    <div class="col-md-12 table-responsive">
+                        <table class="table table-striped table-bordered" id="table" style="width:100%;">
+                            <thead>
                                 <tr>
-                                    <td> {{ $no++ }} </td>
-                                    <td> {{ $tendik->nama_lengkap }} </td>
-                                    <td> {{ $tendik->nip }} </td>
-                                    <td> {{ $tendik->nama_unit }} </td>
-                                    <td> {{ $tendik->jenis_unit }} </td>
-                                    <td style="display:inline-block !important;">
-                                        <table>
-                                            <tr>
-                                                <td>
-                                                    <a href="{{ route('lpmpp.tendik.edit',[$tendik->id]) }}" class="btn btn-primary btn-sm btn-flat"><i class="fa fa-edit"></i>&nbsp; Edit</a>
-                                                </td>
-                                                <td>
-                                                    <form action="{{ route('lpmpp.tendik.delete',[$tendik->id]) }}" method="POST">
-                                                        {{ csrf_field() }} {{ method_field("DELETE") }}
-                                                        <a href="" onClick="return confirm('Apakah anda yakin menghapus data ini?')"/><button type="submit" class="btn btn-danger btn-sm btn-flat"><i class="fa fa-trash"></i>&nbsp; Hapus</button></a>
-                                                    </form>
-                                                </td>
-                                            </tr>
-                                        </table>
-                                    </td>
+                                    <th>No</th>
+                                    <th>Nama Lengkap</th>
+                                    <th>Nip</th>
+                                    <th>Unit Kerja</th>
+                                    <th>Pangkat</th>
+                                    <th>Golongan</th>
+                                    <th>Jabatan</th>
+                                    <th>Kelas Jabatan</th>
+                                    <th>TMT CPNS</th>
+                                    <th>Aksi</th>
                                 </tr>
-                            @endforeach
-                        </tbody>
-                    </table>
+                            </thead>
+                            <tbody>
+                                @php
+                                    $no=1;
+                                @endphp
+                                @foreach ($tendiks as $tendik)
+                                    <tr>
+                                        <td> {{ $no++ }} </td>
+                                        <td> {{ $tendik->nama_tendik }} </td>
+                                        <td> {{ $tendik->nip }} </td>
+                                        <td> {{ $tendik->unit->nama_unit ?? '-' }} </td>
+                                        <td> {{ $tendik->pangkat }} </td>
+                                        <td> {{ $tendik->golongan }} </td>
+                                        <td> {{ $tendik->jabatan }} </td>
+                                        <td> {{ $tendik->kelas_jabatan }} </td>
+                                        <td> {{ $tendik->tmt_cpns }} </td>
+                                        <td style="display:inline-block !important;">
+                                            <table>
+                                                <tr>
+                                                    <td>
+                                                        <a href="{{ route('lpmpp.tendik.edit',[$tendik->id]) }}" class="btn btn-primary btn-sm btn-flat"><i class="fa fa-edit"></i>&nbsp; Edit</a>
+                                                    </td>
+                                                    <td>
+                                                        <form action="{{ route('lpmpp.tendik.delete',[$tendik->id]) }}" method="POST">
+                                                            {{ csrf_field() }} {{ method_field("DELETE") }}
+                                                            <a href="" onClick="return confirm('Apakah anda yakin menghapus data ini?')"/><button type="submit" class="btn btn-danger btn-sm btn-flat"><i class="fa fa-trash"></i>&nbsp; Hapus</button></a>
+                                                        </form>
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                        </td>
+                                    </tr>
+                                @endforeach
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             </div>
         </div>
-    </section>
+    </div>
+    @include('lpmpp/tendik._grafik_jumlah_tendik')
+</div>
 @endsection
 @push('scripts')
+    @include('lpmpp/tendik/_pie_chart_jumlah_tendik')
     <script src="https://cdn.jsdelivr.net/gh/gitbrent/bootstrap4-toggle@3.6.1/js/bootstrap4-toggle.min.js"></script>
     <script>
         $(document).ready(function() {

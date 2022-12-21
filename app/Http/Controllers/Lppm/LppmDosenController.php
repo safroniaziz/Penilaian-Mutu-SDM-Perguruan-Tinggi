@@ -7,17 +7,14 @@ use App\Models\Prodi;
 use App\Models\Unit;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class LppmDosenController extends Controller
 {
     public function index(){
-        $dosens = User::join('prodis','prodis.id','users.prodi_id')
-                        ->join('units','units.id','prodis.fakultas_id')
-                        ->select('users.id','nama_lengkap','nip','nidn','nama_prodi','nama_unit as nama_fakultas')
-                        ->where('akses','dosen')
-                        ->orderBy('users.id','desc')
-                        ->paginate(10);
-        return view('lpmpp/dosen.index',compact('dosens'));
+        $grafikJumlahDosen = Unit::where('jenis_unit','fakultas')->get();
+        $fakultas = Unit::where('jenis_unit','fakultas')->get();
+        return view('lpmpp/dosen.index',compact('fakultas','grafikJumlahDosen'));
     }
 
     public function add(){
@@ -103,7 +100,7 @@ class LppmDosenController extends Controller
     }
 
     public function cariProdi(Request $request){
-        $prodis = Prodi::select('id','nama_prodi')->where('fakultas_id',$request->fakultas_id)->get();
+        $prodis = Prodi::select('id','nama_prodi')->where('unit_id',$request->unit_id)->get();
         return $prodis;
     }
 }

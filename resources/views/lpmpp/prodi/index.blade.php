@@ -43,10 +43,11 @@
     </li>
 @endsection
 @push('styles')
+    @include('lpmpp/prodi._loader')
     <style>
-        #chartdiv {
+        #chartdiv, #chartdiv2 {
             width: 90%;
-            height: 500px;
+            height: 350px;
         }
     </style>
     <style>
@@ -55,13 +56,11 @@
 @endpush
 @section('content')
 <div class="row">
-    <div class="col-md-12">
+    
+    <div class="col-md-7">
         <div class="box box-primary">
             <div class="box-header with-border">
                 <h3 class="box-title"><i class="fa fa-calendar"></i>&nbsp;Manajemen Data Program Studi</h3>
-                <div class="pull-right">
-                    <a href="{{ route('lpmpp.prodi.add') }}" class="btn btn-primary btn-sm btn-flat"><i class="fa fa-plus"></i>&nbsp; Tambah Data Program Studi</a>
-                </div>
             </div>
             <div class="box-body">
                 <div class="row">
@@ -79,97 +78,130 @@
                                 @else
                         @endif
                     </div>
+                    <div class="col-md-12" id="sync" style="display: none">
+                        <div class="alert alert-warning">
+                            <!-- Loading Spinner Wrapper-->
+                            <div class="loader text-center">
+                                <div class="loader-inner">
 
-                <div class="col-md-12 table-responsive">
-                    <table class="table table-striped table-bordered" id="table" style="width:100%;">
-                        <thead>
-                            <tr>
-                                <th>No</th>
-                                <th>Nama Prodi</th>
-                                <th>Fakultas</th>
-                                <th>Jumlah Mahasiswa</th>
-                                <th>Jumlah Dosen</th>
-                                <th>Aksi</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @php
-                                $no=1;
-                            @endphp
-                            @foreach ($prodis as $prodis)
-                                <tr>
-                                    <td> {{ $no++ }} </td>
-                                    <td> {{ $prodis->nama_prodi }} </td>
-                                    <td> {{ $prodis->fakultas->nama_unit }} </td>
-                                    <td>
-                                        @if ($prodis->jumlah_mahasiswa != null)
-                                            {{ $prodis->jumlah_mahasiswa }}
-                                        @else
-                                            <a style="color:red">belum ditambahkan</a>
-                                        @endif
-                                    </td>
-                                    <td>
-                                        @if ($prodis->jumlah_dosen != null)
-                                            {{ $prodis->jumlah_dosen }}
-                                        @else
-                                            <a style="color:red">belum ditambahkan</a>
-                                        @endif
-                                    </td>
-                                          <td style="display:inline-block !important;">
-                                            <table>
-                                                <tr>
-                                                    <td>
-                                                       <a href="{{ route('lpmpp.prodi.edit',[$prodis->id]) }}" class="btn btn-primary btn-sm btn-flat"><i class="fa fa-edit"></i>&nbsp; Edit</a>
-                                                    </td>
-                                                    <td>
-                                                       <form action="{{ route('lpmpp.prodi.delete',[$prodis->id]) }}" method="POST">
-                                                            {{ csrf_field() }} {{ method_field("DELETE") }}
-                                                            <a href="" onClick="return confirm('Apakah anda yakin menghapus data ini?')"/><button type="submit" class="btn btn-danger btn-sm btn-flat"><i class="fa fa-trash"></i>&nbsp; Hapus</button></a>
-                                                        </form>
-                                                    </td>
-                                                </tr>
-                                            </table>
-                                        </td>
-                                </tr>
-                            @endforeach
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-            <!-- Modal Hapus-->
-            {{--  <div class="modal fade modal-danger" id="modaldelete" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                <div class="modal-dialog" role="document">
-                    <div class="modal-content">
-                        <form action=" {{ route('lpmpp.prodi.delete',[$indikator->id]) }}" method="POST">
-                            {{ csrf_field() }} {{ method_field('DELETE') }}
-                            <div class="modal-header">
-                                <p style="font-size:15px; font-weight:bold;" class="modal-title"><i class="fa fa-trash"></i>&nbsp;Confirmation Form To Delete</p>
-                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                    <span aria-hidden="true">&times;</span>
-                                </button>
-                            </div>
-                            <div class="modal-body">
-                                <div class="row">
-                                    <div class="col-md-12">
-                                        <input type="hidden" name="id" id="id_hapus">
-                                        Are you sure you want to delete this indikator?
+                                    <!-- Animated Spinner -->
+                                    <div class="lds-roller mb-3">
+                                        <div></div>
+                                        <div></div>
+                                        <div></div>
+                                        <div></div>
+                                        <div></div>
+                                        <div></div>
+                                        <div></div>
+                                        <div></div>
                                     </div>
+                                    
+                                    <!-- Spinner Description Text [For Demo Purpose]-->
+                                    <h4 class="font-weight-bold">Proses Sinkronisasi sedang berjalan</h4>
+                                    <p class="font-italic text-white">Harap untuk menunggu hingga proses selesai</p>
                                 </div>
                             </div>
-                            <div class="modal-footer">
-                                <button type="button" style="border: 1px solid #fff;background: transparent;color: #fff;" class="btn btn-sm btn-outline pull-left" data-dismiss="modal"><i class="fa fa-close"></i>&nbsp; Cancel</button>
-                                <button type="submit" style="border: 1px solid #fff;background: transparent;color: #fff;" class="btn btn-sm btn-outline"><i class="fa fa-check-circle"></i>&nbsp; Yes, Delete</button>
-                            </div>
-                        </form>
+                        </div>
+                    </div>
+                    <div class="col-md-12" style="margin-bottom: 10px !important;">
+                        <div class="alert alert-info">
+                            <b>Perhatian</b> <br>
+                            Data Program Studi, Data Mahasiswa dan Data Dosen tersinkronisasi dengan portal akademik Universitas Bengkulu, untuk mengupdate data silahkan klik sinkronisasi untuk masing-masing data dibawah ini
+                        </div>
+                        {{-- <a href="{{ route('lpmpp.prodi.add') }}" class="btn btn-primary btn-sm btn-flat"><i class="fa fa-plus"></i>&nbsp; Tambah Prodi</a> --}}
+                        <a href="{{ route('lpmpp.prodi.sync') }}" onclick="sinkronisasiPanda()" class="btn btn-success btn-sm btn-flat"><i class="fa fa-refresh fa-spin"></i>&nbsp; Sinkronisasi Data Prodi</a>
+                    </div>
+                    <div class="col-md-12 table-responsive">
+                        <table class="table table-striped table-bordered" id="table" style="width:100%;">
+                            <thead>
+                                <tr>
+                                    <th>No</th>
+                                    <th>Nama Prodi</th>
+                                    <th class="text-center">Jumlah Mahasiswa</th>
+                                    <th class="text-center">Jumlah Dosen</th>
+                                    <th>Fakultas</th>
+                                    <th>Aksi</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @php
+                                    $no=1;
+                                @endphp
+                                @foreach ($prodis as $prodis)
+                                    <tr>
+                                        <td> {{ $no++ }} </td>
+                                        <td> {{ $prodis->nama_prodi }} </td>
+                                        <td class="text-center">
+                                            @if ($prodis->mahasiswas()->get()->count() > 0)
+                                                <a href="{{ route('lpmpp.prodi.detail_mahasiswa',[$prodis->id]) }}" class="btn btn-info btn-sm btn-flat">{{ $prodis->mahasiswas()->get()->count() }}</a>
+                                            @else
+                                                <a href="{{ route('lpmpp.prodi.sync_mahasiswa',[$prodis->id]) }}" onclick="sinkronisasiPanda()" class="btn btn-warning btn-sm btn-flat"><i class="fa fa-refresh fa-spin"></i>&nbsp; Sync Pangkalan Data</a>
+                                            @endif
+                                        </td>
+                                        <td class="text-center">
+                                            @if ($prodis->dosens()->get()->count() > 0)
+                                            <a href="{{ route('lpmpp.prodi.detail_dosen',[$prodis->id]) }}" class="btn btn-info btn-sm btn-flat">{{ $prodis->dosens()->get()->count() }}</a>
+                                        @else
+                                            <a href="{{ route('lpmpp.prodi.sync_dosen',[$prodis->id]) }}" onclick="sinkronisasiPanda()" class="btn btn-danger btn-sm btn-flat"><i class="fa fa-refresh fa-spin"></i>&nbsp; Sync Pangkalan Data</a>
+                                        @endif
+                                        </td>
+                                        <td> {{ $prodis->unit->nama_unit }} </td>
+                                            <td style="display:inline-block !important;">
+                                                <table>
+                                                    <tr>
+                                                        <td>
+                                                        <a href="{{ route('lpmpp.prodi.edit',[$prodis->id]) }}" class="btn btn-primary btn-sm btn-flat"><i class="fa fa-edit"></i>&nbsp; Edit</a>
+                                                        </td>
+                                                        <td>
+                                                        <form action="{{ route('lpmpp.prodi.delete',[$prodis->id]) }}" method="POST">
+                                                                {{ csrf_field() }} {{ method_field("DELETE") }}
+                                                                <a href="" onClick="return confirm('Apakah anda yakin menghapus data ini?')"/><button type="submit" class="btn btn-danger btn-sm btn-flat"><i class="fa fa-trash"></i>&nbsp; Hapus</button></a>
+                                                            </form>
+                                                        </td>
+                                                    </tr>
+                                                </table>
+                                            </td>
+                                    </tr>
+                                @endforeach
+                            </tbody>
+                        </table>
                     </div>
                 </div>
-            </div>  --}}
+            </div>
         </div>
-    </section>
+    </div>
+    @include('lpmpp/prodi._grafik_mahasiswa')
+    @include('lpmpp/prodi._grafik_dosen')
+</div>
 @endsection
 @push('scripts')
+    @include('lpmpp/prodi/_pie_chart_mahasiswa')
+    @include('lpmpp/prodi/_pie_chart_dosen')
     <script src="https://cdn.jsdelivr.net/gh/gitbrent/bootstrap4-toggle@3.6.1/js/bootstrap4-toggle.min.js"></script>
     <script>
+        
+        function sinkronisasiPanda(){
+            $('#sync').show(300);
+            $('.loader').show(300);
+        }
+
+        // FOR DEMO PURPOSE
+        $(window).on('load', function () {
+            var loadingCounter = setInterval(function () {
+                var count = parseInt($('.countdown').html());
+                if (count !== 0) {
+                    $('.countdown').html(count - 1);
+                } else {
+                    clearInterval();
+                }
+            }, 1000);
+        });
+        $('#reload').on('click', function (e) {
+            e.preventDefault();
+            location.reload();
+        });
+
+
         $(document).ready(function() {
             $('#table').DataTable({
                 responsive : true,

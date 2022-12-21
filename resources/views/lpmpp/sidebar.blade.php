@@ -6,11 +6,11 @@
 </li>
 
 <li class="treeview {{ set_active([
-                                'lpmpp.fakultas','lpmpp.upt','lpmpp.lembaga','lpmpp.uot','lpmpp.prodi',
+                                'lpmpp.fakultas','lpmpp.upt','lpmpp.lembaga','lpmpp.prodi',
                                 'lpmpp.fakultas.add','lpmpp.fakultas.edit',
                                 'lpmpp.lembaga.add','lpmpp.lembaga.edit',
                                 'lpmpp.upt.add','lpmpp.upt.edit',
-                                'lpmpp.prodi.add','lpmpp.prodi.edit',
+                                'lpmpp.prodi.add','lpmpp.prodi.edit','lpmpp.prodi.detail_mahasiswa','lpmpp.prodi.detail_dosen'
                                 ]) }}">
     <a href="#">
         <i class="fa fa-building-o"></i> <span>Manajemen Data Unit</span>
@@ -22,7 +22,7 @@
         <li class="{{ set_active(['lpmpp.fakultas','lpmpp.fakultas.add','lpmpp.fakultas.edit']) }}"><a href="{{ route('lpmpp.fakultas') }}"><i class="fa fa-calendar-times-o"></i>Fakultas</a></li>
         <li class="{{ set_active(['lpmpp.lembaga','lpmpp.lembaga.add','lpmpp.lembaga.edit']) }}"><a href="{{ route('lpmpp.lembaga') }}"><i class="fa fa-clone"></i>Lembaga</a></li>
         <li class="{{ set_active(['lpmpp.upt','lpmpp.upt.add','lpmpp.upt.edit']) }}"><a href="{{ route('lpmpp.upt') }}"><i class="fa fa-university"></i>Unit Pelayanan Terpadu</a></li>
-        <li class="{{ set_active(['lpmpp.prodi','lpmpp.prodi.add','lpmpp.prodi.edit']) }}"><a href="{{ route('lpmpp.prodi') }}"><i class="fa fa-calendar"></i>Program Studi</a></li>
+        <li class="{{ set_active(['lpmpp.prodi','lpmpp.prodi.add','lpmpp.prodi.edit','lpmpp.prodi.detail_mahasiswa','lpmpp.prodi.detail_dosen']) }}"><a href="{{ route('lpmpp.prodi') }}"><i class="fa fa-calendar"></i>Program Studi</a></li>
     </ul>
 </li>
 

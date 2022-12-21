@@ -44,7 +44,36 @@
 @endsection
 @push('styles')
     <style>
-        #chartdiv {
+        #chartdivperfakultas {
+            width: 90%;
+            height: 350px;
+        }
+        #chartdivperjabatandosen {
+            width: 90%;
+            height: 350px;
+        }
+        #chartdivperjk {
+            width: 90%;
+            height: 350px;
+        }
+        #chartdivdosenpergolongan {
+            width: 90%;
+            height: 350px;
+        }
+
+        #chartdivperunit {
+            width: 90%;
+            height: 350px;
+        }
+        #chartdivtendikpergolongan {
+            width: 90%;
+            height: 500px;
+        }
+        #chartdivtendikperpangkat {
+            width: 90%;
+            height: 500px;
+        }
+        #chartdivtendikperkelas {
             width: 90%;
             height: 500px;
         }
@@ -56,7 +85,6 @@
 @section('content')
     <div class="callout callout-info">
         <h4>Selamat Datang <b>{{ Auth::user()->firstName }} {{ Auth::user()->lastName }}</b></h4>
-
         <p>
             Aplikasi Evaluasi Mutu SDM adalah aplikasi yang digunakan untuk melakukan proses evaluasi mutu sumber daya manusia perguruan tinggi, dalam hal ini adalah Tenaga Pendidik (Dosen), dan Tenaga Kependidikan (Tendik)
             <br>
@@ -68,80 +96,48 @@
             <div class="box box-primary">
 
                 <div class="box-header with-border">
-                <h3 class="box-title"><i class="fa fa-info-circle"></i>&nbsp;Informasi Data Aplikasi</h3>
+                    <h3 class="box-title"><i class="fa fa-bar-chart"></i>&nbsp;Grafik Perbandingan Data Dosen Universitas Bengkulu</h3>
                 </div>
                 <div class="box-body">
-                    <div class="col-lg-6 col-xs-12">
-                        <div class="small-box bg-green">
-                                <div class="inner">
-                                <h3>8</h3>
-
-                                <p>Jumlah Fakultas</p>
-                            </div>
-                            <div class="icon">
-                                <i class="fa fa-clone"></i>
-                            </div>
-                            <a href="" class="small-box-footer">Selengkapnya <i class="fa fa-arrow-circle-right"></i></a>
-                        </div>
+                    <div class="row">
+                        @include('lpmpp.grafik/dosen_per_fakultas')
+                        @include('lpmpp.grafik/dosen_per_jabatan')
+                        @include('lpmpp.grafik/dosen_per_jk')
+                        @include('lpmpp.grafik/dosen_per_golongan')
                     </div>
-                    <div class="col-lg-6 col-xs-12">
-                        <div class="small-box bg-red">
-                            <div class="inner">
-                                <h3>3</h3>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+        
+    <div class="row">
+        <div class="col-md-12 sm-6">
+            <div class="box box-primary">
 
-                                <p>Jumlah Lembaga</p>
-                            </div>
-                            <div class="icon">
-                                <i class="fa fa-calendar"></i>
-                            </div>
-                            <a href="" class="small-box-footer">Selengkapnya <i class="fa fa-arrow-circle-right"></i></a>
-                        </div>
-                    </div>
-
-                    <div class="col-md-3 col-sm-6 col-xs-12">
-                        <div class="info-box">
-                            <span class="info-box-icon bg-aqua"><i class="fa fa-building"></i></span>
-
-                            <div class="info-box-content">
-                                <span class="info-box-text">Jumlah UPT</span>
-                                <span class="info-box-number">3</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-3 col-sm-6 col-xs-12">
-                        <div class="info-box">
-                            <span class="info-box-icon bg-green"><i class="fa fa-user"></i></span>
-
-                            <div class="info-box-content">
-                                <span class="info-box-text">Jumlah Dosen</span>
-                                <span class="info-box-number">887</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-3 col-sm-6 col-xs-12">
-                        <div class="info-box">
-                            <span class="info-box-icon bg-yellow"><i class="fa fa-user-o"></i></span>
-
-                            <div class="info-box-content">
-                                <span class="info-box-text">Jumlah Tenaga Kependidikan</span>
-                                <span class="info-box-number">282</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-3 col-sm-6 col-xs-12">
-                        <div class="info-box">
-                            <span class="info-box-icon bg-red"><i class="fa fa-users"></i></span>
-
-                            <div class="info-box-content">
-                                <span class="info-box-text">Jumlah Operator</span>
-                                <span class="info-box-number">{{ $operator_prodi+$lpmpp }}</span>
-                            </div>
-                            </div>
-                        </div>
-                    </div>
+                <div class="box-header with-border">
+                <h3 class="box-title"><i class="fa fa-pie-chart"></i>&nbsp; Grafik Perbandingan Data Tendik Universitas Bengkulu</h3>
+                </div>
+                <div class="box-body">
+                    @include('lpmpp.grafik/tendik_per_unit')
+                    @include('lpmpp.grafik/tendik_per_golongan')
+                    @include('lpmpp.grafik/tendik_per_kelas')
+                    @include('lpmpp.grafik/tendik_per_pangkat')
                 </div>
             </div>
         </div>
     </div>
 
 @endsection
+
+@push('scripts')
+    @include('lpmpp/grafik/pie_chart_dosen_per_fakultas')
+    @include('lpmpp/grafik/bar_chart_dosen_per_jabatan')
+    @include('lpmpp/grafik/pie_chart_dosen_per_jk')
+    @include('lpmpp/grafik/pie_chart_dosen_per_golongan')
+
+    @include('lpmpp/grafik/pie_chart_tendik_per_unit')
+    @include('lpmpp/grafik/pie_chart_tendik_per_golongan')
+    @include('lpmpp/grafik/pie_chart_tendik_per_kelas')
+    @include('lpmpp/grafik/pie_chart_tendik_per_pangkat')
+@endpush

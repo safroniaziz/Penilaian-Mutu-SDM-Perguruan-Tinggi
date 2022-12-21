@@ -15,13 +15,13 @@ class CreateProdisTable extends Migration
     {
         Schema::create('prodis', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('fakultas_id');
+            $table->unsignedBigInteger('unit_id');
             $table->string('nama_prodi');
             $table->integer('jumlah_dosen')->nullable();
             $table->integer('jumlah_mahasiswa')->nullable();
             $table->timestamps();
 
-            $table->foreign('fakultas_id')->references('id')->on('units')->onDelete('cascade');
+            $table->foreign('unit_id')->references('id')->on('units')->onDelete('cascade');
         });
     }
 

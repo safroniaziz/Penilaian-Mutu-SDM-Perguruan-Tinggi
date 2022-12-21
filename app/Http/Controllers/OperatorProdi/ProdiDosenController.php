@@ -12,7 +12,7 @@ class ProdiDosenController extends Controller
 {
     public function index(){
         $dosens = User::join('prodis','prodis.id','users.prodi_id')
-                        ->join('units','units.id','prodis.fakultas_id')
+                        ->join('units','units.id','prodis.unit_id')
                         ->select('users.id','nama_lengkap','nip','nidn','nama_prodi','nama_unit as nama_fakultas')
                         ->where('akses','dosen')
                         ->where('prodi_id',Auth::user()->prodi_id)

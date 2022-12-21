@@ -79,12 +79,22 @@
                     </div>
                     <form action="{{ route('lpmpp.fakultas.post') }}" enctype="multipart/form-data" method="POST" enctype="multipart/form-data">
                         {{ csrf_field() }} {{ method_field('POST') }}
-                            <div class="form-group col-md-12">
-                                <label for="exampleInputEmail1">Masukan Nama Fakultas</label>
+                            <div class="form-group col-md-6">
+                                <label for="exampleInputEmail1">Masukan Nama Lengkap Fakultas</label>
                                 <input type="text" name="nama_unit" class="form-control" >
                                 <div>
                                     @if ($errors->has('nama_unit'))
                                         <small class="form-text text-danger">{{ $errors->first('nama_unit') }}</small>
+                                    @endif
+                                </div>
+                            </div>
+
+                            <div class="form-group col-md-6">
+                                <label for="exampleInputEmail1">Masukan Nama Singkatan</label>
+                                <input type="text" name="nama_singkatan" class="form-control" >
+                                <div>
+                                    @if ($errors->has('nama_singkatan'))
+                                        <small class="form-text text-danger">{{ $errors->first('nama_singkatan') }}</small>
                                     @endif
                                 </div>
                             </div>

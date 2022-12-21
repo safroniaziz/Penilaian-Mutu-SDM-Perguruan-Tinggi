@@ -9,7 +9,7 @@ use Illuminate\Http\Request;
 class LppmFakultasController extends Controller
 {
     public function index(){
-        $unit = Unit::select('id','nama_unit')->where('jenis_unit', 'fakultas')->get();
+        $unit = Unit::select('id','nama_unit','nama_singkatan')->where('jenis_unit', 'fakultas')->get();
         return view('lpmpp/fakultas.index',compact('unit'));
     }
 
@@ -19,19 +19,22 @@ class LppmFakultasController extends Controller
 
     public function post(Request $request){
         $attributes = [
-            'nama_unit'   =>  'Nama unit',
+            'nama_unit'         =>  'Nama Fakultas',
+            'nama_singkatan'    =>  'Nama Singkatan',
         ];
         $this->validate($request, [
-            'nama_unit'    =>'required',
+            'nama_unit'         =>'required',
+            'nama_singkatan'    =>'required',
         ],$attributes);
 
         Unit::create([
-            'nama_unit'              =>  $request->nama_unit,
-            'jenis_unit'    =>  'fakultas',
+            'nama_unit'         =>  $request->nama_unit,
+            'nama_singkatan'    =>  $request->nama_singkatan,
+            'jenis_unit'        =>  'fakultas',
         ]);
 
         $notification = array(
-            'message' => 'Berhasil, data unit berhasil ditambahkan!',
+            'message' => 'Berhasil, data fakultas berhasil ditambahkan!',
             'alert-type' => 'success'
         );
         return redirect()->route('lpmpp.fakultas')->with($notification);
@@ -42,18 +45,20 @@ class LppmFakultasController extends Controller
     }
     public function update(Request $request, $id){
         $attributes = [
-            'nama_unit'   =>  'Pertanyaan',
+            'nama_unit'         =>  'Nama Fakultas',
+            'nama_singkatan'    =>  'Nama Singkatan',
         ];
         $this->validate($request, [
-            'nama_unit'    =>'required',
+            'nama_unit'         =>'required',
+            'nama_singkatan'    =>'required',
         ],$attributes);
-
         Unit::where('id',$id)->update([
-            'nama_unit'              =>  $request->nama_unit,
+            'nama_unit'             =>  $request->nama_unit,
+            'nama_singkatan'        =>  $request->nama_singkatan,
         ]);
 
         $notification = array(
-            'message' => 'Berhasil, data unit berhasil diubah!',
+            'message' => 'Berhasil, data fakultas berhasil diubah!',
             'alert-type' => 'success'
         );
         return redirect()->route('lpmpp.fakultas')->with($notification);
@@ -61,7 +66,7 @@ class LppmFakultasController extends Controller
     public function delete($id){
         Unit::where('id',$id)->delete();
         $notification = array(
-            'message' => ' data unit berhasil dihapus!',
+            'message' => ' data fakultas berhasil dihapus!',
             'alert-type' => 'success'
         );
         return redirect()->route('lpmpp.fakultas')->with($notification);

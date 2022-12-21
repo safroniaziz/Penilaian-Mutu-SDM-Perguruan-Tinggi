@@ -133,8 +133,8 @@
     <!-- Content Header (Page header) -->
     <section class="content-header">
       <h1>
-        Evaluasi Mutu SDM, Universitas Bengkulu
-        <small>PENJAMINAN MUTU BIDANG SUMBER DAYA MANUSIA</small>
+        Pendaftaran Layanan Fasilitas Kesehatan
+        <small>Klinik A Kota Bengkulu</small>
       </h1>
       <ol class="breadcrumb">
         <li><a href="#"><i class="fa fa-home"></i> Evaluasi Mutu SDM</a></li>

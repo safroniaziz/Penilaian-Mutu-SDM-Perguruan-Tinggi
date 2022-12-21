@@ -79,6 +79,14 @@ Route::middleware('auth')->group(function() {
             Route::get('/{id}/edit',[LppmProdiController::class, 'edit'])->name('lpmpp.prodi.edit');
             Route::patch('/{id}/update',[LppmProdiController::class, 'update'])->name('lpmpp.prodi.update');
             Route::delete('{id}/delete',[LppmProdiController::class, 'delete'])->name('lpmpp.prodi.delete');
+            Route::get('/sync',[LppmProdiController::class, 'sync'])->name('lpmpp.prodi.sync');
+            Route::get('{prodi}/sync_mahasiswa',[LppmProdiController::class, 'syncMahasiswa'])->name('lpmpp.prodi.sync_mahasiswa');
+            Route::get('{prodi}/sync_mahasiswa_detail',[LppmProdiController::class, 'syncMahasiswaDetail'])->name('lpmpp.prodi.sync_mahasiswa_detail');
+            Route::get('{prodi}/detail_mahasiswa',[LppmProdiController::class, 'detailMahasiswa'])->name('lpmpp.prodi.detail_mahasiswa');
+
+            Route::get('{prodi}/sync_dosen',[LppmProdiController::class, 'syncDosen'])->name('lpmpp.prodi.sync_dosen');
+            Route::get('{prodi}/sync_dosen_detail',[LppmProdiController::class, 'syncDosenDetail'])->name('lpmpp.prodi.sync_dosen_detail');
+            Route::get('{prodi}/detail_dosen',[LppmProdiController::class, 'detailDosen'])->name('lpmpp.prodi.detail_dosen');
         });
 
         Route::prefix('manajemen_data_dosen')->group(function() {
@@ -89,6 +97,7 @@ Route::middleware('auth')->group(function() {
             Route::patch('/{id}/update',[LppmDosenController::class, 'update'])->name('lpmpp.dosen.update');
             Route::delete('{id}/delete',[LppmDosenController::class, 'delete'])->name('lpmpp.dosen.delete');
             Route::get('/cari_prodi',[LppmDosenController::class, 'cariProdi'])->name('lpmpp.cari_prodi');
+            Route::get('{fakultas}/detail',[LppmDosenController::class, 'detailDosen'])->name('lpmpp.dosen.detail');
         });
 
         Route::prefix('manajemen_data_tendik')->group(function() {

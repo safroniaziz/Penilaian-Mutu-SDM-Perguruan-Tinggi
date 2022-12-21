@@ -82,7 +82,7 @@
                         {{ csrf_field() }} {{ method_field('PATCH') }}
                         <div class="form-group col-md-6">
                             <label for="exampleInputEmail1">Pilih Fakultas</label>
-                            <select name="fakultas_id" id="fakultas_id" class="form-control">
+                            <select name="unit_id" id="unit_id" class="form-control">
                                 <option disabled="disabled" selected="selected">-- pilih fakultas --</option>
                                 @foreach ($fakultas as $item)
                                     <option value="{{ $item->id }}">{{ $item->nama_unit }}</option>
@@ -154,14 +154,14 @@
 
 @push('scripts')
     <script>
-        $(document).on('change','#fakultas_id',function(){
-            var fakultas_id = $(this).val();
+        $(document).on('change','#unit_id',function(){
+            var unit_id = $(this).val();
             var div = $(this).parent().parent();
             var op=" ";
             $.ajax({
             type :'get',
             url: "{{ url('lpmpp/manajemen_data_dosen/cari_prodi') }}",
-            data:{'fakultas_id':fakultas_id},
+            data:{'unit_id':unit_id},
                 success:function(data){
                     op+='<option value="0" selected disabled>-- pilih prodi --</option>';
                     for(var i=0; i<data.length;i++){

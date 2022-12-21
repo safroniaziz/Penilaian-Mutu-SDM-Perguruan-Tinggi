@@ -79,21 +79,30 @@
                     </div>
                     <form action="{{ route('lpmpp.upt.post') }}" enctype="multipart/form-data" method="POST" enctype="multipart/form-data">
                         {{ csrf_field() }} {{ method_field('POST') }}
-                            <div class="form-group col-md-12">
-                                <label for="exampleInputEmail1">Masukan Nama UPT</label>
-                                <input type="text" name="nama_unit" class="form-control" >
-                                <div>
-                                    @if ($errors->has('nama_unit'))
-                                        <small class="form-text text-danger">{{ $errors->first('nama_unit') }}</small>
-                                    @endif
-                                </div>
+                        <div class="form-group col-md-6">
+                            <label for="exampleInputEmail1">Masukan Nama Lengkap UPT</label>
+                            <input type="text" name="nama_unit" class="form-control" >
+                            <div>
+                                @if ($errors->has('nama_unit'))
+                                    <small class="form-text text-danger">{{ $errors->first('nama_unit') }}</small>
+                                @endif
                             </div>
+                        </div>
 
-                            <div class="col-md-12 text-center">
-                                <a href="{{ route('lpmpp.upt') }}" class="btn btn-warning btn-sm" style="color: white"><i class="fa fa-arrow-left"></i>&nbsp; Kembali</a>
-                                <button type="reset" name="reset" class="btn btn-danger btn-sm btn-flat"><i class="fa fa-refresh"></i>&nbsp;Ulangi</button>
-                                <button type="submit" class="btn btn-primary btn-sm btn-flat"><i class="fa fa-check-circle"></i>&nbsp;Simpan</button>
+                        <div class="form-group col-md-6">
+                            <label for="exampleInputEmail1">Masukan Nama Singkatan</label>
+                            <input type="text" name="nama_singkatan" class="form-control" >
+                            <div>
+                                @if ($errors->has('nama_singkatan'))
+                                    <small class="form-text text-danger">{{ $errors->first('nama_singkatan') }}</small>
+                                @endif
                             </div>
+                        </div>
+
+                        <div class="col-md-12 text-center">
+                            <a href="{{ route('lpmpp.upt') }}" class="btn btn-warning btn-sm" style="color: white"><i class="fa fa-arrow-left"></i>&nbsp; Kembali</a>
+                            <button type="reset" name="reset" class="btn btn-danger btn-sm btn-flat"><i class="fa fa-refresh"></i>&nbsp;Ulangi</button>
+                            <button type="submit" class="btn btn-primary btn-sm btn-flat"><i class="fa fa-check-circle"></i>&nbsp;Simpan</button>
                         </div>
                     </form>
             </div>
