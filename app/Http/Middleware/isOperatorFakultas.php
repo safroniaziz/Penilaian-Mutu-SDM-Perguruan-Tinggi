@@ -5,7 +5,7 @@ namespace App\Http\Middleware;
 use Closure;
 use Illuminate\Http\Request;
 
-class isDosen
+class isOperatorFakultas
 {
     /**
      * Handle an incoming request.
@@ -16,13 +16,13 @@ class isDosen
      */
     public function handle(Request $request, Closure $next)
     {
-        if ($request->session()->exists('login') == 1)
-        {
-            if ($request->session()->exists('akses') == 1) {
-                return $next($request);
-            }
-            return redirect()->route('login')->with(['error' => 'Gagal, akses anda tidak dikenali !']);
+        return $next($request);if($request->user() && $request->user()->akses == 'operator_fakultas'){
+            return $next($request);
         }
-        return redirect()->route('login')->with(['error' => 'Gagal, silahkan masuk untuk melanjutkan !']);
+        $notification = array(
+            'message' => 'Gagal, anda tidak memiliki akses sebagai operator fakultas!',
+            'alert-type' => 'error'
+        );
+        return redirect()->route('login')->with($notification);
     }
 }

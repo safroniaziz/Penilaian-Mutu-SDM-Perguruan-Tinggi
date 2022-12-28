@@ -77,7 +77,11 @@
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                 <i class="fa fa-user"></i>
                 <span class="hidden-xs">
-                    FAISAL HADI S.T, M.T
+                    @if (Auth::check())
+                      {{ Auth::user()->nama_lengkap }}
+                    @else
+                      {{ Session::get('dosen')->nama_dosen }}
+                    @endif
                 </span>
             </a>
 

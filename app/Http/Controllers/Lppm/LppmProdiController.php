@@ -195,14 +195,14 @@ class LppmProdiController extends Controller
 
             DB::commit();
             $notification = array(
-                'message' => 'sinkronisasi data dosen dengan portal akademik berhasil !',
+                'message' => 'sinkronisasi data mahasiswa dengan portal akademik berhasil !',
                 'alert-type' => 'success'
             );
             return redirect()->route('lpmpp.prodi')->with($notification);
         } catch (\Exception $e) {
             DB::rollback();
             $notification = array(
-                'message' => 'sinkronisasi data dosen dengan portal akademik gagal !',
+                'message' => 'sinkronisasi data mahasiswa dengan portal akademik gagal !',
                 'alert-type' => 'error'
             );
             return redirect()->route('lpmpp.prodi')->with($notification);
@@ -325,14 +325,12 @@ class LppmProdiController extends Controller
                 );
                 return redirect()->route('lpmpp.prodi')->with($notification);
             }
-
             if (count($dosens['prodi'][0]['dosen'])> 0) {
                 for ($i=0; $i <count($datas); $i++) { 
-                
                     $mahasiswa_pa       = $datas[$i]['mahasiswa_pa'];
                     $riwayat_golongan   =  $datas[$i]['pegawai']['riwayat_golongan'];
                     if ($datas[$i]['pegawai']['pegIsAktif'] == 1) {
-                        if ($datas[$i]['pegawai']['pegawai_simpeg'] == null) {
+                        if ($datas[$i]['pegawai']['pegawai_simpeg'] == null || $datas[$i]['pegawai']['pegawai_simpeg'] == "") {
                             $jenis_kelamin      = '-';
                             $kedudukan_hukum    = '-';
                             $tugas_tambahan     = '-';
@@ -357,27 +355,30 @@ class LppmProdiController extends Controller
                             'tugas_tambahan'    =>  $tugas_tambahan,
                             'pendidikan_akhir'  =>  $pendidikan_akhir,
                         ]);
-                    }
-                    for ($j=0; $j <count($mahasiswa_pa)  ; $j++) { 
-                        DosenPa::create([
-                            'dosen_id'          =>  $datas[$i]['dsnPegNip'],
-                            'npm_mahasiswa'     =>  $mahasiswa_pa[$j]['mhsNiu'],
-                            'nama_mahasiswa'    =>  $mahasiswa_pa[$j]['mhsNama'],
-                            'prodi'             =>  $mahasiswa_pa[$j]['prodi']['prodiNamaResmi'],
-                            'angkatan'          =>  $mahasiswa_pa[$j]['mhsAngkatan'],
-                            'jenis_kelamin'     =>  $mahasiswa_pa[$j]['mhsJenisKelamin'],
-                        ]);
-                    }
-    
-                    for ($k=0; $k <count($riwayat_golongan)  ; $k++) { 
-                        DosenRiwayatGolongan::create([
-                            'dosen_id'          =>  $datas[$i]['dsnPegNip'],
-                            'golongan'          =>  $riwayat_golongan[$k]['goGol'],
-                            'no_sk'             =>  $riwayat_golongan[$k]['goNoSk'],
-                            'tanggal_sk'        =>  $riwayat_golongan[$k]['goTglSk'],
-                            'golongan_tmt'      =>  $riwayat_golongan[$k]['goTmtGol'],
-                            
-                        ]);
+
+                        if (count($mahasiswa_pa)>0) {
+                            for ($j=0; $j <count($mahasiswa_pa)  ; $j++) { 
+                                DosenPa::create([
+                                    'dosen_id'          =>  $datas[$i]['dsnPegNip'],
+                                    'npm_mahasiswa'     =>  $mahasiswa_pa[$j]['mhsNiu'],
+                                    'nama_mahasiswa'    =>  $mahasiswa_pa[$j]['mhsNama'],
+                                    'prodi'             =>  $mahasiswa_pa[$j]['prodi']['prodiNamaResmi'],
+                                    'angkatan'          =>  $mahasiswa_pa[$j]['mhsAngkatan'],
+                                    'jenis_kelamin'     =>  $mahasiswa_pa[$j]['mhsJenisKelamin'],
+                                ]);
+                            }
+                        }
+        
+                        for ($k=0; $k <count($riwayat_golongan)  ; $k++) { 
+                            DosenRiwayatGolongan::create([
+                                'dosen_id'          =>  $datas[$i]['dsnPegNip'],
+                                'golongan'          =>  $riwayat_golongan[$k]['goGol'],
+                                'no_sk'             =>  $riwayat_golongan[$k]['goNoSk'],
+                                'tanggal_sk'        =>  $riwayat_golongan[$k]['goTglSk'],
+                                'golongan_tmt'      =>  $riwayat_golongan[$k]['goTmtGol'],
+                                
+                            ]);
+                        }
                     }
                 }
             }else {

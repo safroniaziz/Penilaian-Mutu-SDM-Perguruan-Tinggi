@@ -42,6 +42,12 @@ class RedirectIfAuthenticated
                         'alert-type' => 'success'
                     );
                     return redirect()->route('operator_unit.dashboard')->with($notification1);;
+                }elseif (auth()->user()->akses == "operator_fakultas") {
+                    $notification1 = array(
+                        'message' => 'Berhasil, anda login sebagai operator fakultas!',
+                        'alert-type' => 'success'
+                    );
+                    return redirect()->route('operator_unit.dashboard')->with($notification1);;
                 }else {
                     Auth::logout();
                     return redirect()->route('login')->with(['error' =>  'NIP anda tidak terdaftar']);

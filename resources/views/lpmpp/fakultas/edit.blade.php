@@ -100,6 +100,31 @@
                             </div>
                         </div>
 
+                        <div class="form-group col-md-6">
+                            <label for="exampleInputEmail1">Pilih Status Pimpinan</label>
+                            <select name="status_pimpinan" class="form-control" id="status_pimpinan">
+                                <option disabled selected></option>
+                                <option value="dosen">Dosen</option>
+                                <option value="tendik">Tenaga Kependidikan (Tendik)</option>
+                            </select>
+                            <div>
+                                @if ($errors->has('status_pimpinan'))
+                                    <small class="form-text text-danger">{{ $errors->first('status_pimpinan') }}</small>
+                                @endif
+                            </div>
+                        </div>
+
+                        <div class="form-group col-md-6">
+                            <label for="exampleInputEmail1">Pilih Pimpinan</label>
+                            <select name="pimpinan_id" class="form-control" id="pimpinan_id">
+                            </select>
+                            <div>
+                                @if ($errors->has('pimpinan_id'))
+                                    <small class="form-text text-danger">{{ $errors->first('pimpinan_id') }}</small>
+                                @endif
+                            </div>
+                        </div>
+
                         <div class="col-md-12 text-center">
                             <hr style="width: 50%" class="mt-0">
                             <a href="{{ route('lpmpp.fakultas') }}" class="btn btn-warning btn-sm" style="color: white"><i class="fa fa-arrow-left"></i>&nbsp; Kembali</a>
@@ -125,6 +150,32 @@
             else
                 $(this).append('<option value="' + (year + i) + '">' + (year + i) + '</option>');
             }
+        });
+
+        $(document).on('change','#status_pimpinan',function(){
+            var status_pimpinan = $(this).val();
+            var div = $(this).parent().parent();
+            var op=" ";
+            $.ajax({
+            type :'get',
+            url: "{{ url('lpmpp/manajemen_data_fakultas/cari_pimpinan') }}",
+            data:{'status_pimpinan':status_pimpinan},
+                success:function(data){
+                    op+='<option value="0" selected disabled>-- pilih pimpinan --</option>';
+                    for(var i=0; i<data.length;i++){
+                        op+='<option value="'+data[i].nama_pimpinan+'">'+data[i].nama_pimpinan+'</option>';
+                    }
+                    div.find('#pimpinan_id').html(" ");
+                    div.find('#pimpinan_id').append(op);
+                    if (data.length <1) {
+                        $("#tidak_ditemukan").show();
+                    }else{
+                        $("#tidak_ditemukan").hide();
+                    }
+                },
+                    error:function(){
+                }
+            });
         });
     </script>
 @endpush

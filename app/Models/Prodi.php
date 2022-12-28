@@ -35,5 +35,4 @@ class Prodi extends Model
     public function getJumlahDosenAttribute(){
         return $this->dosens()->count('id');
     }
-
 }

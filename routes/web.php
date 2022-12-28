@@ -1,6 +1,9 @@
 <?php
 
+use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Dosen\DosenDashboardController;
+use App\Http\Controllers\Fakultas\FakultasDashboardController;
+use App\Http\Controllers\Fakultas\FakultasIkuController;
 use App\Http\Controllers\OperatorProdi\ProdiDashboardController;
 use App\Http\Controllers\OperatorProdi\ProdiDosenController;
 use App\Http\Controllers\OperatorProdi\ProdiProfilSayaController;
@@ -41,6 +44,7 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::get('/logout', [LoginController::class, 'authLogut'])->name('auth_logout');
 
 Route::middleware('auth')->group(function() {
     Route::middleware('isLpmpp')->prefix('lpmpp')->group(function() {
@@ -53,6 +57,7 @@ Route::middleware('auth')->group(function() {
             Route::get('/{id}/edit',[LppmFakultasController::class, 'edit'])->name('lpmpp.fakultas.edit');
             Route::patch('/{id}/update',[LppmFakultasController::class, 'update'])->name('lpmpp.fakultas.update');
             Route::delete('{id}/delete',[LppmFakultasController::class, 'delete'])->name('lpmpp.fakultas.delete');
+            Route::get('/cari_pimpinan',[LppmFakultasController::class, 'cariPimpinan'])->name('lpmpp.fakultas.cari_pimpinan');
         });
 
         Route::prefix('manajemen_data_lembaga')->group(function() {
@@ -217,6 +222,25 @@ Route::middleware('auth')->group(function() {
             Route::patch('{id}/update',[UnitProfilSayaController::class, 'update'])->name('operator_unit.profil.update');
         });
     });
+
+    Route::middleware('isOperatorFakultas')->prefix('operator_fakultas')->group(function() {
+        Route::get('/dashboard',[FakultasDashboardController::class, 'dashboard'])->name('operator_fakultas.dashboard');
+
+        Route::prefix('manajemen_data_tendik')->group(function() {
+            Route::get('/',[FakultasIkuController::class, 'index'])->name('operator_fakultas.iku');
+            Route::get('/tambah_data_iku',[FakultasIkuController::class, 'add'])->name('operator_fakultas.iku.add');
+            Route::post('/post',[FakultasIkuController::class, 'post'])->name('operator_fakultas.iku.post');
+            Route::get('/{id}/edit',[FakultasIkuController::class, 'edit'])->name('operator_fakultas.iku.edit');
+            Route::patch('/{id}/update',[FakultasIkuController::class, 'update'])->name('operator_fakultas.iku.update');
+            Route::delete('{id}/delete',[FakultasIkuController::class, 'delete'])->name('operator_fakultas.iku.delete');
+        });
+
+        Route::prefix('profil_saya')->group(function() {
+            Route::get('/',[UnitProfilSayaController::class, 'index'])->name('operator_fakultas.profil');
+            Route::patch('/',[UnitProfilSayaController::class, 'ubahPassword'])->name('operator_fakultas.profil.ubah_password');
+            Route::patch('{id}/update',[UnitProfilSayaController::class, 'update'])->name('operator_fakultas.profil.update');
+        });
+    });
 });
 
 Route::middleware('isDosen')->prefix('dosen')->group(function() {
@@ -237,6 +261,7 @@ Route::middleware('isDosen')->prefix('dosen')->group(function() {
         Route::patch('{id}/update',[LppmProfilSayaController::class, 'update'])->name('dosen.profil.update');
     });
 });
+
 Route::get('/asesor',function(){
     return view('asesor');
 });

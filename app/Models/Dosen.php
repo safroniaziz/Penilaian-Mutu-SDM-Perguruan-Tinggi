@@ -16,10 +16,10 @@ class Dosen extends Model
     }
 
     public function dosenPa(){
-        return $this->belongsTo(DosenPa::class);
+        return $this->hasMany(DosenPa::class)->orderBy('angkatan','desc');
     }
 
     public function dosenRiwayatGolongan(){
-        return $this->belongsTo(DosenRiwayatGolongan::class);
+        return $this->hasMany(DosenRiwayatGolongan::class)->orderBy('golongan','desc');;
     }
 }

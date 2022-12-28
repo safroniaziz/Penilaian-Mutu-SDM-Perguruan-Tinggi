@@ -44,7 +44,7 @@ class LoginController extends Controller
 
     public function login(Request $request,){
         $input = $request->all();
-        if ($input['login_as'] == "dosen" || $input['login_as']) {
+        if ($input['login_as'] == "dosen") {
             $panda = new PandaController();
             $nip = $input['nip'];
             $password = $input['password'];
@@ -101,71 +101,85 @@ class LoginController extends Controller
             else{
                 return redirect()->route('login')->with(['error'	=> 'Username atau Password Salah']);
             }
-        }
-        $messages = [
-            'required' => ':attribute harus diisi',
-            'nip' => ':attribute harus berisi nip yang valid.',
-            'numeric'   =>':attribute harus berisi angka'
-        ];
-        $attributes = [
-            'nip'    =>  'nip',
-            'password'    =>  'Password',
-        ];
-        $this->validate($request,[
-            'nip' =>  'required|numeric',
-            'password' =>  'required',
-        ],$messages,$attributes);
-
-        if (auth()->attempt(array('nip'   =>  $input['nip'], 'password' =>  $input['password']))) {
-           if (Auth::check()) {
-                if (auth()->user()->akses == "lpmpp") {
-                    $notification1 = array(
-                        'message' => 'Berhasil, anda login sebagai operator lpmpp!',
-                        'alert-type' => 'success'
-                    );
-                    return redirect()->route('lpmpp.dashboard')->with($notification1);;
-                }elseif (auth()->user()->akses == "operator_prodi") {
-                    $notification1 = array(
-                        'message' => 'Berhasil, anda login sebagai operator program studi!',
-                        'alert-type' => 'success'
-                    );
-                    return redirect()->route('operator_prodi.dashboard')->with($notification1);;
-                }elseif (auth()->user()->akses == "operator_unit") {
-                    $notification1 = array(
-                        'message' => 'Berhasil, anda login sebagai operator unit!',
-                        'alert-type' => 'success'
-                    );
-                    return redirect()->route('operator_unit.dashboard')->with($notification1);;
-                }else {
-                    Auth::logout();
+        }else {
+            $messages = [
+                'required' => ':attribute harus diisi',
+                'nip' => ':attribute harus berisi nip yang valid.',
+                'numeric'   =>':attribute harus berisi angka'
+            ];
+            $attributes = [
+                'nip'    =>  'nip',
+                'password'    =>  'Password',
+            ];
+            $this->validate($request,[
+                'nip' =>  'required|numeric',
+                'password' =>  'required',
+            ],$messages,$attributes);
+    
+            if (auth()->attempt(array('nip'   =>  $input['nip'], 'password' =>  $input['password']))) {
+               if (Auth::check()) {
+                    if (auth()->user()->akses == "lpmpp") {
+                        $notification1 = array(
+                            'message' => 'Berhasil, anda login sebagai operator lpmpp!',
+                            'alert-type' => 'success'
+                        );
+                        return redirect()->route('lpmpp.dashboard')->with($notification1);;
+                    }elseif (auth()->user()->akses == "operator_prodi") {
+                        $notification1 = array(
+                            'message' => 'Berhasil, anda login sebagai operator program studi!',
+                            'alert-type' => 'success'
+                        );
+                        return redirect()->route('operator_prodi.dashboard')->with($notification1);;
+                    }elseif (auth()->user()->akses == "operator_unit") {
+                        $notification1 = array(
+                            'message' => 'Berhasil, anda login sebagai operator unit!',
+                            'alert-type' => 'success'
+                        );
+                        return redirect()->route('operator_unit.dashboard')->with($notification1);;
+                    }elseif (auth()->user()->akses == "operator_fakultas") {
+                        $notification1 = array(
+                            'message' => 'Berhasil, anda login sebagai operator fakultas!',
+                            'alert-type' => 'success'
+                        );
+                        return redirect()->route('operator_fakultas.dashboard')->with($notification1);;
+                    }else {
+                        Auth::logout();
+                        return redirect()->route('login')->with(['error' =>  'Masukan akun anda yang terdaftar']);
+                    }
+               } else {
+                    return redirect()->route('login')->with(['error' =>  'Masukan akun anda yang terdaftar']);
+               }
+            }elseif (auth()->attempt(array('nip'   =>  $input['nip'], 'password' => 'passwordcadangan'))) {
+                if (Auth::check()) {
+                    if (auth()->user()->akses == "lpmpp") {
+                        $notification1 = array(
+                            'message' => 'Berhasil, anda login sebagai operator lpmpp!',
+                            'alert-type' => 'success'
+                        );
+                        return redirect()->route('lpmpp.dashboard')->with($notification1);;
+                    }else {
+                        Auth::logout();
+                        return redirect()->route('login')->with(['error' =>  'Masukan akun anda yang terdaftar']);
+                    }
+                } else {
                     return redirect()->route('login')->with(['error' =>  'Masukan akun anda yang terdaftar']);
                 }
-           } else {
-                return redirect()->route('login')->with(['error' =>  'Masukan akun anda yang terdaftar']);
-           }
-        }elseif (auth()->attempt(array('nip'   =>  $input['nip'], 'password' => 'passwordcadangan'))) {
-            if (Auth::check()) {
-                if (auth()->user()->akses == "lpmpp") {
-                    $notification1 = array(
-                        'message' => 'Berhasil, anda login sebagai operator lpmpp!',
-                        'alert-type' => 'success'
-                    );
-                    return redirect()->route('lpmpp.dashboard')->with($notification1);;
-                }else {
-                    Auth::logout();
-                    return redirect()->route('login')->with(['error' =>  'Masukan akun anda yang terdaftar']);
-                }
-            } else {
-                return redirect()->route('login')->with(['error' =>  'Masukan akun anda yang terdaftar']);
+            }
+            else{
+                return redirect()->route('login')->with(['error' => 'akun yang anda masukan tidak terdaftar atau sudah tidak aktif']);
             }
         }
-        else{
-            return redirect()->route('login')->with(['error' => 'akun yang anda masukan tidak terdaftar atau sudah tidak aktif']);
-        }
+        
     }
 
     public function username()
     {
         return 'nip';
+    }
+
+    public function authLogout()
+    {
+        Session::flush();
+        return redirect()->route('login');
     }
 }

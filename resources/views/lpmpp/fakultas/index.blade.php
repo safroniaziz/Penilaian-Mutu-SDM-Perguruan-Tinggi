@@ -87,6 +87,8 @@
                                 <th>No</th>
                                 <th>Nama Lengkap Fakultas</th>
                                 <th>Nama Singkatan</th>
+                                <th>Pimpinan</th>
+                                <th>Status Pimpinan</th>
                                 <th>Aksi</th>
                             </tr>
                         </thead>
@@ -99,6 +101,8 @@
                                     <td> {{ $no++ }} </td>
                                     <td> {{ $unit->nama_unit }} </td>
                                     <td>{{ $unit->nama_singkatan }}</td>
+                                    <td>{{ $unit->nama_pimpinan }}</td>
+                                    <td>{{ $unit->status_pimpinan }}</td>
                                           <td style="display:inline-block !important;">
                                             <table>
                                                 <tr>
