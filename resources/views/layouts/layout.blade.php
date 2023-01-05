@@ -79,6 +79,8 @@
                 <span class="hidden-xs">
                     @if (Auth::check())
                       {{ Auth::user()->nama_lengkap }}
+                    @elseif(Auth::guard('tendik')->check())
+                      {{ Auth::guard('tendik')->user()->nama_tendik }}
                     @else
                       {{ Session::get('dosen')->nama_dosen }}
                     @endif

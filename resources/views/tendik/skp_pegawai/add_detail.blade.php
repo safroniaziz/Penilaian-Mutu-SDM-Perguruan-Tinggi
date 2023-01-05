@@ -75,14 +75,14 @@
                                 @else
                         @endif
                     </div>
-                    <form action="{{ route('dosen.skp.skp_detail_update',[$skpDetail->id]) }}" method="POST" >
-                        {{ csrf_field() }} {{ method_field('PATCH') }}
+                    <form action="{{ route('dosen.skp.detail_post',[$skp->id]) }}" method="POST" >
+                        {{ csrf_field() }} {{ method_field('POST') }}
                             <div class="form-group col-md-12">
                                 <label for="exampleInputEmail1">IKK Pimpinan</label>
                                 <select name="ikk_pimpinan_id" id="ikk_pimpinan_id" class="form-control">
                                     <option disabled selected></option>
                                     @foreach ($ikus as $iku)
-                                        <option value="{{ $iku->id }}" {{ $skpDetail->ikk_pimpinan_id == $iku->id ? 'selected' :'' }}>{{ '('.$iku->judul_ikk.') - '.$iku->keterangan_ikk }}</option>
+                                        <option value="{{ $iku->id }}">{{ '('.$iku->judul_ikk.') - '.$iku->keterangan_ikk }}</option>
                                     @endforeach
                                 </select>
                                 <div>
@@ -94,7 +94,7 @@
 
                             <div class="form-group col-md-6">
                                 <label for="exampleInputEmail1">Keterangan IKK</label>
-                                <textarea name="keterangan_ikk" id="keterangan_ikk" disabled class="form-control" id="" cols="30" rows="3">{{ $skpDetail->ikkPimpinan->keterangan_ikk }}</textarea>
+                                <textarea name="keterangan_ikk" id="keterangan_ikk" disabled class="form-control" id="" cols="30" rows="3"></textarea>
                                 <div>
                                     @if ($errors->has('keterangan_ikk'))
                                         <small class="form-text text-danger">{{ $errors->first('keterangan_ikk') }}</small>
@@ -104,7 +104,7 @@
 
                             <div class="form-group col-md-6">
                                 <label for="exampleInputEmail1">Isi SKP</label>
-                                <textarea name="isi_ikk" id="isi_ikk"  class="form-control" id="" cols="30" rows="3">{{ $skpDetail->isi_ikk}}</textarea>
+                                <textarea name="isi_ikk" id="isi_ikk"  class="form-control" id="" cols="30" rows="3"></textarea>
                                 <div>
                                     @if ($errors->has('isi_ikk'))
                                         <small class="form-text text-danger">{{ $errors->first('isi_ikk') }}</small>
@@ -114,7 +114,7 @@
 
                             <div class="form-group col-md-6">
                                 <label for="exampleInputEmail1">Target SKP</label>
-                                <textarea name="target_ikk" id="target_ikk"  class="form-control" id="" cols="30" rows="3">{{ $skpDetail->target_ikk }}</textarea>
+                                <textarea name="target_ikk" id="target_ikk"  class="form-control" id="" cols="30" rows="3"></textarea>
                                 <div>
                                     @if ($errors->has('target_ikk'))
                                         <small class="form-text text-danger">{{ $errors->first('target_ikk') }}</small>
@@ -124,7 +124,7 @@
 
                             <div class="form-group col-md-6">
                                 <label for="exampleInputEmail1">Realisasi Berdasarkan Bukti Dukung</label>
-                                <textarea name="realisasi_bukti_dukung" id="realisasi_bukti_dukung"  class="form-control" id="" cols="30" rows="3">{{ $skpDetail->realisasi_bukti_dukung }}</textarea>
+                                <textarea name="realisasi_bukti_dukung" id="realisasi_bukti_dukung"  class="form-control" id="" cols="30" rows="3"></textarea>
                                 <div>
                                     @if ($errors->has('realisasi_bukti_dukung'))
                                         <small class="form-text text-danger">{{ $errors->first('realisasi_bukti_dukung') }}</small>
@@ -134,7 +134,7 @@
 
                             <div class="form-group col-md-12">
                                 <label for="exampleInputEmail1">Umpan Balik Berkelanjutan Berdasarkan Bukti Dukung</label>
-                                <textarea name="umpan_balik_berkelanjutan" id="umpan_balik_berkelanjutan"  class="form-control" id="" cols="30" rows="2">{{ $skpDetail->umpan_balik_berkelanjutan }}</textarea>
+                                <textarea name="umpan_balik_berkelanjutan" id="umpan_balik_berkelanjutan"  class="form-control" id="" cols="30" rows="2"></textarea>
                                 <div>
                                     @if ($errors->has('umpan_balik_berkelanjutan'))
                                         <small class="form-text text-danger">{{ $errors->first('umpan_balik_berkelanjutan') }}</small>
@@ -146,9 +146,9 @@
                                 <label for="exampleInputEmail1">Hasil Kerja</label>
                                 <select name="angka" id="angka" class="form-control">
                                     <option disabled selected></option>
-                                    <option {{ $skpDetail->angka == "1" ? 'selected' : '' }} value="1">Dibawah Ekspektasi</option>
-                                    <option {{ $skpDetail->angka == "2" ? 'selected' : '' }} value="2">Sesuai Ekspektasi</option>
-                                    <option {{ $skpDetail->angka == "3" ? 'selected' : '' }} value="3">Diatas Ekspektasi</option>
+                                    <option value="1">Dibawah Ekspektasi</option>
+                                    <option value="2">Sesuai Ekspektasi</option>
+                                    <option value="3">Diatas Ekspektasi</option>
                                 </select>
                                 <div>
                                     @if ($errors->has('angka'))

@@ -10,27 +10,27 @@
                         <tr>
                             <th style="width: 15%">Nama Pejabat</th>
                             <th>:</th>
-                            <td>{{ $dosen->gelar_depan.' '.$dosen->nama_dosen.','.$dosen->gelar_belakang }}</td>
+                            <td>{{ Auth::guard('tendik')->user()->nama_tendik }}</td>
                         </tr>
                         <tr>
                             <th style="width: 15%">NIP</th>
                             <th>:</th>
-                            <td>{{ $dosen->id }}</td>
+                            <td>{{ Auth::guard('tendik')->user()->id }}</td>
                         </tr>
                         <tr>
                             <th style="width: 15%">Pangkat/Golongan</th>
                             <th>:</th>
-                            <td>{{ $dosen->pangkat != "" ? $dosen->pangkat : '-'.'/'.$dosen->golongan }}</td>
+                            <td>{{ Auth::guard('tendik')->user()->pangkat != "" ? Auth::guard('tendik')->user()->pangkat : '-'.'/'.Auth::guard('tendik')->user()->golongan }}</td>
                         </tr>
                         <tr>
                             <th style="width: 15%">Jabatan</th>
                             <th>:</th>
-                            <td>{{ $dosen->jabatan_akademik }}</td>
+                            <td>{{ Auth::guard('tendik')->user()->jabatan }}</td>
                         </tr>
                         <tr>
                             <th style="width: 15%">Unit Kerja</th>
                             <th>:</th>
-                            <td>{{ $dosen->prodi->unit->nama_unit }}</td>
+                            <td>{{ Auth::guard('tendik')->user()->unit->nama_unit }}</td>
                         </tr>
                     </table>
                 </div>

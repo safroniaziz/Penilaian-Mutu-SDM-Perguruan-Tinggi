@@ -101,7 +101,33 @@ class LoginController extends Controller
             else{
                 return redirect()->route('login')->with(['error'	=> 'Username atau Password Salah']);
             }
-        }else {
+        }elseif($input['login_as']  ==  "tendik"){
+            $messages = [
+                'required' => ':attribute harus diisi',
+                'nip' => ':attribute harus berisi nip yang valid.',
+                'numeric'   =>':attribute harus berisi angka'
+            ];
+            $attributes = [
+                'nip'    =>  'nip',
+                'password'    =>  'Password',
+            ];
+            $this->validate($request,[
+                'nip' =>  'required|numeric',
+                'password' =>  'required',
+            ],$messages,$attributes);
+
+            if (Auth::guard('tendik')->attempt(array('nip'   =>  $input['nip'], 'password' =>  $input['password']))) {
+                if (Auth::guard('tendik')->check()) {
+                    $notification1 = array(
+                        'message' => 'Berhasil, anda login sebagai operator lpmpp!',
+                        'alert-type' => 'success'
+                    );
+                    return redirect()->route('tendik.dashboard')->with($notification1);;
+                }
+            }
+                         
+        }
+        else {
             $messages = [
                 'required' => ':attribute harus diisi',
                 'nip' => ':attribute harus berisi nip yang valid.',

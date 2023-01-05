@@ -1,7 +1,7 @@
 <div class="col-md-12">
     <div class="box box-primary">
         <div class="box-header with-border">
-            <h3 class="box-title"><i class="fa fa-info-circle"></i>&nbsp;Detail SKP Dosen  </h3>
+            <h3 class="box-title"><i class="fa fa-info-circle"></i>&nbsp;Detail SKP tendik  </h3>
             <div class="pull-right">
                 
             </div>
@@ -9,7 +9,7 @@
         <div class="box-body">
             <div class="row">
                 <div class="col-md-12">
-                    <a href="{{ route('dosen.skp.detail',[$dosen->skp->id]) }}" class="btn btn-primary btn-sm btn-flat"><i class="fa fa-plus"></i>&nbsp; Tambah Data Detail SKP</a>
+                    <a href="{{ route('tendik.skp.detail',[$tendik->skp->id]) }}" class="btn btn-primary btn-sm btn-flat"><i class="fa fa-plus"></i>&nbsp; Tambah Data Detail SKP</a>
                     <div class="btn-group">
                         <button type="button" class="btn btn-success btn-flat btn-sm">Cetak Luaran SKP</button>
                         <button type="button" class="btn btn-success btn-flat btn-sm dropdown-toggle" data-toggle="dropdown">
@@ -17,10 +17,10 @@
                             <span class="sr-only">Toggle Dropdown</span>
                         </button>
                         <ul class="dropdown-menu" role="menu">
-                            <li><a href="{{ route('dosen.skp.cetak_skp_pegawai') }}" target="_blank">Cetak SKP Pegawai</a></li>
-                            <li><a href="{{ route('dosen.skp.cetak_sasaran_kinerja_pegawai') }}" target="_blank">Cetak Lampiran Sasaran Kinerja Pegawai</a></li>
-                            <li><a href="{{ route('dosen.skp.evaluasi_pegawai') }}" target="_blank">Cetak Evaluasi Pegawai</a></li>
-                            <li><a href="{{ route('dosen.skp.cetak_nilai_kinerja') }}" target="_blank">Cetak Status Nilai Kinerja</a></li>
+                            <li><a href="{{ route('tendik.skp.cetak_skp_pegawai') }}" target="_blank">Cetak SKP Pegawai</a></li>
+                            <li><a href="{{ route('tendik.skp.cetak_sasaran_kinerja_pegawai') }}" target="_blank">Cetak Lampiran Sasaran Kinerja Pegawai</a></li>
+                            <li><a href="{{ route('tendik.skp.evaluasi_pegawai') }}" target="_blank">Cetak Evaluasi Pegawai</a></li>
+                            <li><a href="{{ route('tendik.skp.cetak_nilai_kinerja') }}" target="_blank">Cetak Status Nilai Kinerja</a></li>
                         </ul>
                     </div>
                 </div>
@@ -41,7 +41,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach ($dosen->skp->skpDetails()->get() as $index=> $detail)
+                            @foreach ($tendik->skp->skpDetails()->get() as $index=> $detail)
                                 <tr>
                                     <td>{{ $index+1 }}</td>
                                     <td>{{ $detail->ikkPimpinan->judul_ikk }}</td>
@@ -64,7 +64,7 @@
                                         <table>
                                             <tr>
                                                 <td>
-                                                    <a href="{{ route('dosen.skp.skp_detail_edit',[$detail->id]) }}" class="btn btn-success btn-sm btn-flat"><i class="fa fa-edit"></i>&nbsp; Ubah</a>
+                                                    <a href="{{ route('tendik.skp.skp_detail_edit',[$detail->id]) }}" class="btn btn-success btn-sm btn-flat"><i class="fa fa-edit"></i>&nbsp; Ubah</a>
                                                 </td>
                                                 <td>
                                                     <a onclick="hapusSkpDetail({{ $detail->id }})" class="btn btn-danger btn-sm btn-flat"><i class="fa fa-trash"></i>&nbsp; Hapus</a>
@@ -76,7 +76,7 @@
                             @endforeach
                         </tbody>
                         <div class="modal fade" id="modalhapusskpdetail">
-                            <form action="{{ route('dosen.skp.detail_delete') }}" method="POST">
+                            <form action="{{ route('tendik.skp.detail_delete') }}" method="POST">
                                 {{ csrf_field() }} {{ method_field("DELETE") }}
                                 <div class="modal-dialog">
                                     <div class="modal-content">

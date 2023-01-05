@@ -40,6 +40,10 @@ return [
             'driver' => 'session',
             'provider' => 'users',
         ],
+        'tendik' => [
+            'driver' => 'session',
+            'provider' => 'tendiks',
+        ],
     ],
 
     /*
@@ -63,6 +67,11 @@ return [
         'users' => [
             'driver' => 'eloquent',
             'model' => App\Models\User::class,
+        ],
+
+        'tendiks' => [
+            'driver' => 'eloquent',
+            'model' => App\Models\Tendik::class,
         ],
 
         // 'users' => [

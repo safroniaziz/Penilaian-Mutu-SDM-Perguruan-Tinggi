@@ -24,6 +24,8 @@ use App\Http\Controllers\Lppm\LppmUptController;
 use App\Http\Controllers\OperatorUnit\UnitDashboardController;
 use App\Http\Controllers\OperatorUnit\UnitFormulirController;
 use App\Http\Controllers\OperatorUnit\UnitTendikController;
+use App\Http\Controllers\Tendik\TendikDashboardController;
+use App\Http\Controllers\Tendik\TendikSkpController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -268,6 +270,33 @@ Route::middleware('isDosen')->prefix('dosen')->group(function() {
         Route::get('/',[LppmProfilSayaController::class, 'index'])->name('dosen.profil');
         Route::patch('/',[LppmProfilSayaController::class, 'ubahPassword'])->name('dosen.profil.ubah_password');
         Route::patch('{id}/update',[LppmProfilSayaController::class, 'update'])->name('dosen.profil.update');
+    });
+});
+
+Route::middleware('isTendik')->prefix('tendik')->group(function() {
+    Route::get('/dashboard',[TendikDashboardController::class, 'dashboard'])->name('tendik.dashboard');
+
+    Route::prefix('manajemen_data_skp')->group(function() {
+        Route::get('/',[TendikSkpController::class, 'index'])->name('tendik.skp');
+        Route::post('/post',[TendikSkpController::class, 'post'])->name('tendik.skp.post');
+        Route::get('/{skp}/detail',[TendikSkpController::class, 'detail'])->name('tendik.skp.detail');
+        Route::get('/cari_ikk',[TendikSkpController::class, 'cariIkk'])->name('tendik.skp.cari_ikk');
+        Route::post('{skp}/detail_post',[TendikSkpController::class, 'detailPost'])->name('tendik.skp.detail_post');
+        Route::get('/{skpDetail}/edit',[TendikSkpController::class, 'skpDetailEdit'])->name('tendik.skp.skp_detail_edit');
+        Route::patch('/{skpDetail}/update',[TendikSkpController::class, 'skpDetailUpdate'])->name('tendik.skp.skp_detail_update');
+        Route::delete('/detail_delete',[TendikSkpController::class, 'detailDelete'])->name('tendik.skp.detail_delete');
+        
+        //cetak
+        Route::get('/cetak_skp_pegawai',[TendikSkpController::class, 'cetakSkpPegawai'])->name('tendik.skp.cetak_skp_pegawai');
+        Route::get('/cetak_sasaran_kinerja_pegawai',[TendikSkpController::class, 'cetakSasaranKinerjaPegawai'])->name('tendik.skp.cetak_sasaran_kinerja_pegawai');
+        Route::get('/evaluasi_pegawai',[TendikSkpController::class, 'cetakEvaluasiPegawai'])->name('tendik.skp.evaluasi_pegawai');
+        Route::get('/cetak_nilai_kinerja',[TendikSkpController::class, 'cetakNilaiKinerja'])->name('tendik.skp.cetak_nilai_kinerja');
+    });
+
+    Route::prefix('profil_saya')->group(function() {
+        Route::get('/',[LppmProfilSayaController::class, 'index'])->name('tendik.profil');
+        Route::patch('/',[LppmProfilSayaController::class, 'ubahPassword'])->name('tendik.profil.ubah_password');
+        Route::patch('{id}/update',[LppmProfilSayaController::class, 'update'])->name('tendik.profil.update');
     });
 });
 
