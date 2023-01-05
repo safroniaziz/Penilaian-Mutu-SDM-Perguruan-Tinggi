@@ -38,6 +38,44 @@
         <li class="{{ set_active(['lpmpp.tendik','lpmpp.tendik.add','lpmpp.tendik.edit']) }}"><a href="{{ route('lpmpp.tendik') }}"><i class="fa fa-user"></i>Tenaga Kependidikan</a></li>
     </ul>
 </li>
+<li class="treeview {{ set_active(['lpmpp.babIndikator','lpmpp.indikator','lpmpp.babIndikator.add','lpmpp.babIndikator.edit','lpmpp.indikator.add','lpmpp.indikator.edit']) }}">
+    <a href="#">
+        <i class="fa fa-users"></i> <span>Indikator Mutu Dosen BAN-PT</span>
+        <span class="pull-right-container">
+            <i class="fa fa-angle-left pull-right"></i>
+        </span>
+    </a>
+    <ul class="treeview-menu " style="padding-left:25px;">
+        <li class="{{ set_active(['lpmpp.babIndikator','lpmpp.babIndikator.add','lpmpp.babIndikator.edit']) }}"><a href="{{ route('lpmpp.babIndikator') }}"><i class="fa fa-user"></i>Bab Indikator Penilaian</a></li>
+        <li class="{{ set_active(['lpmpp.indikator','lpmpp.indikator.add','lpmpp.indikator.edit']) }}"><a href="{{ route('lpmpp.indikator') }}"><i class="fa fa-user"></i>Indikator Penilaian</a></li>
+    </ul>
+</li>
+
+<li class="treeview {{ set_active(['lpmpp.KriteriaTendikBpmAspekTeknis','lpmpp.IndikatorTendikBpmAspekTeknis','lpmpp.KriteriaTendikBpmAspekTeknis.add','lpmpp.KriteriaTendikBpmAspekTeknis.edit','lpmpp.IndikatorTendikBpmAspekTeknis.add','lpmpp.IndikatorTendikBpmAspekTeknis.edit']) }}">
+    <a href="#">
+        <i class="fa fa-users"></i> <span>Kriteria Aspek Teknis</span>
+        <span class="pull-right-container">
+            <i class="fa fa-angle-left pull-right"></i>
+        </span>
+    </a>
+    <ul class="treeview-menu " style="padding-left:25px;">
+        <li class="{{ set_active(['lpmpp.KriteriaTendikBpmAspekTeknis','lpmpp.KriteriaTendikBpmAspekTeknis.add','lpmpp.KriteriaTendikBpmAspekTeknis.edit']) }}"><a href="{{ route('lpmpp.KriteriaTendikBpmAspekTeknis') }}"><i class="fa fa-user"></i>Kriteria Aspek Teknis</a></li>
+        <li class="{{ set_active(['lpmpp.IndikatorTendikBpmAspekTeknis','lpmpp.IndikatorTendikBpmAspekTeknis.add','lpmpp.IndikatorTendikBpmAspekTeknis.edit']) }}"><a href="{{ route('lpmpp.IndikatorTendikBpmAspekTeknis') }}"><i class="fa fa-user"></i>Indikator Aspek Teknis</a></li>
+    </ul>
+</li>
+
+<li class="treeview {{ set_active(['lpmpp.KriteriaTendikBpmAspekManajerial','lpmpp.IndikatorTendikBpmAspekManajerial','lpmpp.KriteriaTendikBpmAspekManajerial.add','lpmpp.KriteriaTendikBpmAspekManajerial.edit','lpmpp.IndikatorTendikBpmAspekManajerial.add','lpmpp.IndikatorTendikBpmAspekManajerial.edit']) }}">
+    <a href="#">
+        <i class="fa fa-users"></i> <span>Kriteria Aspek Manajerial</span>
+        <span class="pull-right-container">
+            <i class="fa fa-angle-left pull-right"></i>
+        </span>
+    </a>
+    <ul class="treeview-menu " style="padding-left:25px;">
+        <li class="{{ set_active(['lpmpp.KriteriaTendikBpmAspekManajerial','lpmpp.KriteriaTendikBpmAspekManajerial.add','lpmpp.KriteriaTendikBpmAspekManajerial.edit']) }}"><a href="{{ route('lpmpp.KriteriaTendikBpmAspekManajerial') }}"><i class="fa fa-user"></i>Kriteria Aspek Manajerial</a></li>
+        <li class="{{ set_active(['lpmpp.IndikatorTendikBpmAspekManajerial','lpmpp.IndikatorTendikBpmAspekManajerial.add','lpmpp.IndikatorTendikBpmAspekManajerial.edit']) }}"><a href="{{ route('lpmpp.IndikatorTendikBpmAspekManajerial') }}"><i class="fa fa-user"></i>Indikator Aspek Manajerial</a></li>
+    </ul>
+</li>
 
 <li class="{{ set_active('lpmpp.profil') }}">
     <a href="{{ route('lpmpp.profil') }}">
