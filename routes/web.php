@@ -5,6 +5,9 @@ use App\Http\Controllers\Dosen\DosenDashboardController;
 use App\Http\Controllers\Dosen\DosenSkpController;
 use App\Http\Controllers\Fakultas\FakultasDashboardController;
 use App\Http\Controllers\Fakultas\FakultasIkuController;
+use App\Http\Controllers\IndikatorTendikBanPtController;
+use App\Http\Controllers\Lpmpp\ReviewerIndikatorBanPt;
+use App\Http\Controllers\Lppm\LaporanReview;
 use App\Http\Controllers\OperatorProdi\ProdiDashboardController;
 use App\Http\Controllers\OperatorProdi\ProdiDosenController;
 use App\Http\Controllers\OperatorProdi\ProdiProfilSayaController;
@@ -27,11 +30,18 @@ use App\Http\Controllers\Lppm\LppmKriteriaTendikBpmAspekManajerialController;
 use App\Http\Controllers\Lppm\LppmIndikatorTendikBpmAspekManajerialController;
 use App\Http\Controllers\Lppm\LppmIndikatorTendikBpmAspekTeknisController;
 use App\Http\Controllers\Lppm\LppmKriteriaTendikBpmAspekTeknisController;
+use App\Http\Controllers\Lppm\ReviewerController;
 use App\Http\Controllers\OperatorUnit\UnitDashboardController;
 use App\Http\Controllers\OperatorUnit\UnitFormulirController;
 use App\Http\Controllers\OperatorUnit\UnitTendikController;
+use App\Http\Controllers\Reviewer\ReviewerDashboardController;
+use App\Http\Controllers\ReviewerIndikatorBanPtTendikController;
+use App\Http\Controllers\ReviewerIndikatorManajerialController;
+use App\Http\Controllers\ReviewerIndikatorTeknisController;
 use App\Http\Controllers\Tendik\TendikDashboardController;
 use App\Http\Controllers\Tendik\TendikSkpController;
+use App\Models\ReviewerIndikatorBanPtTendik;
+use App\Models\ReviewerIndikatorTeknis;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -87,10 +97,56 @@ Route::middleware('auth')->group(function () {
             Route::delete('{id}/delete', [LppmBabIndikatorPenilaianController::class, 'delete'])->name('lpmpp.babIndikator.delete');
         });
 
+        Route::prefix('manajemen_data_reviewer_indikator_banpt')->group(function () {
+            Route::get('/', [ReviewerIndikatorBanPt::class, 'index'])->name('lpmpp.reviewer_indikator_banpt');
+            Route::get('/tambah_bab_indikator', [ReviewerIndikatorBanPt::class, 'add'])->name('lpmpp.reviewer_indikator_banpt.add');
+            Route::post('/post', [ReviewerIndikatorBanPt::class, 'post'])->name('lpmpp.reviewer_indikator_banpt.post');
+            Route::delete('{id}/delete', [ReviewerIndikatorBanPt::class, 'delete'])->name('lpmpp.reviewer_indikator_banpt.delete');
+        });
+
+        Route::prefix('manajemen_data_reviewer_indikator_aspek_teknis')->group(function () {
+            Route::get('/', [ReviewerIndikatorTeknisController::class, 'index'])->name('lpmpp.reviewer_teknis');
+            Route::get('/tambah_bab_indikator', [ReviewerIndikatorTeknisController::class, 'add'])->name('lpmpp.reviewer_teknis.add');
+            Route::post('/post', [ReviewerIndikatorTeknisController::class, 'post'])->name('lpmpp.reviewer_teknis.post');
+            Route::delete('{id}/delete', [ReviewerIndikatorTeknisController::class, 'delete'])->name('lpmpp.reviewer_teknis.delete');
+        });
+
+        Route::prefix('manajemen_data_reviewer_indikator_aspek_manajerial')->group(function () {
+            Route::get('/', [ReviewerIndikatorManajerialController::class, 'index'])->name('lpmpp.reviewer_manajerial');
+            Route::get('/tambah_bab_indikator', [ReviewerIndikatorManajerialController::class, 'add'])->name('lpmpp.reviewer_manajerial.add');
+            Route::post('/post', [ReviewerIndikatorManajerialController::class, 'post'])->name('lpmpp.reviewer_manajerial.post');
+            Route::delete('{id}/delete', [ReviewerIndikatorManajerialController::class, 'delete'])->name('lpmpp.reviewer_manajerial.delete');
+        });
+
+        Route::prefix('manajemen_data_reviewer_indikator_ban_pt_tendik')->group(function () {
+            Route::get('/', [ReviewerIndikatorBanPtTendikController::class, 'index'])->name('lpmpp.reviewer_ban_pt_tendik');
+            Route::get('/tambah_bab_indikator', [ReviewerIndikatorBanPtTendikController::class, 'add'])->name('lpmpp.reviewer_ban_pt_tendik.add');
+            Route::post('/post', [ReviewerIndikatorBanPtTendikController::class, 'post'])->name('lpmpp.reviewer_ban_pt_tendik.post');
+            Route::delete('{id}/delete', [ReviewerIndikatorBanPtTendikController::class, 'delete'])->name('lpmpp.reviewer_ban_pt_tendik.delete');
+        });
+
+        Route::prefix('manajemen_data_reviewer')->group(function () {
+            Route::get('/', [ReviewerController::class, 'index'])->name('lpmpp.reviewers');
+            Route::get('/tambah_bab_indikator', [ReviewerController::class, 'add'])->name('lpmpp.reviewers.add');
+            Route::post('/post', [ReviewerController::class, 'post'])->name('lpmpp.reviewers.post');
+            Route::get('/{id}/edit', [ReviewerController::class, 'edit'])->name('lpmpp.reviewers.edit');
+            Route::patch('/{id}/update', [ReviewerController::class, 'update'])->name('lpmpp.reviewers.update');
+            Route::delete('{id}/delete', [ReviewerController::class, 'delete'])->name('lpmpp.reviewers.delete');
+        });
+
+        Route::prefix('manajemen_indikator_mutu_tendik_ban_pt')->group(function () {
+            Route::get('/', [IndikatorTendikBanPtController::class, 'index'])->name('lpmpp.tendik_ban_pt');
+            Route::get('/tambah_indikator_aspek_teknis', [IndikatorTendikBanPtController::class, 'add'])->name('lpmpp.tendik_ban_pt.add');
+            Route::post('/post', [IndikatorTendikBanPtController::class, 'post'])->name('lpmpp.tendik_ban_pt.post');
+            Route::get('/{id}/edit', [IndikatorTendikBanPtController::class, 'edit'])->name('lpmpp.tendik_ban_pt.edit');
+            Route::patch('/{id}/update', [IndikatorTendikBanPtController::class, 'update'])->name('lpmpp.tendik_ban_pt.update');
+            Route::delete('{id}/delete', [IndikatorTendikBanPtController::class, 'delete'])->name('lpmpp.tendik_ban_pt.delete');
+        });
+
         // KriteriaTendikBpmAspekTeknis
         Route::prefix('manajemen_data_kriteria_aspek_teknis')->group(function () {
             Route::get('/', [LppmKriteriaTendikBpmAspekTeknisController::class, 'index'])->name('lpmpp.KriteriaTendikBpmAspekTeknis');
-            Route::get('/tambah_kriteria_aspek_teknis', [LppmKriteriaTendikBpmAspekTeknisController::class, 'add'])->name('lpmpp.KriteriaTendikBpmAspekTeknis.add');
+            Route::get('/add', [LppmKriteriaTendikBpmAspekTeknisController::class, 'add'])->name('lpmpp.KriteriaTendikBpmAspekTeknis.add');
             Route::post('/post', [LppmKriteriaTendikBpmAspekTeknisController::class, 'post'])->name('lpmpp.KriteriaTendikBpmAspekTeknis.post');
             Route::get('/{id}/edit', [LppmKriteriaTendikBpmAspekTeknisController::class, 'edit'])->name('lpmpp.KriteriaTendikBpmAspekTeknis.edit');
             Route::patch('/{id}/update', [LppmKriteriaTendikBpmAspekTeknisController::class, 'update'])->name('lpmpp.KriteriaTendikBpmAspekTeknis.update');
@@ -181,6 +237,13 @@ Route::middleware('auth')->group(function () {
             Route::get('/{id}/edit', [LppmTendikController::class, 'edit'])->name('lpmpp.tendik.edit');
             Route::patch('/{id}/update', [LppmTendikController::class, 'update'])->name('lpmpp.tendik.update');
             Route::delete('{id}/delete', [LppmTendikController::class, 'delete'])->name('lpmpp.tendik.delete');
+        });
+
+        Route::prefix('laporan_hasil_review')->group(function () {
+            Route::get('/ban_pt_dosen', [LaporanReview::class, 'banPtDosen'])->name('lpmpp.ban_pt_dosen');
+            Route::get('/laporan_teknis', [LaporanReview::class, 'laporanTeknis'])->name('lpmpp.laporan_teknis');
+            Route::get('/laporan_manajerial', [LaporanReview::class, 'laporanManajerial'])->name('lpmpp.laporan_manajerial');
+            Route::get('/laporan_banpt_tendik', [LaporanReview::class, 'laporanBanPtTendik'])->name('lpmpp.laporan_banpt_tendik');
         });
 
         Route::prefix('profil_saya')->group(function () {
@@ -363,6 +426,31 @@ Route::middleware('isTendik')->prefix('tendik')->group(function() {
         Route::patch('{id}/update',[LppmProfilSayaController::class, 'update'])->name('tendik.profil.update');
     });
 });
+
+Route::middleware('isReviewer')->prefix('reviewer')->group(function() {
+    Route::get('/dashboard',[ReviewerDashboardController::class, 'dashboard'])->name('reviewer.dashboard');
+
+    Route::prefix('penilaian')->group(function() {
+        Route::get('/mutu_dosen_ban_pt',[ReviewerDashboardController::class, 'banPtDosen'])->name('reviewer.penilaian_banpt_dosen');
+        Route::post('/mutu_dosen_ban_pt_post',[ReviewerDashboardController::class, 'banPtDosenPost'])->name('reviewer.penilaian_banpt_dosen.post');
+
+        Route::get('/penilaian_teknis',[ReviewerDashboardController::class, 'teknisTendik'])->name('reviewer.penilaian_teknis');
+        Route::post('/penilaian_teknis_post',[ReviewerDashboardController::class, 'teknisTendikPost'])->name('reviewer.penilaian_teknis.post');
+        
+        Route::get('/penilaian_manajerial',[ReviewerDashboardController::class, 'manajerialTendik'])->name('reviewer.penilaian_manajerial');
+        Route::post('/penilaian_manajerial_post',[ReviewerDashboardController::class, 'manajerialTendikPost'])->name('reviewer.penilaian_manajerial.post');
+
+        Route::get('/mutu_tendik_ban_pt',[ReviewerDashboardController::class, 'banPtTendik'])->name('reviewer.penilaian_banpt_tendik');
+        Route::post('/mutu_tendik_ban_pt_post',[ReviewerDashboardController::class, 'banPtTendikPost'])->name('reviewer.penilaian_banpt_tendik.post');
+    });
+
+    Route::prefix('profil_saya')->group(function() {
+        Route::get('/',[LppmProfilSayaController::class, 'index'])->name('reviewer.profil');
+        Route::patch('/',[LppmProfilSayaController::class, 'ubahPassword'])->name('reviewer.profil.ubah_password');
+        Route::patch('{id}/update',[LppmProfilSayaController::class, 'update'])->name('reviewer.profil.update');
+    });
+});
+
 
 Route::get('/asesor', function () {
     return view('asesor');

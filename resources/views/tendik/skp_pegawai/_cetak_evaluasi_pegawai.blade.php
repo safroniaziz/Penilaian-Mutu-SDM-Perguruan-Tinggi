@@ -47,50 +47,74 @@
             <table style="width: 100%" class="tb">
                 <tr>
                     <td class="td">UNIVERSITAS BENGKULU</td>
-                    <td class="td" style="text-transform: uppercase; text-align:right">PERIODE PENILAIAN, {{ Carbon\Carbon::parse($dosen->skp->periode_awal)->isoFormat('D MMMM') }} SD {{ Carbon\Carbon::parse($dosen->skp->periode_akhir)->isoFormat('D MMMM') }}</td>
+                    <td class="td" style="text-transform: uppercase; text-align:right">PERIODE PENILAIAN, {{ Carbon\Carbon::parse($tendik->skp->periode_awal)->isoFormat('D MMMM') }} SD {{ Carbon\Carbon::parse($tendik->skp->periode_akhir)->isoFormat('D MMMM') }}</td>
                 </tr>
             </table>
             <table width=100% style="margin-bottom:5px;" class="tb">
                 <tr style="background:#bcd6ee">
-                    <td style="border: 1px solid black;" class="td text-center" width=3%>NO</td>
+                    <td style="border: 1px solid black;" class="td text-center" width="3%">NO</td>
                     <td style="border: 1px solid black;" class="td" width=48% colspan="3" colspan="2" class="text-center">PEGAWAI YANG DINILAI</td>
-                    <td style="border: 1px solid black;" class="td text-center" width=3% align="center">NO</td>
+                    <td style="border: 1px solid black; width:10px !important;" class="td text-center"  align="center">NO</td>
                     <td style="border: 1px solid black;" class="td" width=48% colspan="2" class="text-center">PEJABAT PENILAI KINERJA</td>
                 </tr>
                 <tr>
                     <td style="border: 1px solid black;" class="td text-center">1</td>
-                    <td style="border: 1px solid black;" class="td">NAMA</td>
-                    <td style="border: 1px solid black;" class="td">{{ $dosen->gelar_depan.' '.$dosen->nama_dosen.', '.$dosen->gelar_belakang }}</td>
+                    <td style="border: 1px solid black; width:20%" class="td">NAMA</td>
+                    <td style="border: 1px solid black;" class="td">{{ $tendik->nama_tendik }}</td>
                     <td style="border: 1px solid black;" class="td text-center">1</td>
                     <td style="border: 1px solid black;" class="td">NAMA</td>
-                    <td style="border: 1px solid black;" class="td">{{ $dosen->skp->penilai->gelar_depan.' '.$dosen->skp->penilai->nama_dosen.', '.$dosen->skp->penilai->gelar_belakang }}</td>
+                    <td style="border: 1px solid black;" class="td">
+                        @if (strlen(Auth::guard('tendik')->user()->skp->pejabat_penilai_id) > 5)
+                            {{ $tendik->skp->penilaiDosen->gelar_depan.' '.$tendik->skp->penilaiDosen->nama_dosen.', '.$tendik->skp->penilaiDosen->gelar_belakang }}
+                        @else
+                            {{ $tendik->skp->penilai->nama_tendik }}
+                        @endif
+                    </td>
                 </tr>
 
                 <tr>
                     <td style="border: 1px solid black;" class="td text-center">2</td>
                     <td style="border: 1px solid black;" class="td">NIP</td>
-                    <td style="border: 1px solid black;" class="td">{{ $dosen->id }}</td>
+                    <td style="border: 1px solid black;" class="td">{{ $tendik->id }}</td>
                     <td style="border: 1px solid black;" class="td text-center">2</td>
                     <td style="border: 1px solid black;" class="td">NIP</td>
-                    <td style="border: 1px solid black;" class="td">{{ $dosen->skp->penilai->id }}</td>
+                    <td style="border: 1px solid black;" class="td">
+                        @if (strlen(Auth::guard('tendik')->user()->skp->pejabat_penilai_id) > 5)
+                            {{ $tendik->skp->penilaiDosen->id }}
+                        @else
+                            {{ $tendik->skp->penilai->nip }}
+                        @endif
+                    </td>
                 </tr>
 
                 <tr>
                     <td style="border: 1px solid black;" class="td text-center">3</td>
                     <td style="border: 1px solid black;" class="td">PANGKAT/GOL.RUANG</td>
-                    <td style="border: 1px solid black;" class="td">{{ $dosen->pangkat != "" ? $dosen->pangkat : '-'.'/'.$dosen->golongan }}</td>
+                    <td style="border: 1px solid black;" class="td">{{ $tendik->pangkat != "" ? $tendik->pangkat : '-'.'/'.$tendik->golongan }}</td>
                     <td style="border: 1px solid black;" class="td text-center">3</td>
                     <td style="border: 1px solid black;" class="td">PANGKAT/GOL.RUANG</td>
-                    <td style="border: 1px solid black;" class="td">{{ $dosen->skp->penilai->pangkat != "" ? $dosen->skp->penilai->pangkat : '-'.'/'.$dosen->skp->penilai->golongan }}</td>
+                    <td style="border: 1px solid black;" class="td">
+                        @if (strlen(Auth::guard('tendik')->user()->skp->pejabat_penilai_id) > 5)
+                            {{ $tendik->skp->penilaiDosen->pangkat != "" ? $tendik->skp->penilaiDosen->pangkat : '-'.'/'.$tendik->skp->penilaiDosen->golongan }}
+                        @else
+                            {{ $tendik->skp->penilai->pangkat != "" ? $tendik->skp->penilai->pangkat : '-'.'/'.$tendik->skp->penilai->golongan }}
+                        @endif
+                    </td>
                 </tr>
 
                 <tr>
                     <td style="border: 1px solid black;" class="td text-center">3</td>
                     <td style="border: 1px solid black;" class="td">JABATAN</td>
-                    <td style="border: 1px solid black;" class="td">{{ $dosen->jabatan_akademik != "Tidak Ada Data" ? $dosen->jabatan_akademik : '-' }}</td>
+                    <td style="border: 1px solid black;" class="td">{{ $tendik->jabatan != "Tidak Ada Data" ? $tendik->jabatan : '-' }}</td>
                     <td style="border: 1px solid black;" class="td text-center">3</td>
                     <td style="border: 1px solid black;" class="td">JABATAN</td>
-                    <td style="border: 1px solid black;" class="td">{{ $dosen->skp->penilai->jabatan_akademik != "Tidak Ada Data" ? $dosen->skp->penilai->jabatan_akademik : '-' }}</td>
+                    <td style="border: 1px solid black;" class="td">
+                        @if (strlen(Auth::guard('tendik')->user()->skp->pejabat_penilai_id) > 5)
+                            {{ $tendik->skp->penilaiDosen->jabatan_akademik != "Tidak Ada Data" ? $tendik->skp->penilaiDosen->jabatan_akademik : '-' }}
+                        @else
+                            {{ $tendik->skp->penilai->jabatan != "Tidak Ada Data" ? $tendik->skp->penilai->jabatan : '-' }}
+                        @endif    
+                    </td>
                 </tr>
                 <tr style="background:#bcd6ee">
                     <td colspan="6" style="border: 1px solid black;">
@@ -99,7 +123,7 @@
                 </tr>
                 <tr style="background:#bcd6ee">
                     <td colspan="6" style="border: 1px solid black; text-transform:uppercase">
-                        {{ $dosen->skp->capaian_kinerja_organisasi }}
+                        {{ $tendik->skp->capaian_kinerja_organisasi }}
                     </td>
                 </tr>
                 <tr style="background:#bcd6ee">
@@ -109,15 +133,15 @@
                 </tr>
                 <tr style="background:#bcd6ee">
                     <td colspan="6" style="border: 1px solid black; padding:3px 0px !important;" class="text-center">
-                        @if ($dosen->skp->capaian_kinerja_organisasi == "istimewa")
+                        @if ($tendik->skp->capaian_kinerja_organisasi == "istimewa")
                             <img src="data:image/png;base64,{{ base64_encode(file_get_contents(public_path('assets/chart/sangat_baik.png'))) }}" alt="">
-                        @elseif ($dosen->skp->capaian_kinerja_organisasi == "baik")
+                        @elseif ($tendik->skp->capaian_kinerja_organisasi == "baik")
                             <img src="data:image/png;base64,{{ base64_encode(file_get_contents(public_path('assets/chart/baik.png'))) }}" alt="">
-                        @elseif ($dosen->skp->capaian_kinerja_organisasi == "butuh_perbaikan")
+                        @elseif ($tendik->skp->capaian_kinerja_organisasi == "butuh_perbaikan")
                             <img src="data:image/png;base64,{{ base64_encode(file_get_contents(public_path('assets/chart/butuh_perbaikan.png'))) }}" alt="">
-                        @elseif ($dosen->skp->capaian_kinerja_organisasi == "kurang")
+                        @elseif ($tendik->skp->capaian_kinerja_organisasi == "kurang")
                             <img src="data:image/png;base64,{{ base64_encode(file_get_contents(public_path('assets/chart/kurang.png'))) }}" alt="">
-                        @elseif ($dosen->skp->capaian_kinerja_organisasi == "sangat_kurang")
+                        @elseif ($tendik->skp->capaian_kinerja_organisasi == "sangat_kurang")
                             <img src="data:image/png;base64,{{ base64_encode(file_get_contents(public_path('assets/chart/sangat_kurang.png'))) }}" alt="">
                         @endif
                     </td>
@@ -143,7 +167,7 @@
                         <b>A. UTAMA</b>
                     </td>
                 </tr>
-                @foreach ($dosen->skp->skpDetails()->get() as $index=> $item)
+                @foreach ($tendik->skp->skpDetails()->get() as $index=> $item)
                     <tr>
                         <td style="border-top: 1px solid black;border-left: 1px solid black;" class="text-center">{{ $index+1 }}</td>
                         <td style="border: 1px solid black;">{{ $item->ikkPimpinan->keterangan_ikk }} <br>
@@ -174,24 +198,24 @@
                         <b>Rekomendasi</b>
                     </td>
                     <td class="text-center" style="border: 1px solid black;"">
-                        {{-- {{ $dosen->skp->jumlah_angka_angka/$dosen->skp->total_angka }} --}}
-                        {{ $dosen->skp->rata_rata_angka }}
+                        {{-- {{ $tendik->skp->jumlah_angka_angka/$tendik->skp->total_angka }} --}}
+                        {{ $tendik->skp->rata_rata_angka }}
                     </td>
                 </tr>
                 <tr style="background:#bcd6ee;">
                     <td colspan="4" style="border: 1px solid black;">
-                        @if ($dosen->skp->rating_hasil_kerja == "sesuai_ekspektasi")
+                        @if ($tendik->skp->rating_hasil_kerja == "sesuai_ekspektasi")
                             SESUAI EKSPEKTASI
-                        @elseif ($dosen->skp->rating_hasil_kerja == "diatas_ekspektasi")
+                        @elseif ($tendik->skp->rating_hasil_kerja == "diatas_ekspektasi")
                             DIATAS EKSPEKTASI
                         @else
                             DIBAWAH EKSPEKTASI
                         @endif
                     </td>
                     <td style="font-weight: bold; width:15%;border: 1px solid black;" rowspan="2" class="text-center">
-                        @if ($dosen->skp->rata_rata_angka == 1)
+                        @if ($tendik->skp->rata_rata_angka == 1)
                             DIBAWAH EKSPEKTASI
-                        @elseif ($dosen->skp->rata_rata_angka == 1)
+                        @elseif ($tendik->skp->rata_rata_angka == 1)
                             SESUAI EKSPEKTASI
                         @else
                             DIATAS EKSPEKTASI
@@ -366,15 +390,15 @@
                         <b>Rekomendasi</b>
                     </td>
                     <td class="text-center" style="border: 1px solid black;"">
-                        {{-- {{ $dosen->skp->jumlah_angka_angka/$dosen->skp->total_angka }} --}}
+                        {{-- {{ $tendik->skp->jumlah_angka_angka/$tendik->skp->total_angka }} --}}
                         2
                     </td>
                 </tr>
                 <tr style="background:#bcd6ee;">
                     <td colspan="4" style="border: 1px solid black;">
-                        @if ($dosen->skp->rating_perilaku_kerja == "sesuai_ekspektasi")
+                        @if ($tendik->skp->rating_perilaku_kerja == "sesuai_ekspektasi")
                             SESUAI EKSPEKTASI
-                        @elseif ($dosen->skp->rating_perilaku_kerja == "diatas_ekspektasi")
+                        @elseif ($tendik->skp->rating_perilaku_kerja == "diatas_ekspektasi")
                             DIATAS EKSPEKTASI
                         @else
                             DIBAWAH EKSPEKTASI
@@ -400,7 +424,7 @@
                 <tr>
                     <td class="td"></td>
                     <td class="text-center td">
-                        Bengkulu, {{ Carbon\Carbon::parse($dosen->skp->ttd_pejabat)->isoFormat('D MMMM Y') }}
+                        Bengkulu, {{ Carbon\Carbon::parse($tendik->skp->ttd_pejabat)->isoFormat('D MMMM Y') }}
                     </td>
                 </tr>
                 <tr>
@@ -414,12 +438,24 @@
                     <td></td>
                 </tr>
                 <tr>
-                    <td class="text-center td"></td>
-                    <td class="text-center td">{{ $dosen->skp->penilai->gelar_depan.'. '.$dosen->skp->penilai->nama_dosen.', '.$dosen->skp->penilai->gelar_belakang }}</td>
+                    <td class="text-center td">{{ $tendik->nama_tendik }}</td>
+                    <td class="text-center td">
+                        @if (strlen(Auth::guard('tendik')->user()->skp->pejabat_penilai_id) > 5)
+                            {{ $tendik->skp->penilaiDosen->gelar_depan.'. '.$tendik->skp->penilaiDosen->nama_dosen.', '.$tendik->skp->penilaiDosen->gelar_belakang }}
+                        @else
+                            {{ $tendik->skp->penilai->nama_tendik }}
+                        @endif
+                    </td>
                 </tr>
                 <tr>
-                    <td class="text-center td" style="color: white">a</td>
-                    <td class="text-center td">NIP {{ $dosen->skp->penilai->id }}</td>
+                    <td class="text-center td">NIP {{ $tendik->id }}</td>
+                    <td class="text-center td">NIP 
+                        @if (strlen(Auth::guard('tendik')->user()->skp->pejabat_penilai_id) > 5)
+                            {{ $tendik->skp->penilaiDosen->id }}
+                        @else
+                            {{ $tendik->skp->penilai->nip }}
+                        @endif
+                    </td>
                 </tr>
             </table>
         </div>

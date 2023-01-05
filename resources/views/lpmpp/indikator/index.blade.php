@@ -88,7 +88,7 @@
                                 <th>Nama Bab</th>
                                 <th>Indikator</th>
                                 <th>Keterangan</th>
-                                <th>Skor</th>
+                                {{-- <th>Skor</th> --}}
                                 <th>Aksi</th>
                             </tr>
                         </thead>
@@ -102,7 +102,7 @@
                                     <td> {{ $indikator->nama_bab }} </td>
                                     <td>{{ $indikator->indikator }}</td>
                                     <td>{{ $indikator->keterangan }}</td>
-                                    <td>{{ $indikator->skor }}</td>
+                                    {{-- <td>{{ $indikator->skor }}</td> --}}
                                           <td style="display:inline-block !important;">
                                             <table>
                                                 <tr>

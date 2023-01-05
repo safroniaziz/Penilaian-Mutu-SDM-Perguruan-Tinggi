@@ -4,10 +4,10 @@
     <i class="fa fa-dashboard"></i>&nbsp;DASHBOARD
 @endsection
 @section('user-login')
-    {{  Session::get('dosen')->nama_dosen  }}
+    {{ Auth::guard('tendik')->user()->nama_tendik }}
 @endsection
 @section('halaman')
-    Halaman Dosen
+    Halaman Tendik
 @endsection
 @section('content-title')
     Dashboard
@@ -18,7 +18,7 @@
     <li class="active">Dashboard</li>
 @endsection
 @section('sidebar-menu')
-    @include('dosen/sidebar')
+    @include('tendik/sidebar')
 @endsection
 @section('user')
     <!-- User Account Menu -->
@@ -28,7 +28,7 @@
           <!-- The user image in the navbar-->
           <i class="fa fa-user"></i>&nbsp;
           <!-- hidden-xs hides the username on small devices so only the image appears. -->
-          <span class="hidden-xs">{{ Session::get('dosen')->nama_dosen }} </span>
+          <span class="hidden-xs">{{ Auth::guard('tendik')->user()->nama_tendik }}</span>
         </a>
     </li>
     <li>
@@ -41,9 +41,37 @@
     </li>
 @endsection
 @push('styles')
-    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
     <style>
-        #chartdiv {
+        #chartdivperfakultas {
+            width: 90%;
+            height: 350px;
+        }
+        #chartdivperjabatantendik {
+            width: 90%;
+            height: 350px;
+        }
+        #chartdivperjk {
+            width: 90%;
+            height: 350px;
+        }
+        #chartdivtendikpergolongan {
+            width: 90%;
+            height: 350px;
+        }
+
+        #chartdivperunit {
+            width: 90%;
+            height: 350px;
+        }
+        #chartdivtendikpergolongan {
+            width: 90%;
+            height: 500px;
+        }
+        #chartdivtendikperpangkat {
+            width: 90%;
+            height: 500px;
+        }
+        #chartdivtendikperkelas {
             width: 90%;
             height: 500px;
         }
@@ -57,7 +85,7 @@
     <div class="col-md-12">
         <div class="box box-primary">
             <div class="box-header with-border">
-                <h3 class="box-title"><i class="fa fa-user-circle"></i>&nbsp;Tambah Data Detail SKP Dosen</h3>
+                <h3 class="box-title"><i class="fa fa-user-circle"></i>&nbsp;Tambah Data Detail SKP tendik</h3>
             </div>
             <div class="box-body">
                 <div class="row">
@@ -75,7 +103,7 @@
                                 @else
                         @endif
                     </div>
-                    <form action="{{ route('dosen.skp.detail_post',[$skp->id]) }}" method="POST" >
+                    <form action="{{ route('tendik.skp.detail_post',[$skp->id]) }}" method="POST" >
                         {{ csrf_field() }} {{ method_field('POST') }}
                             <div class="form-group col-md-12">
                                 <label for="exampleInputEmail1">IKK Pimpinan</label>
@@ -158,7 +186,7 @@
                             </div>
 
                             <div class="col-md-12 text-center">
-                                <a href="{{ route('dosen.skp') }}" class="btn btn-warning btn-sm" style="color: white"><i class="fa fa-arrow-left"></i>&nbsp; Kembali</a>
+                                <a href="{{ route('tendik.skp') }}" class="btn btn-warning btn-sm" style="color: white"><i class="fa fa-arrow-left"></i>&nbsp; Kembali</a>
                                 <button type="reset" name="reset" class="btn btn-danger btn-sm btn-flat"><i class="fa fa-refresh"></i>&nbsp;Ulangi</button>
                                 <button type="submit" class="btn btn-primary btn-sm btn-flat"><i class="fa fa-check-circle"></i>&nbsp;Simpan</button>
                             </div>
@@ -175,7 +203,7 @@
             var ikk_pimpinan_id = $(this).val();
             $.ajax({
             type :'get',
-            url: "{{ url('dosen/manajemen_data_skp/cari_ikk') }}",
+            url: "{{ url('tendik/manajemen_data_skp/cari_ikk') }}",
             data:{'ikk_pimpinan_id':ikk_pimpinan_id},
                 success:function(data){
                     $('#keterangan_ikk').val(data.keterangan_ikk);

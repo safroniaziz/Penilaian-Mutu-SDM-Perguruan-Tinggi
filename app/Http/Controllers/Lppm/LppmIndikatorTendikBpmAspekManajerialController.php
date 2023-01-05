@@ -11,50 +11,44 @@ class LppmIndikatorTendikBpmAspekManajerialController extends Controller
 {
     public function index()
     {
-        $indikator = IndikatorTendikBpmAspekManajerial::select('indikator_ban_pt_dosens.id', 'bab_indikator_ban_pt_dosens.nama_bab', 'indikator', 'keterangan', 'skor')->join('bab_indikator_ban_pt_dosens', 'bab_indikator_ban_pt_dosens.id', '=', 'indikator_ban_pt_dosens.bab_indikator_ban_pt_dosen_id')->get();
-        return view('lpmpp/indikator.index', compact('indikator'));
+        $indikators = IndikatorTendikBpmAspekManajerial::all();
+        return view('lpmpp/IndikatorTendikBpmAspekManajerial.index', compact('indikators'));
     }
 
     public function add()
     {
-        $bab = KriteriaTendikBpmAspekManajerial::select('id', 'nama_bab')->get();
-        return view('lpmpp/indikator.add', compact('bab'));
+        $bab = KriteriaTendikBpmAspekManajerial::select('id', 'kriteria')->get();
+        return view('lpmpp/IndikatorTendikBpmAspekManajerial.add', compact('bab'));
     }
 
     public function post(Request $request)
     {
         $attributes = [
-            'nama_bab'         =>  'Nama Bab Indikator Penilaian',
+            'kriteria_aspek_manajerial_id'    =>  'Kriteria Aspek Manajerial',
             'indikator'    =>  'Indikator',
-            'skor'    =>  'Skor',
-            'keterangan'    =>  'Keterangan',
         ];
         $this->validate($request, [
-            'nama_bab'         => 'required',
+            'kriteria_aspek_manajerial_id'         => 'required',
             'indikator'         => 'required',
-            'skor'         => 'required',
-            'keterangan'         => 'required',
         ], $attributes);
 
         $unit = IndikatorTendikBpmAspekManajerial::create([
-            'bab_indikator_ban_pt_dosen_id'         =>  $request->nama_bab,
+            'kriteria_aspek_manajerial_id'         =>  $request->kriteria_aspek_manajerial_id,
             'indikator'    =>  $request->indikator,
-            'skor'    =>  $request->skor,
-            'keterangan'    =>  $request->keterangan,
         ]);
 
         $notification = array(
             'message' => 'Berhasil, data Indikator Penilaian berhasil ditambahkan!',
             'alert-type' => 'success'
         );
-        return redirect()->route('lpmpp.indikator')->with($notification);
+        return redirect()->route('lpmpp.IndikatorTendikBpmAspekManajerial')->with($notification);
     }
     public function edit($id)
     {
         $data = IndikatorTendikBpmAspekManajerial::where('id', $id)->first();
         $bab = KriteriaTendikBpmAspekManajerial::select('id', 'nama_bab')->get();
 
-        return view('lpmpp/indikator.edit', compact('data', 'bab'));
+        return view('lpmpp/IndikatorTendikBpmAspekManajerial.edit', compact('data', 'bab'));
     }
     public function update(Request $request, $id)
     {
@@ -82,7 +76,7 @@ class LppmIndikatorTendikBpmAspekManajerialController extends Controller
             'message' => 'Berhasil, data Indikator Penilaian berhasil diubah!',
             'alert-type' => 'success'
         );
-        return redirect()->route('lpmpp.indikator')->with($notification);
+        return redirect()->route('lpmpp.IndikatorTendikBpmAspekManajerial')->with($notification);
     }
     public function delete($id)
     {
@@ -91,6 +85,6 @@ class LppmIndikatorTendikBpmAspekManajerialController extends Controller
             'message' => ' data Indikator Penilaian berhasil dihapus!',
             'alert-type' => 'success'
         );
-        return redirect()->route('lpmpp.indikator')->with($notification);
+        return redirect()->route('lpmpp.IndikatorTendikBpmAspekManajerial')->with($notification);
     }
 }

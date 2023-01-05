@@ -168,6 +168,12 @@ class LoginController extends Controller
                             'alert-type' => 'success'
                         );
                         return redirect()->route('operator_fakultas.dashboard')->with($notification1);;
+                    }elseif (auth()->user()->akses == "reviewer") {
+                        $notification1 = array(
+                            'message' => 'Berhasil, anda login sebagai reviewer!',
+                            'alert-type' => 'success'
+                        );
+                        return redirect()->route('reviewer.dashboard')->with($notification1);;
                     }else {
                         Auth::logout();
                         return redirect()->route('login')->with(['error' =>  'Masukan akun anda yang terdaftar']);

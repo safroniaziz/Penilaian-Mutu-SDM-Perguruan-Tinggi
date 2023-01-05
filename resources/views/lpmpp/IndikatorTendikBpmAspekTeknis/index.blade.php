@@ -60,7 +60,7 @@
             <div class="box-header with-border">
                 <h3 class="box-title"><i class="fa fa-calendar-times-o"></i>&nbsp;Indikator Penilaian</h3>
                 <div class="pull-right">
-                    <a href="{{ route('lpmpp.indikator.add') }}" class="btn btn-primary btn-sm btn-flat"><i class="fa fa-plus"></i>&nbsp; Tambah Data Indikator Penilaian</a>
+                    <a href="{{ route('lpmpp.IndikatorTendikBpmAspekTeknis.add') }}" class="btn btn-primary btn-sm btn-flat"><i class="fa fa-plus"></i>&nbsp; Tambah Data Indikator Penilaian</a>
                 </div>
             </div>
             <div class="box-body">
@@ -85,10 +85,8 @@
                         <thead>
                             <tr>
                                 <th>No</th>
-                                <th>Nama Bab</th>
+                                <th>Kriteria</th>
                                 <th>Indikator</th>
-                                <th>Keterangan</th>
-                                <th>Skor</th>
                                 <th>Aksi</th>
                             </tr>
                         </thead>
@@ -96,26 +94,19 @@
                             @php
                                 $no=1;
                             @endphp
-                            @foreach ($indikator as $indikator)
+                            @foreach ($indikators as $indikator)
                                 <tr>
                                     <td> {{ $no++ }} </td>
-                                    <td> {{ $indikator->nama_bab }} </td>
+                                    <td> {{ $indikator->kriteria->kriteria }} </td>
                                     <td>{{ $indikator->indikator }}</td>
-                                    <td>{{ $indikator->keterangan }}</td>
-                                    <td>{{ $indikator->skor }}</td>
-                                          <td style="display:inline-block !important;">
+                                        <td style="display:inline-block !important;">
                                             <table>
                                                 <tr>
                                                     <td>
-                                                       <a href="{{ route('lpmpp.indikator.edit',[$indikator->id]) }}" class="btn btn-primary btn-sm btn-flat"><i class="fa fa-edit"></i>&nbsp; Edit</a>
 
-
-                                                    </td>
-                                                    <td>
-
-                                                       <form action="{{ route('lpmpp.indikator.delete',[$indikator->id]) }}" method="POST">
-                                                         {{ csrf_field() }} {{ method_field("DELETE") }}
-                                                 <a href="" onClick="return confirm('Apakah anda yakin menghapus data ini?')"/><button type="submit" class="btn btn-danger btn-sm btn-flat"><i class="fa fa-trash"></i>&nbsp; Hapus</button></a>
+                                                        <form action="{{ route('lpmpp.IndikatorTendikBpmAspekTeknis',[$indikator->id]) }}" method="POST">
+                                                            {{ csrf_field() }} {{ method_field("DELETE") }}
+                                                    <a href="" onClick="return confirm('Apakah anda yakin menghapus data ini?')"/><button type="submit" class="btn btn-danger btn-sm btn-flat"><i class="fa fa-trash"></i>&nbsp; Hapus</button></a>
 
                                                             </form>
                                                     </td>

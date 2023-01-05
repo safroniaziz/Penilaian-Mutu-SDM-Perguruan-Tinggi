@@ -38,9 +38,9 @@
         <li class="{{ set_active(['lpmpp.tendik','lpmpp.tendik.add','lpmpp.tendik.edit']) }}"><a href="{{ route('lpmpp.tendik') }}"><i class="fa fa-user"></i>Tenaga Kependidikan</a></li>
     </ul>
 </li>
-<li class="treeview {{ set_active(['lpmpp.babIndikator','lpmpp.indikator','lpmpp.babIndikator.add','lpmpp.babIndikator.edit','lpmpp.indikator.add','lpmpp.indikator.edit']) }}">
+<li class="treeview {{ set_active(['lpmpp.babIndikator','lpmpp.indikator','lpmpp.babIndikator.add','lpmpp.babIndikator.edit','lpmpp.indikator.add','lpmpp.indikator.edit','lpmpp.reviewer_indikator_banpt','lpmpp.reviewer_indikator_banpt.add','lpmpp.reviewer_indikator_banpt.edit']) }}">
     <a href="#">
-        <i class="fa fa-users"></i> <span>Indikator Mutu Dosen BAN-PT</span>
+        <i class="fa fa-list"></i> <span>Indikator Mutu BAN-PT</span>
         <span class="pull-right-container">
             <i class="fa fa-angle-left pull-right"></i>
         </span>
@@ -48,12 +48,13 @@
     <ul class="treeview-menu " style="padding-left:25px;">
         <li class="{{ set_active(['lpmpp.babIndikator','lpmpp.babIndikator.add','lpmpp.babIndikator.edit']) }}"><a href="{{ route('lpmpp.babIndikator') }}"><i class="fa fa-user"></i>Bab Indikator Penilaian</a></li>
         <li class="{{ set_active(['lpmpp.indikator','lpmpp.indikator.add','lpmpp.indikator.edit']) }}"><a href="{{ route('lpmpp.indikator') }}"><i class="fa fa-user"></i>Indikator Penilaian</a></li>
+        <li class="{{ set_active(['lpmpp.reviewer_indikator_banpt','lpmpp.reviewer_indikator_banpt.add','lpmpp.reviewer_indikator_banpt.edit']) }}"><a href="{{ route('lpmpp.reviewer_indikator_banpt') }}"><i class="fa fa-user"></i>Reviewer Mutu BAN-PT</a></li>
     </ul>
 </li>
 
-<li class="treeview {{ set_active(['lpmpp.KriteriaTendikBpmAspekTeknis','lpmpp.IndikatorTendikBpmAspekTeknis','lpmpp.KriteriaTendikBpmAspekTeknis.add','lpmpp.KriteriaTendikBpmAspekTeknis.edit','lpmpp.IndikatorTendikBpmAspekTeknis.add','lpmpp.IndikatorTendikBpmAspekTeknis.edit']) }}">
+<li class="treeview {{ set_active(['lpmpp.KriteriaTendikBpmAspekTeknis','lpmpp.IndikatorTendikBpmAspekTeknis','lpmpp.KriteriaTendikBpmAspekTeknis.add','lpmpp.KriteriaTendikBpmAspekTeknis.edit','lpmpp.IndikatorTendikBpmAspekTeknis.add','lpmpp.IndikatorTendikBpmAspekTeknis.edit','lpmpp.reviewer_teknis','lpmpp.reviewer_teknis.add','lpmpp.reviewer_teknis.edit']) }}">
     <a href="#">
-        <i class="fa fa-users"></i> <span>Kriteria Aspek Teknis</span>
+        <i class="fa fa-list-alt"></i> <span>Kriteria Aspek Teknis</span>
         <span class="pull-right-container">
             <i class="fa fa-angle-left pull-right"></i>
         </span>
@@ -61,12 +62,13 @@
     <ul class="treeview-menu " style="padding-left:25px;">
         <li class="{{ set_active(['lpmpp.KriteriaTendikBpmAspekTeknis','lpmpp.KriteriaTendikBpmAspekTeknis.add','lpmpp.KriteriaTendikBpmAspekTeknis.edit']) }}"><a href="{{ route('lpmpp.KriteriaTendikBpmAspekTeknis') }}"><i class="fa fa-user"></i>Kriteria Aspek Teknis</a></li>
         <li class="{{ set_active(['lpmpp.IndikatorTendikBpmAspekTeknis','lpmpp.IndikatorTendikBpmAspekTeknis.add','lpmpp.IndikatorTendikBpmAspekTeknis.edit']) }}"><a href="{{ route('lpmpp.IndikatorTendikBpmAspekTeknis') }}"><i class="fa fa-user"></i>Indikator Aspek Teknis</a></li>
+        <li class="{{ set_active(['lpmpp.reviewer_teknis','lpmpp.reviewer_teknis.add','lpmpp.reviewer_teknis.edit']) }}"><a href="{{ route('lpmpp.reviewer_teknis') }}"><i class="fa fa-user"></i>Reviewer Indikator Teknis</a></li>
     </ul>
 </li>
 
-<li class="treeview {{ set_active(['lpmpp.KriteriaTendikBpmAspekManajerial','lpmpp.IndikatorTendikBpmAspekManajerial','lpmpp.KriteriaTendikBpmAspekManajerial.add','lpmpp.KriteriaTendikBpmAspekManajerial.edit','lpmpp.IndikatorTendikBpmAspekManajerial.add','lpmpp.IndikatorTendikBpmAspekManajerial.edit']) }}">
+<li class="treeview {{ set_active(['lpmpp.KriteriaTendikBpmAspekManajerial','lpmpp.IndikatorTendikBpmAspekManajerial','lpmpp.KriteriaTendikBpmAspekManajerial.add','lpmpp.KriteriaTendikBpmAspekManajerial.edit','lpmpp.IndikatorTendikBpmAspekManajerial.add','lpmpp.IndikatorTendikBpmAspekManajerial.edit','lpmpp.reviewer_manajerial','lpmpp.reviewer_manajerial.add','lpmpp.reviewer_manajerial.edit']) }}">
     <a href="#">
-        <i class="fa fa-users"></i> <span>Kriteria Aspek Manajerial</span>
+        <i class="fa fa-check-circle"></i> <span>Kriteria Aspek Manajerial</span>
         <span class="pull-right-container">
             <i class="fa fa-angle-left pull-right"></i>
         </span>
@@ -74,6 +76,43 @@
     <ul class="treeview-menu " style="padding-left:25px;">
         <li class="{{ set_active(['lpmpp.KriteriaTendikBpmAspekManajerial','lpmpp.KriteriaTendikBpmAspekManajerial.add','lpmpp.KriteriaTendikBpmAspekManajerial.edit']) }}"><a href="{{ route('lpmpp.KriteriaTendikBpmAspekManajerial') }}"><i class="fa fa-user"></i>Kriteria Aspek Manajerial</a></li>
         <li class="{{ set_active(['lpmpp.IndikatorTendikBpmAspekManajerial','lpmpp.IndikatorTendikBpmAspekManajerial.add','lpmpp.IndikatorTendikBpmAspekManajerial.edit']) }}"><a href="{{ route('lpmpp.IndikatorTendikBpmAspekManajerial') }}"><i class="fa fa-user"></i>Indikator Aspek Manajerial</a></li>
+        <li class="{{ set_active(['lpmpp.reviewer_manajerial','lpmpp.reviewer_manajerial.add','lpmpp.reviewer_manajerial.edit']) }}"><a href="{{ route('lpmpp.reviewer_manajerial') }}"><i class="fa fa-user"></i>Reviewer Indikator Manajerial</a></li>
+
+    </ul>
+</li>
+
+<li class="treeview {{ set_active(['lpmpp.tendik_ban_pt','lpmpp.reviewer_ban_pt_tendik','lpmpp.tendik_ban_pt.add','lpmpp.tendik_ban_pt.edit','lpmpp.reviewer_ban_pt_tendik.add','lpmpp.reviewer_ban_pt_tendik.edit']) }}">
+    <a href="#">
+        <i class="fa fa-info-circle"></i> <span>Kriteria BAN-PT Tendik</span>
+        <span class="pull-right-container">
+            <i class="fa fa-angle-left pull-right"></i>
+        </span>
+    </a>
+    <ul class="treeview-menu " style="padding-left:25px;">
+        <li class="{{ set_active(['lpmpp.tendik_ban_pt','lpmpp.tendik_ban_pt.add','lpmpp.tendik_ban_pt.edit']) }}"><a href="{{ route('lpmpp.tendik_ban_pt') }}"><i class="fa fa-user"></i>Indikator BAN-PT Tendik</a></li>
+        <li class="{{ set_active(['lpmpp.reviewer_ban_pt_tendik','lpmpp.reviewer_ban_pt_tendik.add','lpmpp.reviewer_ban_pt_tendik.edit']) }}"><a href="{{ route('lpmpp.reviewer_ban_pt_tendik') }}"><i class="fa fa-user"></i>Reviewer BAN-PT Tendik</a></li>
+    </ul>
+</li>
+
+<li class="{{ set_active('lpmpp.reviewers') }}">
+    <a href="{{ route('lpmpp.reviewers') }}">
+        <i class="fa fa-users"></i> <span>Manajemen Data Reviewer</span>
+    </a>
+</li>
+
+<li class="header" style="font-weight:bold;">LAPORAN</li>
+<li class="treeview {{ set_active(['lpmpp.ban_pt_dosen','lpmpp.laporan_teknis','lpmpp.ban_pt_dosen.add','lpmpp.ban_pt_dosen.edit','lpmpp.laporan_teknis.add','lpmpp.laporan_teknis.edit','lpmpp.laporan_manajerial','lpmpp.laporan_manajerial.add','lpmpp.laporan_manajerial.edit','lpmpp.laporan_banpt_tendik','lpmpp.laporan_banpt_tendik.add','lpmpp.laporan_banpt_tendik.edit']) }}">
+    <a href="#">
+        <i class="fa fa-check-circle"></i> <span>Laporan Hasil Review</span>
+        <span class="pull-right-container">
+            <i class="fa fa-angle-left pull-right"></i>
+        </span>
+    </a>
+    <ul class="treeview-menu " style="padding-left:25px;">
+        <li class="{{ set_active(['lpmpp.ban_pt_dosen']) }}"><a href="{{ route('lpmpp.ban_pt_dosen') }}"><i class="fa fa-user"></i>BAN-PT Dosen</a></li>
+        <li class="{{ set_active(['lpmpp.laporan_teknis','lpmpp.laporan_teknis.add','lpmpp.laporan_teknis.edit']) }}"><a href="{{ route('lpmpp.laporan_teknis') }}"><i class="fa fa-user"></i>Aspek Teknis Tendik</a></li>
+        <li class="{{ set_active(['lpmpp.laporan_manajerial','lpmpp.laporan_manajerial.add','lpmpp.laporan_manajerial.edit']) }}"><a href="{{ route('lpmpp.laporan_manajerial') }}"><i class="fa fa-user"></i>Aspek Manajerial Tendik</a></li>
+        <li class="{{ set_active(['lpmpp.laporan_banpt_tendik','lpmpp.laporan_banpt_tendik.add','lpmpp.laporan_banpt_tendik.edit']) }}"><a href="{{ route('lpmpp.laporan_banpt_tendik') }}"><i class="fa fa-user"></i>Indikator BAN-PT Tendik</a></li>
     </ul>
 </li>
 

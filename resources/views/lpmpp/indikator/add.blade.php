@@ -79,19 +79,19 @@
                     </div>
                     <form action="{{ route('lpmpp.indikator.post') }}" enctype="multipart/form-data" method="POST" enctype="multipart/form-data">
                         {{ csrf_field() }} {{ method_field('POST') }}
-                            <div class="form-group col-md-12">
+                            <div class="form-group col-md-6">
                                 <label for="exampleInputEmail1">Nama Bab</label>
-                                <select name="nama_bab" class="form-control">
+                                <select name="kriteria_aspek_teknis_id" class="form-control">
                                     <option value="">Pilih Nama Bab</option>
                                     @foreach ($bab as $bab)
                                 <tr>
-                                    <option value="{{ $bab->id }} ">{{ $bab->nama_bab }} </option>
+                                    <option value="{{ $bab->id }} ">{{ $bab->kriteria }} </option>
 
                             @endforeach
                                 </select>
                                 <div>
-                                    @if ($errors->has('nama_bab'))
-                                        <small class="form-text text-danger">{{ $errors->first('nama_bab') }}</small>
+                                    @if ($errors->has('kriteria_aspek_teknis_id'))
+                                        <small class="form-text text-danger">{{ $errors->first('kriteria_aspek_teknis_id') }}</small>
                                     @endif
                                 </div>
                             </div>
@@ -105,7 +105,7 @@
                                     @endif
                                 </div>
                             </div>
-                            <div class="form-group col-md-6">
+                            {{-- <div class="form-group col-md-6">
                                 <label for="exampleInputEmail1">Skor</label>
                                 <input type="number" name="skor" class="form-control" id="skor" >
                                 <div>
@@ -113,7 +113,7 @@
                                         <small class="form-text text-danger">{{ $errors->first('skor') }}</small>
                                     @endif
                                 </div>
-                            </div>
+                            </div> --}}
 
                             <div class="form-group col-md-12">
                                 <label for="exampleInputEmail1">Keterangan</label>

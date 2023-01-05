@@ -110,7 +110,7 @@
                 <tr>
                     <td class="td"></td>
                     <td class="text-center td">
-                        Bengkulu, {{ Carbon\Carbon::parse($dosen->skp->ttd_pejabat)->isoFormat('D MMMM Y') }}
+                        Bengkulu, {{ Carbon\Carbon::parse($tendik->skp->ttd_pejabat)->isoFormat('D MMMM Y') }}
                     </td>
                 </tr>
                 <tr>
@@ -124,12 +124,24 @@
                     <td></td>
                 </tr>
                 <tr>
-                    <td class="text-center td">{{ $dosen->gelar_depan.'. '.$dosen->nama_dosen.', '.$dosen->gelar_belakang }}</td>
-                    <td class="text-center td">{{ $dosen->skp->penilai->gelar_depan.'. '.$dosen->skp->penilai->nama_dosen.', '.$dosen->skp->penilai->gelar_belakang }}</td>
+                    <td class="text-center td">{{ $tendik->nama_tendik }}</td>
+                    <td class="text-center td">
+                        @if (strlen(Auth::guard('tendik')->user()->skp->pejabat_penilai_id) > 5)
+                            {{ $tendik->skp->penilaiDosen->gelar_depan.'. '.$tendik->skp->penilaiDosen->nama_dosen.', '.$tendik->skp->penilaiDosen->gelar_belakang }}
+                        @else
+                            {{ $tendik->skp->penilai->nama_tendik }}
+                        @endif
+                    </td>
                 </tr>
                 <tr>
-                    <td class="text-center td">NIP {{ $dosen->id }}</td>
-                    <td class="text-center td">NIP {{ $dosen->skp->penilai->id }}</td>
+                    <td class="text-center td">NIP {{ $tendik->id }}</td>
+                    <td class="text-center td">NIP 
+                        @if (strlen(Auth::guard('tendik')->user()->skp->pejabat_penilai_id) > 5)
+                            {{ $tendik->skp->penilaiDosen->id }}
+                        @else
+                            {{ $tendik->skp->penilai->nip }}
+                        @endif
+                    </td>
                 </tr>
             </table>
         </div>

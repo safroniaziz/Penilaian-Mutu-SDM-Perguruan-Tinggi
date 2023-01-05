@@ -26,20 +26,20 @@ class LppmIndikatorPenilaianController extends Controller
         $attributes = [
             'nama_bab'         =>  'Nama Bab Indikator Penilaian',
             'indikator'    =>  'Indikator',
-            'skor'    =>  'Skor',
+            // 'skor'    =>  'Skor',
             'keterangan'    =>  'Keterangan',
         ];
         $this->validate($request, [
             'nama_bab'         => 'required',
             'indikator'         => 'required',
-            'skor'         => 'required',
+            // 'skor'         => 'required',
             'keterangan'         => 'required',
         ], $attributes);
 
         $unit = IndikatorBanPtDosen::create([
             'bab_indikator_ban_pt_dosen_id'         =>  $request->nama_bab,
             'indikator'    =>  $request->indikator,
-            'skor'    =>  $request->skor,
+            // 'skor'    =>  $request->skor,
             'keterangan'    =>  $request->keterangan,
         ]);
 

@@ -69,5 +69,6 @@ class Kernel extends HttpKernel
         'isDosen'   =>  \App\Http\Middleware\isDosen::class,
         'isOperatorFakultas'   =>  \App\Http\Middleware\isOperatorFakultas::class,
         'isTendik'   =>  \App\Http\Middleware\isTendik::class,
+        'isReviewer'   =>  \App\Http\Middleware\isReviewer::class,
     ];
 }

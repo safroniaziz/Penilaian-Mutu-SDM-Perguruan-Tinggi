@@ -47,7 +47,7 @@
             <table style="width: 100%" class="tb">
                 <tr>
                     <td class="td">UNIVERSITAS BENGKULU</td>
-                    <td class="td" style="text-transform: uppercase; text-align:right">PERIODE PENILAIAN, {{ Carbon\Carbon::parse($dosen->skp->periode_awal)->isoFormat('D MMMM') }} SD {{ Carbon\Carbon::parse($dosen->skp->periode_akhir)->isoFormat('D MMMM') }}</td>
+                    <td class="td" style="text-transform: uppercase; text-align:right">PERIODE PENILAIAN, {{ Carbon\Carbon::parse($tendik->skp->periode_awal)->isoFormat('D MMMM') }} SD {{ Carbon\Carbon::parse($tendik->skp->periode_akhir)->isoFormat('D MMMM') }}</td>
                 </tr>
             </table>
             <table width=100% style="margin-bottom:5px;" class="tb">
@@ -60,37 +60,61 @@
                 <tr>
                     <td style="border: 1px solid black;" class="td text-center">1</td>
                     <td style="border: 1px solid black;" class="td">NAMA</td>
-                    <td style="border: 1px solid black;" class="td">{{ $dosen->gelar_depan.' '.$dosen->nama_dosen.', '.$dosen->gelar_belakang }}</td>
+                    <td style="border: 1px solid black;" class="td">{{ $tendik->nama_tendik }}</td>
                     <td style="border: 1px solid black;" class="td text-center">1</td>
                     <td style="border: 1px solid black;" class="td">NAMA</td>
-                    <td style="border: 1px solid black;" class="td">{{ $dosen->skp->penilai->gelar_depan.' '.$dosen->skp->penilai->nama_dosen.', '.$dosen->skp->penilai->gelar_belakang }}</td>
+                    <td style="border: 1px solid black;" class="td">
+                        @if (strlen(Auth::guard('tendik')->user()->skp->pejabat_penilai_id) > 5)
+                            {{ $tendik->skp->penilaiDosen->gelar_depan.' '.$tendik->skp->penilaiDosen->nama_dosen.', '.$tendik->skp->penilaiDosen->gelar_belakang }}
+                        @else
+                            {{ $tendik->skp->penilai->nama_tendik }}
+                        @endif
+                    </td>
                 </tr>
 
                 <tr>
                     <td style="border: 1px solid black;" class="td text-center">2</td>
                     <td style="border: 1px solid black;" class="td">NIP</td>
-                    <td style="border: 1px solid black;" class="td">{{ $dosen->id }}</td>
+                    <td style="border: 1px solid black;" class="td">{{ $tendik->id }}</td>
                     <td style="border: 1px solid black;" class="td text-center">2</td>
                     <td style="border: 1px solid black;" class="td">NIP</td>
-                    <td style="border: 1px solid black;" class="td">{{ $dosen->skp->penilai->id }}</td>
+                    <td style="border: 1px solid black;" class="td">
+                        @if (strlen(Auth::guard('tendik')->user()->skp->pejabat_penilai_id) > 5)
+                            {{ $tendik->skp->penilaiDosen->id }}
+                        @else
+                            {{ $tendik->skp->penilai->nip }}
+                        @endif
+                    </td>
                 </tr>
 
                 <tr>
                     <td style="border: 1px solid black;" class="td text-center">3</td>
                     <td style="border: 1px solid black;" class="td">PANGKAT/GOL.RUANG</td>
-                    <td style="border: 1px solid black;" class="td">{{ $dosen->pangkat != "" ? $dosen->pangkat : '-'.'/'.$dosen->golongan }}</td>
+                    <td style="border: 1px solid black;" class="td">{{ $tendik->pangkat != "" ? $tendik->pangkat : '-'.'/'.$tendik->golongan }}</td>
                     <td style="border: 1px solid black;" class="td text-center">3</td>
                     <td style="border: 1px solid black;" class="td">PANGKAT/GOL.RUANG</td>
-                    <td style="border: 1px solid black;" class="td">{{ $dosen->skp->penilai->pangkat != "" ? $dosen->skp->penilai->pangkat : '-'.'/'.$dosen->skp->penilai->golongan }}</td>
+                    <td style="border: 1px solid black;" class="td">
+                        @if (strlen(Auth::guard('tendik')->user()->skp->pejabat_penilai_id) > 5)
+                            {{ $tendik->skp->penilaiDosen->pangkat != "" ? $tendik->skp->penilaiDosen->pangkat : '-'.'/'.$tendik->skp->penilaiDosen->golongan }}
+                        @else
+                            {{ $tendik->skp->penilai->pangkat != "" ? $tendik->skp->penilai->pangkat : '-'.'/'.$tendik->skp->penilai->golongan }}
+                        @endif
+                    </td>
                 </tr>
 
                 <tr>
                     <td style="border: 1px solid black;" class="td text-center">3</td>
                     <td style="border: 1px solid black;" class="td">JABATAN</td>
-                    <td style="border: 1px solid black;" class="td">{{ $dosen->jabatan_akademik != "Tidak Ada Data" ? $dosen->jabatan_akademik : '-' }}</td>
+                    <td style="border: 1px solid black;" class="td">{{ $tendik->jabatan != "Tidak Ada Data" ? $tendik->jabatan : '-' }}</td>
                     <td style="border: 1px solid black;" class="td text-center">3</td>
                     <td style="border: 1px solid black;" class="td">JABATAN</td>
-                    <td style="border: 1px solid black;" class="td">{{ $dosen->skp->penilai->jabatan_akademik != "Tidak Ada Data" ? $dosen->skp->penilai->jabatan_akademik : '-' }}</td>
+                    <td style="border: 1px solid black;" class="td">
+                        @if (strlen(Auth::guard('tendik')->user()->skp->pejabat_penilai_id) > 5)
+                            {{ $tendik->skp->penilaiDosen->jabatan_akademik != "Tidak Ada Data" ? $tendik->skp->penilaiDosen->jabatan_akademik : '-' }}
+                        @else
+                            {{ $tendik->skp->penilai->jabatan != "Tidak Ada Data" ? $tendik->skp->penilai->jabatan : '-' }}
+                        @endif    
+                    </td>
                 </tr>
                 <tr style="background:#bcd6ee">
                     <td colspan="6" style="border: 1px solid black;">
@@ -102,7 +126,7 @@
                         <b>A. UTAMA</b>
                     </td>
                 </tr>
-                @foreach ($dosen->skp->skpDetails()->get() as $index=> $item)
+                @foreach ($tendik->skp->skpDetails()->get() as $index=> $item)
                     <tr style="border: 1px solid black;">
                         <td style="border: 1px solid black;" class="text-center">{{ $index+1 }}</td>
                         <td style="border: 1px solid black;" colspan="5">({{ $item->ikkPimpinan->keterangan_ikk }})</td>
@@ -311,7 +335,7 @@ Indonesia serta pemerintahan yang sah
                 <tr>
                     <td class="td"></td>
                     <td class="text-center td">
-                        Bengkulu, {{ Carbon\Carbon::parse($dosen->skp->ttd_pejabat)->isoFormat('D MMMM Y') }}
+                        Bengkulu, {{ Carbon\Carbon::parse($tendik->skp->ttd_pejabat)->isoFormat('D MMMM Y') }}
                     </td>
                 </tr>
                 <tr>
@@ -325,12 +349,24 @@ Indonesia serta pemerintahan yang sah
                     <td></td>
                 </tr>
                 <tr>
-                    <td class="text-center td">{{ $dosen->gelar_depan.'. '.$dosen->nama_dosen.', '.$dosen->gelar_belakang }}</td>
-                    <td class="text-center td">{{ $dosen->skp->penilai->gelar_depan.'. '.$dosen->skp->penilai->nama_dosen.', '.$dosen->skp->penilai->gelar_belakang }}</td>
+                    <td class="text-center td">{{ $tendik->nama_tendik }}</td>
+                    <td class="text-center td">
+                        @if (strlen(Auth::guard('tendik')->user()->skp->pejabat_penilai_id) > 5)
+                            {{ $tendik->skp->penilaiDosen->gelar_depan.'. '.$tendik->skp->penilaiDosen->nama_dosen.', '.$tendik->skp->penilaiDosen->gelar_belakang }}
+                        @else
+                            {{ $tendik->skp->penilai->nama_tendik }}
+                        @endif
+                    </td>
                 </tr>
                 <tr>
-                    <td class="text-center td">NIP {{ $dosen->id }}</td>
-                    <td class="text-center td">NIP {{ $dosen->skp->penilai->id }}</td>
+                    <td class="text-center td">NIP {{ $tendik->id }}</td>
+                    <td class="text-center td">NIP 
+                        @if (strlen(Auth::guard('tendik')->user()->skp->pejabat_penilai_id) > 5)
+                            {{ $tendik->skp->penilaiDosen->id }}
+                        @else
+                            {{ $tendik->skp->penilai->nip }}
+                        @endif
+                    </td>
                 </tr>
             </table>
         </div>

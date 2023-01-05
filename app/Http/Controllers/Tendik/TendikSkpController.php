@@ -4,11 +4,15 @@ namespace App\Http\Controllers\Tendik;
 
 use App\Http\Controllers\Controller;
 use App\Models\Dosen;
+use App\Models\IkkPimpinan;
 use App\Models\SkpTendik;
+use App\Models\SkpTendikDetail;
 use App\Models\Tendik;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
+use \PDF;
 
 class TendikSkpController extends Controller
 {
@@ -80,17 +84,12 @@ class TendikSkpController extends Controller
         }
     }
 
-    public function detail(SkpDosen $skp){
-        $nip =  Session::get('nip');
-        $dosen = Dosen::where('id',$nip)->first();
-        $ikus = IkkPimpinan::where('unit_id',$dosen->prodi->unit_id)->get();
-        if (empty($dosen)) {
-            Session::flush();
-            return redirect()->route('login')->with(['error'    =>  'Mohon maaf data anda belum terdaftar di aplikasi ini']);
-        }
+    public function detail(SkpTendik $skp){
+        $tendik = Auth::guard('tendik')->user();
+        $ikus = IkkPimpinan::where('unit_id',$tendik->unit_id)->get();
         return view('tendik/skp_pegawai.add_detail',[
             'ikus'  =>  $ikus,
-            'dosen' =>  $dosen,
+            'tendik' =>  $tendik,
             'skp'   =>  $skp,
         ]);
     }
@@ -99,7 +98,7 @@ class TendikSkpController extends Controller
         return $ikk = IkkPimpinan::where('id',$request->ikk_pimpinan_id)->first();
     }
 
-    public function detailPost(Request $request, SkpDosen $skp){
+    public function detailPost(Request $request, SkpTendik $skp){
         $rules = [
             'ikk_pimpinan_id'      =>  'required',
             'isi_ikk'               =>  'required',
@@ -122,8 +121,8 @@ class TendikSkpController extends Controller
             return response()->json(['error'  =>  0, 'text'   =>  $validasi->errors()->first()],422);
         }
 
-        $simpan = SkpDosenDetail::create([
-            'skp_dosen_id'                  =>  $skp->id,
+        $simpan = SkpTendikDetail::create([
+            'skp_tendik_id'                  =>  $skp->id,
             'ikk_pimpinan_id'               =>  $request->ikk_pimpinan_id,
             'isi_ikk'                       =>  $request->isi_ikk,
             'target_ikk'                    =>  $request->target_ikk,
@@ -134,29 +133,24 @@ class TendikSkpController extends Controller
         if ($simpan) {
             return response()->json([
                 'text'  =>  'Selamat, Detail SKP Berhasil Ditambahkan',
-                'url'   =>  url('/dosen/manajemen_data_skp'),
+                'url'   =>  url('/tendik/manajemen_data_skp'),
             ]);
         }else {
             return response()->json(['text' =>  'Oopps, Detail Skp Anda Gagal Ditambahkan']);
         }
     }
 
-    public function skpDetailEdit(SkpDosenDetail $skpDetail){
-        $nip =  Session::get('nip');
-        $dosen = Dosen::where('id',$nip)->first();
-        $ikus = IkkPimpinan::where('unit_id',$dosen->prodi->unit_id)->get();
-        if (empty($dosen)) {
-            Session::flush();
-            return redirect()->route('login')->with(['error'    =>  'Mohon maaf data anda belum terdaftar di aplikasi ini']);
-        }
+    public function skpDetailEdit(SkpTendikDetail $skpDetail){
+        $tendik = Auth::guard('tendik')->user();
+        $ikus = IkkPimpinan::where('unit_id',$tendik->unit_id)->get();
         return view('tendik/skp_pegawai.edit_detail',[
             'ikus'  =>  $ikus,
-            'dosen' =>  $dosen,
+            'tendik' =>  $tendik,
             'skpDetail'   =>  $skpDetail,
         ]);
     }
 
-    public function skpDetailUpdate(Request $request, SkpDosenDetail $skpDetail){
+    public function skpDetailUpdate(Request $request, SkpTendikDetail $skpDetail){
         $rules = [
             'ikk_pimpinan_id'      =>  'required',
             'isi_ikk'               =>  'required',
@@ -190,7 +184,7 @@ class TendikSkpController extends Controller
         if ($update) {
             return response()->json([
                 'text'  =>  'Selamat, Detail SKP Berhasil Diubah',
-                'url'   =>  url('/dosen/manajemen_data_skp'),
+                'url'   =>  url('/tendik/manajemen_data_skp'),
             ]);
         }else {
             return response()->json(['text' =>  'Oopps, Detail Skp Anda Gagal Diubah']);
@@ -198,13 +192,13 @@ class TendikSkpController extends Controller
     }
 
     public function detailDelete(Request $request){
-        $detail = SkpDosenDetail::where('id',$request->skp_detail_id)->first();
+        $detail = SkpTendikDetail::where('id',$request->skp_detail_id)->first();
         $delete = $detail->delete();
         
         if ($delete) {
             return response()->json([
                 'text'  =>  'Selamat, Detail SKP Berhasil Dihapus',
-                'url'   =>  url('/dosen/manajemen_data_skp'),
+                'url'   =>  url('/tendik/manajemen_data_skp'),
             ]);
         }else {
             return response()->json(['text' =>  'Oopps, Detail Skp Anda Gagal Dihapus']);
@@ -212,30 +206,30 @@ class TendikSkpController extends Controller
     }
 
     public function cetakSkpPegawai(){
-        $nip =  Session::get('nip');
-        $dosen = Dosen::with(['skp.skpDetails'])->where('id',$nip)->first();
+        $id =  Auth::guard('tendik')->user()->id;
+        $tendik = Tendik::with(['skp.skpDetails'])->where('id',$id)->first();
         $pdf = PDF::loadView('tendik/skp_pegawai.cetak_skp_pegawai',[
-            'dosen' =>  $dosen,
+            'tendik' =>  $tendik,
         ]);
         $pdf->setPaper('a4','landscape');
-        return $pdf->tendik('skp_pegawai' . Carbon::now() . '.pdf');
+        return $pdf->stream('skp_pegawai' . Carbon::now() . '.pdf');
     }
 
     public function cetakSasaranKinerjaPegawai(){
-        $nip =  Session::get('nip');
-        $dosen = Dosen::with(['skp.skpDetails'])->where('id',$nip)->first();
+        $id =  Auth::guard('tendik')->user()->id;
+        $tendik = Tendik::with(['skp.skpDetails'])->where('id',$id)->first();
         $pdf = PDF::loadView('tendik/skp_pegawai._cetak_sasaran_kinerja_pegawai',[
-            'dosen' =>  $dosen,
+            'tendik' =>  $tendik,
         ]);
         $pdf->setPaper('a4','landscape');
         return $pdf->stream('sasaran_kinerja_pegawai' . Carbon::now() . '.pdf');
     }
 
     public function cetakEvaluasiPegawai(){
-        $nip =  Session::get('nip');
-        $dosen = Dosen::with(['skp.skpDetails'])->where('id',$nip)->first();
+        $id =  Auth::guard('tendik')->user()->id;
+        $tendik = Tendik::with(['skp.skpDetails'])->where('id',$id)->first();
         $pdf = PDF::loadView('tendik/skp_pegawai._cetak_evaluasi_pegawai',[
-            'dosen' =>  $dosen,
+            'tendik' =>  $tendik,
         ]);
         $pdf->setPaper('a4','landscape');
         return $pdf->setOptions([
@@ -244,10 +238,10 @@ class TendikSkpController extends Controller
     }
 
     public function cetakNilaiKinerja(){
-        $nip =  Session::get('nip');
-        $dosen = Dosen::with(['skp.skpDetails'])->where('id',$nip)->first();
+        $id =  Auth::guard('tendik')->user()->id;
+        $tendik = Tendik::with(['skp.skpDetails'])->where('id',$id)->first();
         $pdf = PDF::loadView('tendik/skp_pegawai._cetak_nilai_kinerja',[
-            'dosen' =>  $dosen,
+            'tendik' =>  $tendik,
         ]);
         $pdf->setPaper('a4','portrait');
         return $pdf->setOptions([

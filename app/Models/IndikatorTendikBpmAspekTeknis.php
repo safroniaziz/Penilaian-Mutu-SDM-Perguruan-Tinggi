@@ -11,4 +11,8 @@ class IndikatorTendikBpmAspekTeknis extends Model
     protected $fillable = [
         'kriteria_aspek_teknis_id', 'indikator',
     ];
+
+    public function kriteria(){
+        return $this->belongsTo(KriteriaTendikBpmAspekTeknis::class, 'kriteria_aspek_teknis_id');
+    }
 }

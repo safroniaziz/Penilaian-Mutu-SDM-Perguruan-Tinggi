@@ -11,4 +11,8 @@ class KriteriaTendikBpmAspekManajerial extends Model
     protected $fillable = [
         'kriteria',
     ];
+
+    public function indikators(){
+        return $this->hasMany(IndikatorTendikBpmAspekManajerial::class, 'kriteria_aspek_manajerial_id');
+    }
 }

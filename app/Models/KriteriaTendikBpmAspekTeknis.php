@@ -11,4 +11,8 @@ class KriteriaTendikBpmAspekTeknis extends Model
     protected $fillable = [
         'kriteria',
     ];
+
+    public function indikators(){
+        return $this->hasMany(IndikatorTendikBpmAspekTeknis::class, 'kriteria_aspek_teknis_id');
+    }
 }

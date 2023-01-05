@@ -79,7 +79,7 @@
 
                     <form action="{{ route('lpmpp.indikator.update',[$data->id]) }}" enctype="multipart/form-data" method="POST">
                         {{ csrf_field() }} {{ method_field('PATCH') }}
-                        <div class="form-group col-md-12">
+                        <div class="form-group col-md-6">
                                 <label for="exampleInputEmail1">Nama Bab</label>
                                 <select name="nama_bab" class="form-control">
                                     <option value="">Pilih Nama Bab</option>
@@ -103,7 +103,7 @@
                                     @endif
                                 </div>
                             </div>
-                            <div class="form-group col-md-6">
+                            {{-- <div class="form-group col-md-6">
                                 <label for="exampleInputEmail1">Skor</label>
                                 <input type="number" name="skor" class="form-control" id="skor"  value="{{ $data->skor }}" >
                                 <div>
@@ -111,7 +111,7 @@
                                         <small class="form-text text-danger">{{ $errors->first('skor') }}</small>
                                     @endif
                                 </div>
-                            </div>
+                            </div> --}}
 
                             <div class="form-group col-md-12">
                                 <label for="exampleInputEmail1">Keterangan</label>

@@ -77,21 +77,21 @@
                                 @else
                         @endif
                     </div>
-                    <form action="{{ route('lpmpp.indikator.post') }}" enctype="multipart/form-data" method="POST" enctype="multipart/form-data">
+                    <form action="{{ route('lpmpp.IndikatorTendikBpmAspekTeknis.post') }}" enctype="multipart/form-data" method="POST" enctype="multipart/form-data">
                         {{ csrf_field() }} {{ method_field('POST') }}
                             <div class="form-group col-md-12">
-                                <label for="exampleInputEmail1">Nama Bab</label>
-                                <select name="nama_bab" class="form-control">
-                                    <option value="">Pilih Nama Bab</option>
+                                <label for="exampleInputEmail1">Pilih Kriteria</label>
+                                <select name="kriteria_aspek_teknis_id" class="form-control">
+                                    <option disabled selected></option>
                                     @foreach ($bab as $bab)
                                 <tr>
-                                    <option value="{{ $bab->id }} ">{{ $bab->nama_bab }} </option>
+                                    <option value="{{ $bab->id }} ">{{ $bab->kriteria }} </option>
 
                             @endforeach
                                 </select>
                                 <div>
-                                    @if ($errors->has('nama_bab'))
-                                        <small class="form-text text-danger">{{ $errors->first('nama_bab') }}</small>
+                                    @if ($errors->has('kriteria_aspek_teknis_id'))
+                                        <small class="form-text text-danger">{{ $errors->first('kriteria_aspek_teknis_id') }}</small>
                                     @endif
                                 </div>
                             </div>
@@ -105,28 +105,6 @@
                                     @endif
                                 </div>
                             </div>
-                            <div class="form-group col-md-6">
-                                <label for="exampleInputEmail1">Skor</label>
-                                <input type="number" name="skor" class="form-control" id="skor" >
-                                <div>
-                                    @if ($errors->has('skor'))
-                                        <small class="form-text text-danger">{{ $errors->first('skor') }}</small>
-                                    @endif
-                                </div>
-                            </div>
-
-                            <div class="form-group col-md-12">
-                                <label for="exampleInputEmail1">Keterangan</label>
-                                <textarea class="form-control" name="keterangan" style="height: 150px;" > </textarea>
-
-                                <div>
-                                    @if ($errors->has('keterangan'))
-                                        <small class="form-text text-danger">{{ $errors->first('keterangan') }}</small>
-                                    @endif
-                                </div>
-                            </div>
-
-
 
                             <div class="col-md-12 text-center">
                                 <a href="{{ route('lpmpp.indikator') }}" class="btn btn-warning btn-sm" style="color: white"><i class="fa fa-arrow-left"></i>&nbsp; Kembali</a>

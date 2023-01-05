@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Http\Controllers\Lpmpp\ReviewerIndikatorBanPt;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -64,5 +65,45 @@ class User extends Authenticatable
 
     public function bkdPendidikans(){
         return $this->hasMany(BkdPendidikan::class);
+    }
+
+    public function reviewer(){
+        if (strlen($this->nip)>5) {
+            return $this->belongsTo(Dosen::class, 'id');
+        }else{
+            return $this->belongsTo(Tendik::class ,'nip');
+        }
+    }
+
+    public function hasilReviewBanPtDosen(){
+        return $this->hasOne(HasilReviewBanPtDosen::class ,'reviewer_id');
+    }
+
+    public function reviewerBanPtDosen(){
+        return $this->hasOne(ReviewerBanPt::class ,'reviewer_id');
+    }
+
+    public function hasilReviewTeknisTendik(){
+        return $this->hasOne(HasilReviewTeknisTendik::class ,'reviewer_id');
+    }
+
+    public function reviewerTeknisTendik(){
+        return $this->hasOne(ReviewerIndikatorTeknis::class ,'reviewer_id');
+    }
+
+    public function hasilReviewManajerialTendik(){
+        return $this->hasOne(HasilReviewManajerialTendik::class ,'reviewer_id');
+    }
+
+    public function reviewerManajerialTendik(){
+        return $this->hasOne(ReviewerIndikatorManajerial::class ,'reviewer_id');
+    }
+
+    public function hasilReviewBanPtTendik(){
+        return $this->hasOne(HasilReviewBanPtTendik::class ,'reviewer_id');
+    }
+
+    public function reviewerBanPtTendik(){
+        return $this->hasOne(ReviewerIndikatorBanPtTendik::class ,'reviewer_id');
     }
 }

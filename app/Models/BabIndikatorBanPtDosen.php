@@ -11,4 +11,8 @@ class BabIndikatorBanPtDosen extends Model
     protected $fillable = [
         'nama_bab'
     ];
+
+    public function indikators(){
+        return $this->hasMany(IndikatorBanPtDosen::class, 'bab_indikator_ban_pt_dosen_id');
+    }
 }
