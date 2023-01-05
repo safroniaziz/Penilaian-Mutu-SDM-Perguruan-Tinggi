@@ -16,13 +16,9 @@ class CreateIkkPimpinansTable extends Migration
         Schema::create('ikk_pimpinans', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('unit_id');
-            $table->unsignedBigInteger('pimpinan_id');
-            $table->string('nama_pimpinan');
-            $table->string('nip_pimpinan');
-            $table->string('nidn_pimpinan');
-            $table->string('jabatan_pimpinan');
-            $table->string('pangkat_pimpinan');
-            $table->string('golongan_pimpinan');
+            $table->string('judul_ikk');
+            $table->string('keterangan_ikk');
+            $table->foreign('unit_id')->references('id')->on('units');
             $table->timestamps();
         });
     }

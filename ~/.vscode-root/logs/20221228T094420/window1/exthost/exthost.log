@@ -1,0 +1,3 @@
+2022-12-28 09:44:22.232 [info] Extension host with pid 9710 started
+2022-12-28 09:44:29.137 [info] Extension host terminating: renderer closed the MessagePort
+2022-12-28 09:44:29.141 [info] Extension host with pid 9710 exiting with code 0

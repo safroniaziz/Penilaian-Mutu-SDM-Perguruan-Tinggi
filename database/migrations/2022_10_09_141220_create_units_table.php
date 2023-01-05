@@ -16,6 +16,7 @@ class CreateUnitsTable extends Migration
         Schema::create('units', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('pimpinan_id')->nullable();
+            $table->string('nama_pimpinan')->nullable();
             $table->enum('status_pimpinan',['dosen','tendik'])->nullable();
             $table->string('nama_unit');
             $table->string('nama_singkatan')->nullable();

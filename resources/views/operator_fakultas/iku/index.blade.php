@@ -59,10 +59,7 @@
     <div class="col-md-12">
         <div class="box box-primary">
             <div class="box-header with-border">
-                <h3 class="box-title"><i class="fa fa-user"></i>&nbsp;Manajemen Data Bkd Bidang Tridharma Perguruan Tinggi</h3>
-                <div class="pull-right">
-                    <a href="{{ route('operator_fakultas.iku.add') }}" class="btn btn-primary btn-sm btn-flat"><i class="fa fa-plus"></i>&nbsp; Tambah Data Sasaran Kerja</a>
-                </div>
+                <h3 class="box-title"><i class="fa fa-list"></i>&nbsp;Data IKU Pimpinan Sebagai Indikator SKP </h3>
             </div>
             <div class="box-body">
                 <div class="row">
@@ -80,39 +77,48 @@
                                 @else
                         @endif
                     </div>
-                <div class="col-md-12">
-                    <table class="table table-hover">
-                        <tr>
-                            <th style="width: 20%">Nama Fakultas</th>
-                            <th> : </th>
-                            <th>{{ $fakultas->nama_unit }}</th>
-                        </tr>
-
-                        <tr>
-                            <th style="width: 20%">Nama Pimpinan</th>
-                            <th> : </th>
-                            <th>{{ $fakultas->nama_pimpinan }}</th>
-                        </tr>
-                        <tr>
-                            <th style="width: 20%">Nip Fakultas</th>
-                            <th> : </th>
-                            <th>{{ $fakultas->pimpinan_id }}</th>
-                        </tr>
-                        <tr>
-                            <th style="width: 20%">Status Pimpinan</th>
-                            <th> : </th>
-                            <th>{{ $fakultas->status_pimpinan }}</th>
-                        </tr>
-                    </table>
-                </div>
-                <div class="col-md-12 table-responsive" style="margin-top:10px !important">
-                    <table class="table table-striped table-bordered" id="table" style="width:100%;">
-                        
-                    </table>
+                    <div class="col-md-12">
+                        <a href="{{ route('operator_fakultas.iku.add') }}" class="btn btn-primary btn-sm btn-flat"><i class="fa fa-plus"></i>&nbsp; Tambah Data</a>
+                    </div>
+                    <div class="col-md-12 table-responsive" style="margin-top:10px !important">
+                        <table class="table table-bordered table-hover" id="table">
+                            <thead>
+                                <th>No</th>
+                                <th>Judul IKK</th>
+                                <th>Keterangan IKK</th>
+                                <th>Aksi</th>
+                            </thead>
+                            <tbody>
+                                @foreach ($ikus as $index=> $iku)
+                                    <tr>
+                                        <td>{{ $index+1 }}</td>
+                                        <td>{{ $iku->judul_ikk }}</td>
+                                        <td>{{ $iku->keterangan_ikk }}</td>
+                                        <td>
+                                            <table>
+                                                <tr>
+                                                    <td>
+                                                        <a href="{{ route('operator_fakultas.iku.edit',$iku->id) }}" class="btn btn-success btn-sm btn-flat"><i class="fa fa-edit"></i>&nbsp; Edit</a>
+                                                    </td>
+                                                    <td>
+                                                        <form action="{{ route('operator_fakultas.iku.delete',$iku->id) }}" method="POST">
+                                                            {{ csrf_field() }} {{ method_field('DELETE') }}
+                                                            <button type="submit" class="btn btn-danger btn-sm btn-flat"><i class="fa fa-trash"></i>&nbsp; Hapus</button>
+                                                        </form>
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                        </td>
+                                    </tr>
+                                @endforeach
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             </div>
         </div>
-    </section>
+    </div>
+</div>
 @endsection
 @push('scripts')
     <script src="https://cdn.jsdelivr.net/gh/gitbrent/bootstrap4-toggle@3.6.1/js/bootstrap4-toggle.min.js"></script>

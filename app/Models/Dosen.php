@@ -20,6 +20,10 @@ class Dosen extends Model
     }
 
     public function dosenRiwayatGolongan(){
-        return $this->hasMany(DosenRiwayatGolongan::class)->orderBy('golongan','desc');;
+        return $this->hasMany(DosenRiwayatGolongan::class)->orderBy('golongan','desc');
+    }
+
+    public function skp(){
+        return $this->hasOne(SkpDosen::class);
     }
 }

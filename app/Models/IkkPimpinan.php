@@ -13,4 +13,8 @@ class IkkPimpinan extends Model
     public function unit(){
         return $this->belongsTo(Unit::class);
     }
+
+    public function skpDosenDetail(){
+        return $this->hasMany(SkpDosenDetail::class);
+    }
 }

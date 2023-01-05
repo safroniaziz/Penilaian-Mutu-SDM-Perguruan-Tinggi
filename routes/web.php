@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Dosen\DosenDashboardController;
+use App\Http\Controllers\Dosen\DosenSkpController;
 use App\Http\Controllers\Fakultas\FakultasDashboardController;
 use App\Http\Controllers\Fakultas\FakultasIkuController;
 use App\Http\Controllers\OperatorProdi\ProdiDashboardController;
@@ -226,13 +227,13 @@ Route::middleware('auth')->group(function() {
     Route::middleware('isOperatorFakultas')->prefix('operator_fakultas')->group(function() {
         Route::get('/dashboard',[FakultasDashboardController::class, 'dashboard'])->name('operator_fakultas.dashboard');
 
-        Route::prefix('manajemen_data_tendik')->group(function() {
+        Route::prefix('manajemen_data_iku_pimpinan')->group(function() {
             Route::get('/',[FakultasIkuController::class, 'index'])->name('operator_fakultas.iku');
             Route::get('/tambah_data_iku',[FakultasIkuController::class, 'add'])->name('operator_fakultas.iku.add');
             Route::post('/post',[FakultasIkuController::class, 'post'])->name('operator_fakultas.iku.post');
-            Route::get('/{id}/edit',[FakultasIkuController::class, 'edit'])->name('operator_fakultas.iku.edit');
-            Route::patch('/{id}/update',[FakultasIkuController::class, 'update'])->name('operator_fakultas.iku.update');
-            Route::delete('{id}/delete',[FakultasIkuController::class, 'delete'])->name('operator_fakultas.iku.delete');
+            Route::get('/{ikk}/edit',[FakultasIkuController::class, 'edit'])->name('operator_fakultas.iku.edit');
+            Route::patch('/{ikk}/update',[FakultasIkuController::class, 'update'])->name('operator_fakultas.iku.update');
+            Route::delete('{ikk}/delete',[FakultasIkuController::class, 'delete'])->name('operator_fakultas.iku.delete');
         });
 
         Route::prefix('profil_saya')->group(function() {
@@ -246,13 +247,21 @@ Route::middleware('auth')->group(function() {
 Route::middleware('isDosen')->prefix('dosen')->group(function() {
     Route::get('/dashboard',[DosenDashboardController::class, 'dashboard'])->name('dosen.dashboard');
 
-    Route::prefix('manajemen_data_fakultas')->group(function() {
-        Route::get('/',[LppmFakultasController::class, 'index'])->name('dosen.fakultas');
-        Route::get('/tambah_fakultas',[LppmFakultasController::class, 'add'])->name('dosen.fakultas.add');
-        Route::post('/post',[LppmFakultasController::class, 'post'])->name('dosen.fakultas.post');
-        Route::get('/{id}/edit',[LppmFakultasController::class, 'edit'])->name('dosen.fakultas.edit');
-        Route::patch('/{id}/update',[LppmFakultasController::class, 'update'])->name('dosen.fakultas.update');
-        Route::delete('{id}/delete',[LppmFakultasController::class, 'delete'])->name('dosen.fakultas.delete');
+    Route::prefix('manajemen_data_skp')->group(function() {
+        Route::get('/',[DosenSkpController::class, 'index'])->name('dosen.skp');
+        Route::post('{dosen}/post',[DosenSkpController::class, 'post'])->name('dosen.skp.post');
+        Route::get('/{skp}/detail',[DosenSkpController::class, 'detail'])->name('dosen.skp.detail');
+        Route::get('/cari_ikk',[DosenSkpController::class, 'cariIkk'])->name('dosen.skp.cari_ikk');
+        Route::post('{skp}/detail_post',[DosenSkpController::class, 'detailPost'])->name('dosen.skp.detail_post');
+        Route::get('/{skpDetail}/edit',[DosenSkpController::class, 'skpDetailEdit'])->name('dosen.skp.skp_detail_edit');
+        Route::patch('/{skpDetail}/update',[DosenSkpController::class, 'skpDetailUpdate'])->name('dosen.skp.skp_detail_update');
+        Route::delete('/detail_delete',[DosenSkpController::class, 'detailDelete'])->name('dosen.skp.detail_delete');
+        
+        //cetak
+        Route::get('/cetak_skp_pegawai',[DosenSkpController::class, 'cetakSkpPegawai'])->name('dosen.skp.cetak_skp_pegawai');
+        Route::get('/cetak_sasaran_kinerja_pegawai',[DosenSkpController::class, 'cetakSasaranKinerjaPegawai'])->name('dosen.skp.cetak_sasaran_kinerja_pegawai');
+        Route::get('/evaluasi_pegawai',[DosenSkpController::class, 'cetakEvaluasiPegawai'])->name('dosen.skp.evaluasi_pegawai');
+        Route::get('/cetak_nilai_kinerja',[DosenSkpController::class, 'cetakNilaiKinerja'])->name('dosen.skp.cetak_nilai_kinerja');
     });
 
     Route::prefix('profil_saya')->group(function() {

@@ -209,22 +209,22 @@
     var type = "{{ Session::get('alert-type', 'info') }}";
     switch(type){
         case 'info':
-        toastr.options = {"closeButton": true,"debug": false,"progressBar": true,"positionClass": "toast-bottom-left","showDuration": "300","hideDuration": "1000","timeOut": "10000","extendedTimeOut": "1000","showEasing": "swing","hideEasing": "linear","showMethod": "fadeIn","hideMethod": "fadeOut"};
+        toastr.options = {"closeButton": true,"debug": false,"progressBar": true,"positionClass": "toast-top-right","showDuration": "300","hideDuration": "1000","timeOut": "10000","extendedTimeOut": "1000","showEasing": "swing","hideEasing": "linear","showMethod": "fadeIn","hideMethod": "fadeOut"};
             toastr.info("{{ Session::get('message') }}");
             break;
 
         case 'warning':
-        toastr.options = {"closeButton": true,"debug": false,"progressBar": true,"positionClass": "toast-bottom-left","showDuration": "300","hideDuration": "1000","timeOut": "10000","extendedTimeOut": "1000","showEasing": "swing","hideEasing": "linear","showMethod": "fadeIn","hideMethod": "fadeOut"};
+        toastr.options = {"closeButton": true,"debug": false,"progressBar": true,"positionClass": "toast-top-right","showDuration": "300","hideDuration": "1000","timeOut": "10000","extendedTimeOut": "1000","showEasing": "swing","hideEasing": "linear","showMethod": "fadeIn","hideMethod": "fadeOut"};
             toastr.warning("{{ Session::get('message') }}");
             break;
 
         case 'success':
-        toastr.options = {"closeButton": true,"progressBar": true,"positionClass": "toast-bottom-left","showDuration": "300","hideDuration": "1000","timeOut": "10000","showEasing": "swing","hideEasing": "linear","showMethod": "fadeIn","hideMethod": "fadeOut"};
+        toastr.options = {"closeButton": true,"progressBar": true,"positionClass": "toast-top-right","showDuration": "300","hideDuration": "1000","timeOut": "10000","showEasing": "swing","hideEasing": "linear","showMethod": "fadeIn","hideMethod": "fadeOut"};
             toastr.success("{{ Session::get('message') }}");
             break;
 
         case 'error':
-        toastr.options = {"closeButton": true,"progressBar": true,"positionClass": "toast-bottom-left","showDuration": "300","hideDuration": "1000","timeOut": "10000","showEasing": "swing","hideEasing": "linear","showMethod": "fadeIn","hideMethod": "fadeOut"};
+        toastr.options = {"closeButton": true,"progressBar": true,"positionClass": "toast-top-right","showDuration": "300","hideDuration": "1000","timeOut": "10000","showEasing": "swing","hideEasing": "linear","showMethod": "fadeIn","hideMethod": "fadeOut"};
             toastr.error("{{ Session::get('message') }}");
             break;
     }

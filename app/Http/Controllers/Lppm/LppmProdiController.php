@@ -350,10 +350,14 @@ class LppmProdiController extends Controller
                             'gelar_depan'       =>  $datas[$i]['pegawai']['pegGelarDepan'],
                             'gelar_belakang'    =>  $datas[$i]['pegawai']['pegGelarBelakang'],
                             'golongan'          =>  $datas[$i]['pegawai']['pegGolrKodePns'],
-                            'jenis_kelamin'     =>  $jenis_kelamin,
-                            'kedudukan_hukum'   =>  $kedudukan_hukum,
-                            'tugas_tambahan'    =>  $tugas_tambahan,
-                            'pendidikan_akhir'  =>  $pendidikan_akhir,
+                            // 'jenis_kelamin'     =>  $datas[$i]['pegawai']['pegawai_simpeg']['pegJenkel'] != null ? $jenis_kelamin : '-', 
+                            // 'kedudukan_hukum'   =>  $datas[$i]['pegawai']['pegawai_simpeg']['pegKedHukum'] != null ? $kedudukan_hukum : '-',
+                            // 'tugas_tambahan'    =>  $datas[$i]['pegawai']['pegawai_simpeg']['pegTgstambahan'] != null ? $tugas_tambahan : '-',
+                            // 'pendidikan_akhir'  =>  $datas[$i]['pegawai']['pegawai_simpeg']['pegPendAkhir'] != null ? $pendidikan_akhir : '-',
+                            'jenis_kelamin'         =>  $jenis_kelamin,
+                            'kedudukan_hukum'       =>  $kedudukan_hukum,
+                            'tugas_tambahan'        =>  $tugas_tambahan,
+                            'pendidikan_akhir'      =>  $pendidikan_akhir,
                         ]);
 
                         if (count($mahasiswa_pa)>0) {
