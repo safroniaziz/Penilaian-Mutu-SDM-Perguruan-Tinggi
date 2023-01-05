@@ -11,19 +11,23 @@ class Dosen extends Model
 
     protected $guarded = [];
 
-    public function prodi(){
+    public function prodi()
+    {
         return $this->belongsTo(Prodi::class);
     }
 
-    public function dosenPa(){
-        return $this->hasMany(DosenPa::class)->orderBy('angkatan','desc');
+    public function dosenPa()
+    {
+        return $this->hasMany(DosenPa::class)->orderBy('angkatan', 'desc');
     }
 
-    public function dosenRiwayatGolongan(){
-        return $this->hasMany(DosenRiwayatGolongan::class)->orderBy('golongan','desc');
+    public function dosenRiwayatGolongan()
+    {
+        return $this->hasMany(DosenRiwayatGolongan::class)->orderBy('golongan', 'desc');
     }
 
-    public function skp(){
+    public function skp()
+    {
         return $this->hasOne(SkpDosen::class);
     }
 }
